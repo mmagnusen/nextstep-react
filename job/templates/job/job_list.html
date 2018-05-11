@@ -1,0 +1,23 @@
+
+
+{% block content %}
+
+<div id="jobs_list_wrapper">
+
+    <h1>Job List from job_list.html</h1>
+
+
+    <div id="jobs_list">
+
+          {% for job in jobs %}
+            <a href="{% url 'job_detail' pk=job.pk %}">
+                <h1>{{ job.title }} </h1>
+                <h3>{{ job.slug }}</h3>
+                <p>{{ job.description }}</p>
+            </a>
+          {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

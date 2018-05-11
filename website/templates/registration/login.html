@@ -1,0 +1,21 @@
+{% block content %}
+<div id='login_wrapper'>
+      <form method="POST">
+          <div id="login_header"><h1>Login</h1></div>
+          {% csrf_token %}
+          <div id="fields">
+            <fieldset>
+                  <label for='username_field' class="form_label" ">Email</label>
+                  <input type="text" id="username_field" class="login_field" name="username" placeholder="e.g marilyn@email.com">
+                  <div class="form_icon"><i class="fa fa-user fa-lg" aria-hidden="true"></i></i></div>
+            </fieldset>
+              <fieldset>
+                  <label for="password_field" class="form_label">Password</label>
+                  <input type="password" name="password" class="login_field" id="password_field">
+                  <div class="form_icon"><i class="fa fa-unlock-alt  fa-lg " aria-hidden="true"></i></i></div>
+            </fieldset>
+          </div>
+          <button type="submit" class="login_button">Login</button>
+      </form>
+</div>
+{% endblock %}

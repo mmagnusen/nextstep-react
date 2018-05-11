@@ -1,0 +1,51 @@
+{% block content %}
+<div id='registration_wrapper'>
+      <form method="POST">
+          <div id="registration_header"><h1>Register</h1></div>
+          {% csrf_token %}
+          <div id="fields">
+            {{form.errors}}
+            <fieldset>
+                <label for='id_first_name' class="form_label">First Name</label>
+                {{form.first_name}}
+
+            </fieldset>
+            <fieldset>
+                <label for='id_last_name' class="form_label">Last Name</label>
+                {{form.last_name}}
+
+            </fieldset>
+            <fieldset>
+                <label for="id_email" class="form_label">Email</label>
+                {{form.email}}
+
+            </fieldset>
+            <fieldset>
+                <label for="password_field" class="form_label">Password</label>
+                <input type="password" name="password" class="login_field" id="password_field">
+            
+            </fieldset>
+            <fieldset>
+                <div id='register_user_type'>
+                      <div id="type_label">
+                        <p>Are you an:</p>
+                      </div>
+                      <div id='options'>
+                        <div class='type'>
+                          <label for "typeEmployee">Employee<label>
+                          <input type="radio" name="user_type" value="employee" id="typeEmployee"/>
+                        </div>
+
+                        <div class='type'>
+                          <label for "typeEmployer">Employer<label>
+                          <input type="radio" name="user_type" value="employer" id="typeEmployer"/>
+                        </div>
+                      </div>
+                </div>
+            </fieldset>
+
+          </div>
+          <button type="submit" class="registration_button">Submit</button>
+      </form>
+</div>
+{% endblock %}
