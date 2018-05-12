@@ -1,0 +1,114 @@
+@import '../base/mixins';
+@import '../base/variables';
+
+@media only screen and (min-width: 300px) { 
+
+    .front-list-description-group {
+        display: flex;
+        width: 100%;
+        align-items: center;
+    }
+
+    .front-list-icon {
+        margin-right: 5px;
+        color: $icons;
+    }
+
+    .front-list-middle {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .front-list-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 10px;
+        grid-auto-rows: 60px;
+    }
+
+    .front-list-title {
+        @include flex-column; 
+    }
+
+
+    .front-listing-company-logo {
+        @include flex-row; 
+        
+        i {
+            color: pink;
+            font-size: 30px;
+        }
+    }
+
+    #jobs-page {
+        background: linear-gradient(#40c4bf, #820052, #23003E);
+        padding: 20px 0;
+    }
+
+    #jobs-page-title {
+        @include flex-row; 
+        color: white;
+    }
+
+    #all-jobs {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .single-job {
+        display: grid;
+        grid-template-columns: 1fr;    
+        grid-template-rows: 100px;
+        color: grey;
+        margin: 30px 0;
+        padding: 10px 10px 20px 10px;
+        box-sizing: border-box;
+        background-color: white;
+        transition: transform .2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
+
+    .is-active {
+        color: white;
+        font-weight: bold;
+    }
+
+    a {
+        color: purple;
+        text-decoration: none;
+        margin: 0 20px;
+    }
+}
+
+@media only screen and (min-width: 900px) { 
+
+    .front-list-description-group {
+        width: 25%;
+        align-items: center;
+    }
+    
+    .front-list-icon {
+        margin-right: 10px;
+    }
+    
+    .front-list-middle {
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .front-list-details {
+        display: flex;
+        justify-content: flex-start;
+    }
+      
+    .single-job {
+        grid-template-columns: 2fr 4fr 1fr;
+    }
+    
+}
