@@ -45,7 +45,6 @@ class JobsPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log("getting jobs change");
         const jobsEndPoint = 'http://127.0.0.1:8000/job/api/jobs/';
 
     axios.get(jobsEndPoint)

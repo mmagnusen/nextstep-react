@@ -7,6 +7,11 @@ import JobPost from '../../components/jobs/JobPost.js';
 import Home from '../../components/global/Home.js';
 import About from '../../components/global/About.js';
 import Contact from '../../components/global/Contact.js';
+import Register from '../../components/global/Register.js';
+import Login from '../../components/global/Login.js';
+import Dashboard from '../../components/dashboards/Dashboard.js';
+import EmployeeDashboard from '../../components/dashboards/EmployeeDashboard.js';
+import EmployerDashboard from '../../components/dashboards/EmployerDashboard.js';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 
 
@@ -15,6 +20,11 @@ function AppRouter(props) {
     <BrowserRouter>
        <Switch>
             <Route path="/" component={Home} exact={true} />
+            <Route path="/dashboard" component={Dashboard}/>
+            <Route path="/employee_dashboard" component={EmployeeDashboard}/>
+            <Route path="/employer_dashboard" component={EmployerDashboard}/>
+            <Route path="/register" component={Register}/>
+            <Route path="/login" component={Login}/>
             <Route path="/about" component={About}/>
             <Route path="/contact" component={Contact}/>
             <Route path="/job_post/:id" component={JobPost}/>

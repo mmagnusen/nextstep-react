@@ -44,8 +44,21 @@ INSTALLED_APPS = [
     'website',
     'company',
     'job',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    
     'custom_user',
+   
 ]
+
+REST_FRAMEWORK = {
+ 
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication'
+    )
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

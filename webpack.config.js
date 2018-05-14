@@ -12,6 +12,7 @@ module.exports = (env) => {
             path: path.join(__dirname, 'static/nextstepapi/js'),
             filename: 'bundle.js'
         },
+        watch: true,
         module: {
             rules: [{
                 loader: 'babel-loader',

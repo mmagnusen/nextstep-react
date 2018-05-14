@@ -23,7 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^/user/register/', include('website.urls')),
+    url(r'authenticate/', include('custom_user.urls')),
     url(r'^login/', auth_views.login),
     url(r'^logout/', auth_views.logout),
     url('admin/', admin.site.urls),
