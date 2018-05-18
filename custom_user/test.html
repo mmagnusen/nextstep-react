@@ -4,16 +4,7 @@
     "First Name": "first_name"
 }
 
-@csrf_exempt
-def api_login(request):
-    serializer = CustomUserLoginSerializer.validate()
-    return JsonResponse(serializer.data, safe=False)
 
-@csrf_exempt
-def api_users(request):
-    users = CustomUser.objects.all()
-    serializer = CustomUserSerializer(users, many=True)
-    return JsonResponse(serializer.data, safe=False)
 
     class UserList(APIView):
     """
@@ -29,3 +20,8 @@ def api_users(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        {
+            "email": "",
+            "password": ""
+        }

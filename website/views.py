@@ -12,6 +12,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -33,6 +34,7 @@ def employer_dashboard(request):
 #    if not request.user.groups.filter(name='employer').exists():
 #        raise Exception("You don't have access to this page")
     return render(request, 'website/employer_dashboard.html')
+
 
 def register(request):
     form = UserRegistrationForm(request.POST or None)
