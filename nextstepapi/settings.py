@@ -40,25 +40,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
     'website',
     'company',
     'job',
 
     'rest_framework',
+    'corsheaders',
     'rest_framework.authtoken',
     'rest_auth',
     
-    'custom_user',
+    'custom_user'
    
 ]
 
 REST_FRAMEWORK = {
- 
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),   
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
     )
 }
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+)
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -70,6 +78,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'nextstepapi.utils.my_jwt_response_handler'
+}
 
 ROOT_URLCONF = 'nextstepapi.urls'
 

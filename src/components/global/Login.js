@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Redirect } from 'react-router-dom';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import JobsPage from '../jobs/JobsPage.js';
@@ -9,19 +10,19 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props)
-        this.submitLoginForm = this.submitLoginForm.bind(this);
+        this.submitLoginFormTwo = this.submitLoginFormTwo.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            redirectToDashboard: false
         }
     }
 
     submitLoginFormOne(e) {
         const loginEndpoint = 'http://127.0.0.1:8000/authenticate/api_users/';
-        const loginEndpointTwo = 'http://127.0.0.1:8000/job/api/jobs/';
 
         e.preventDefault();
 
@@ -44,8 +45,7 @@ class Login extends React.Component {
     }
 
     submitLoginFormTwo(e) {
-        const loginEndpoint = 'http://127.0.0.1:8000/authenticate/api_users/';
-        const loginEndpointTwo = 'http://127.0.0.1:8000/job/api/jobs/';
+        const loginEndpoint = 'http://127.0.0.1:8000/token-auth/';
 
         e.preventDefault();
 
@@ -53,17 +53,26 @@ class Login extends React.Component {
             method: 'post',
             url: loginEndpoint, 
             data: {
-                    email: "marilyn@thenextstep.io",
-                    name: "saymyname"
+                    email: this.state.email,
+                    password: this.state.password
                 },
             responseType: 'json'
         })
-        .then( (response) => { 
-     
-            console.log(response.data);
+        .then( response => { 
+   
+            if (response.status === 200) {
+                console.log("correct email and password");
+                this.setState({
+                    redirectToDashboard: true
+                })
+           
+                return <Redirect to='/employer_dashboard'/>
+            } else {
+
+            }
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(error => {
+            console.log("this is an error yo", error);
           })
     }
 
@@ -82,13 +91,16 @@ class Login extends React.Component {
     }
 
     render() {
+        if (this.state.redirectToDashboard) {
+            return <Redirect to='/employer_dashboard'/>
+        }
         return (
             <div>
                 <Header>
                         {this.props.children}
                 </Header>
                 <div id='login-wrapper'>
-                    <form onSubmit={this.submitLoginFormOne} id="login-form">
+                    <form onSubmit={this.submitLoginFormTwo} id="login-form">
                         <div id="login-header">
                             <h1>Login</h1>
                         </div>

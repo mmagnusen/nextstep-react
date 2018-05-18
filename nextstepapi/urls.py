@@ -21,12 +21,16 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_jwt.views import obtain_jwt_token
+
 
 urlpatterns = [
+    path('token-auth/', obtain_jwt_token),
     url(r'authenticate/', include('custom_user.urls')),
     url(r'^login/', auth_views.login),
     url(r'^logout/', auth_views.logout),
     url('admin/', admin.site.urls),
     url(r'job/', include('job.urls')),
-    re_path('.*', TemplateView.as_view(template_name='index.html')),
+   url(r'', include('website.urls')),
+    #   re_path('.*', TemplateView.as_view(template_name='index.html')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
