@@ -41,6 +41,7 @@ def current_user(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
 
+
 class UserList(APIView):
     """
     Create a new user. It's called 'UserList' because normally we'd have a get
