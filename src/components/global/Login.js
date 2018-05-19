@@ -10,41 +10,20 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props)
-        this.submitLoginFormTwo = this.submitLoginFormTwo.bind(this);
+        this.submitLoginForm = this.submitLoginForm.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
         this.state = {
             email: "",
             password: "",
+            responseData: {},
             redirectToDashboard: false
         }
     }
 
-    submitLoginFormOne(e) {
-        const loginEndpoint = 'http://127.0.0.1:8000/authenticate/api_users/';
 
-        e.preventDefault();
-
-        axios({
-            method: 'post',
-            url: loginEndpoint, 
-            data: {
-                    email: "marilyn@thenextstep.io",
-                    name: "saymyname"
-                },
-            responseType: 'json'
-        })
-        .then( (response) => { 
-     
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.log(error);
-          })
-    }
-
-    submitLoginFormTwo(e) {
+    submitLoginForm(e) {
         const loginEndpoint = 'http://127.0.0.1:8000/token-auth/';
 
         e.preventDefault();
@@ -61,12 +40,17 @@ class Login extends React.Component {
         .then( response => { 
    
             if (response.status === 200) {
-                console.log("correct email and password");
                 this.setState({
                     redirectToDashboard: true
-                })
+                });
+                this.setState({
+                    responseData: response.data
+                });
+                localStorage.setItem('responseToken', response.data.token);
+                localStorage.setItem('responseEmail', response.data.user.email);
+                console.log(this.state.responseData);
            
-                return <Redirect to='/employer_dashboard'/>
+                return <Redirect to='/employer_dashboard'/>;
             } else {
 
             }
@@ -100,7 +84,7 @@ class Login extends React.Component {
                         {this.props.children}
                 </Header>
                 <div id='login-wrapper'>
-                    <form onSubmit={this.submitLoginFormTwo} id="login-form">
+                    <form onSubmit={this.submitLoginForm} id="login-form">
                         <div id="login-header">
                             <h1>Login</h1>
                         </div>

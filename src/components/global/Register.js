@@ -16,13 +16,15 @@ class Register extends React.Component {
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleUserTypeEmployee = this.handleUserTypeEmployee.bind(this);
+        this.handleUserTypeEmployer = this.handleUserTypeEmployer.bind(this);
 
         this.state = {
             first_name: "",
             last_name: "",
             email: "",
             password: "",
-            occupation: "",
+            user_type: "",
             redirectToDashboard: false
 
         }
@@ -30,8 +32,7 @@ class Register extends React.Component {
 
     submitRegisterForm(e) {
         e.preventDefault();
-        const createUserEndpoint = "http://127.0.0.1:8000/user/register";
-        const createUserEndpointOriginal = "http://127.0.0.1:8000/authenticate/users/";
+        const createUserEndpoint = "http://127.0.0.1:8000/authenticate/users/";
 
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -50,12 +51,13 @@ class Register extends React.Component {
 
         axios({
             method: 'post',
-            url: createUserEndpointOriginal, 
+            url: createUserEndpoint, 
             data: {
                     first_name: this.state.first_name,
                     last_name: this.state.last_name,
                     email: this.state.email,
-                    password: this.state.password
+                    password: this.state.password,
+                    user_type: this.state.user_type
                    
                 },
             responseType: 'json'
@@ -66,7 +68,7 @@ class Register extends React.Component {
                 console.log("good email and password");
                 this.setState({
                     redirectToDashboard: true
-                })
+                });
            
                 return <Redirect to='/employer_dashboard'/>
             } else {
@@ -99,6 +101,18 @@ class Register extends React.Component {
     handlePasswordChange(e) {
         this.setState({
             password: e.target.value
+        })
+    }
+
+    handleUserTypeEmployee(e) {
+        this.setState({
+            user_type: "employee"
+        })
+    }
+
+    handleUserTypeEmployer(e) {
+        this.setState({
+            user_type: "emmployer"
         })
     }
 
@@ -138,11 +152,11 @@ class Register extends React.Component {
                         <p>Are you an:</p>
                         <div>
                             <label for="typeEmployee">Employee</label>
-                            <input type="radio" name="user_type" value="employee" id="typeEmployee" />
+                            <input type="radio" name="user_type" value="employee" id="typeEmployee" onChange={ this.handleUserTypeEmployee }/>
                         </div>
                         <div>
                             <label for="typeEmployer">Employer</label>
-                            <input type="radio" name="user_type" value="employer" id="typeEmployer" />
+                            <input type="radio" name="user_type" value="employer" id="typeEmployer" onChange={ this.handleUserTypeEmployer }/>
                         </div>
                     </fieldset>
                     <fieldset>

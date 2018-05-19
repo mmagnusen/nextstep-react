@@ -1,8 +1,4 @@
-{
-    "email": "fsdfsdffirst@hotmail.com",
-    "password": "Zimbardo123@",
-    "First Name": "first_name"
-}
+
 
 api view login/register
 {
@@ -29,5 +25,14 @@ api view login/register
 
         {
             "email": "",
-            "password": ""
+            "password": "",
+            "first_name": "",
+            "last_name": ""
         }
+
+        user_type = validated_data.pop('user_type')
+
+        if user_type == 'employee':
+            user.groups.add(Group.objects.get(name='employee'))
+        else:
+            user.groups.add(Group.objects.get(name='employer'))

@@ -12,11 +12,14 @@ class EmployerDashboard extends React.Component {
         super(props);
         this.openJobModal = this.openJobModal.bind(this);
         this.closeJobModal = this.closeJobModal.bind(this);
+        const token = localStorage.getItem('responseToken');
+        const email = localStorage.getItem('responseEmail');
         this.state = {
             
-            firstName: "Marilyn",
-            lastName: "Magnusen",
-            email: "m-mags@hotmail.co.uk",
+            firstName: this.props.first_name,
+            lastName: this.props.last_name,
+            email: email,
+            token: token,
             isOpen: false
         }
     }
@@ -45,6 +48,7 @@ class EmployerDashboard extends React.Component {
                         <p>Firstname: {this.state.firstName}</p>
                         <p>Surname: {this.state.lastName}</p>
                         <p>Email: {this.state.email}</p>
+                        <p>Token: {this.state.token} </p>
 
                     </section>
                     <section>
