@@ -30,7 +30,8 @@ class Register extends React.Component {
 
     submitRegisterForm(e) {
         e.preventDefault();
-        const createUserEndpoint = "http://127.0.0.1:8000/authenticate/users/";
+        const createUserEndpoint = "http://127.0.0.1:8000/user/register";
+        const createUserEndpointOriginal = "http://127.0.0.1:8000/authenticate/users/";
 
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -49,12 +50,12 @@ class Register extends React.Component {
 
         axios({
             method: 'post',
-            url: createUserEndpoint, 
+            url: createUserEndpointOriginal, 
             data: {
                     first_name: this.state.first_name,
                     last_name: this.state.last_name,
                     email: this.state.email,
-                    password: this.state.password,
+                    password: this.state.password
                    
                 },
             responseType: 'json'
@@ -79,13 +80,13 @@ class Register extends React.Component {
 
     handleFirstNameChange(e) {
         this.setState({
-            firstName: e.target.value
+            first_name: e.target.value
         })
     }
 
     handleLastNameChange(e) {
         this.setState({
-            lastName: e.target.value
+            last_name: e.target.value
         })
     }
 
@@ -119,11 +120,11 @@ class Register extends React.Component {
                 <div id="register-body">
                     <fieldset>
                         <label for="id_first_name">First Name</label>
-                        <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.firstName} />
+                        <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
                     </fieldset>
                     <fieldset>
                         <label for="id_last_name">Last Name</label>
-                        <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.lastName} maxlength="32"/>
+                        <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
                     </fieldset>
                     <fieldset>
                         <label for="email_field">Email:</label>

@@ -31,6 +31,6 @@ urlpatterns = [
     url(r'^logout/', auth_views.logout),
     url('admin/', admin.site.urls),
     url(r'job/', include('job.urls')),
-   url(r'', include('website.urls')),
-    #   re_path('.*', TemplateView.as_view(template_name='index.html')),
+     #url(r'', include('website.urls')),
+      re_path('.*', TemplateView.as_view(template_name='index.html')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
