@@ -10,6 +10,27 @@
 
 }
 
+#logout {
+    height: 60px;
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#logout-button {
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100px;
+    font-size: 16px; 
+    cursor: pointer;
+}
+
 #employer-draft {
     height: 300px;
     width: 500px;

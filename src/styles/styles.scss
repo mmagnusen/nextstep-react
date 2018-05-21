@@ -1,11 +1,13 @@
 @import '/pages/front-page';
 @import '/pages/contact';
 @import '/pages/job';
+@import '/pages/my-account';
 @import '/pages/login';
 @import '/pages/register';
 @import '/pages/employer';
 @import '/base/mixins';
 @import '/base/variables';
+@import '/components/company';
 
 
 body {

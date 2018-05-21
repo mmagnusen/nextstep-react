@@ -64,6 +64,14 @@ REST_FRAMEWORK = {
     )
 }
 
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'nextstepapi.utils.my_jwt_response_handler'
+}
+
+DRF_AUTH = {
+    'DRF_RESPONSE_PAYLOAD_HANDLER': 'nextstepapi.utils.my_drf_response_handler'
+}
+
 CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
 )
@@ -78,10 +86,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'nextstepapi.utils.my_jwt_response_handler'
-}
 
 ROOT_URLCONF = 'nextstepapi.urls'
 

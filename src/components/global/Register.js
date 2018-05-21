@@ -122,51 +122,45 @@ class Register extends React.Component {
             return <Redirect to='/employer_dashboard'/>
         }
         return (
-            <div>
-            <Header>
-                    {this.props.children}
-            </Header>
             <div id='register_wrapper'>
-            <form onSubmit={ this.submitRegisterForm } id="register-form">
-                <div id="register-header">
-                    <h1>Register</h1>
-                </div>
-                <div id="register-body">
-                    <fieldset>
-                        <label for="id_first_name">First Name</label>
-                        <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
-                    </fieldset>
-                    <fieldset>
-                        <label for="id_last_name">Last Name</label>
-                        <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="email_field">Email:</label>
-                        <input type="email" id="email_field" onChange={ this.handleEmailChange } value={ this.state.email } className="register-input register-input-one"/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="password_field">Password:</label>
-                        <input type="password" id="password_field" onChange={ this.handlePasswordChange } value={ this.state.password } className="register-input register-input-two"/>
-                    </fieldset>
-                    <fieldset>
-                        <p>Are you an:</p>
-                        <div>
-                            <label for="typeEmployee">Employee</label>
-                            <input type="radio" name="user_type" value="employee" id="typeEmployee" onChange={ this.handleUserTypeEmployee }/>
-                        </div>
-                        <div>
-                            <label for="typeEmployer">Employer</label>
-                            <input type="radio" name="user_type" value="employer" id="typeEmployer" onChange={ this.handleUserTypeEmployer }/>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <input type="submit" id="register-submit"/>
-                    </fieldset>
-                </div>
-            </form>
-        </div>
-            <Footer/>
-        </div>
+                <form onSubmit={ this.submitRegisterForm } id="register-form">
+                    <div id="register-header">
+                        <h1>Register</h1>
+                    </div>
+                    <div id="register-body">
+                        <fieldset>
+                            <label for="id_first_name">First Name</label>
+                            <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
+                        </fieldset>
+                        <fieldset>
+                            <label for="id_last_name">Last Name</label>
+                            <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
+                        </fieldset>
+                        <fieldset>
+                            <label for="email_field">Email:</label>
+                            <input type="email" id="email_field" onChange={ this.handleEmailChange } value={ this.state.email } className="register-input register-input-one"/>
+                        </fieldset>
+                        <fieldset>
+                            <label for="password_field">Password:</label>
+                            <input type="password" id="password_field" onChange={ this.handlePasswordChange } value={ this.state.password } className="register-input register-input-two"/>
+                        </fieldset>
+                        <fieldset>
+                            <p>Are you an:</p>
+                            <div>
+                                <label for="typeEmployee">Employee</label>
+                                <input type="radio" name="user_type" value="employee" id="typeEmployee" onChange={ this.handleUserTypeEmployee }/>
+                            </div>
+                            <div>
+                                <label for="typeEmployer">Employer</label>
+                                <input type="radio" name="user_type" value="employer" id="typeEmployer" onChange={ this.handleUserTypeEmployer }/>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <input type="submit" id="register-submit"/>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
         )
     }
 }

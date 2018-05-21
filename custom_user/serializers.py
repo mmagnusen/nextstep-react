@@ -27,8 +27,6 @@ class GroupSerializer(serializers.ModelSerializer):
 class UserSerializerWithToken(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
-    #groups = GroupSerializer(many=True)
-
 
     def get_token(self, obj):
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -40,23 +38,19 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
-
         password = validated_data.pop('password', None)
-        user_type = validated_data.get('user_type')
-   
-        if user_type == 'employee':
-            instance.groups.add(Group.objects.get(name='employee'))
-            
+       
         if password is not None:
             instance.set_password(password)
-        instance.save()
+        instance.save(user_type=validated_data.user_type)
 
-    
+
+        instance.groups.add(Group.objects.get(name='employee'))
+            
         return instance
     
     class Meta:
         model = CustomUser
         fields = ('token', 'email', 'password', 'first_name', 'last_name')
-        extra_kwargs = {'user_type': {'required': True}}
 
 

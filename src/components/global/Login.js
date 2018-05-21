@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom';
 import Header from './Header.js';
 import Footer from './Footer.js';
@@ -78,11 +77,7 @@ class Login extends React.Component {
         if (this.state.redirectToDashboard) {
             return <Redirect to='/employer_dashboard'/>
         }
-        return (
-            <div>
-                <Header>
-                        {this.props.children}
-                </Header>
+        return (         
                 <div id='login-wrapper'>
                     <form onSubmit={this.submitLoginForm} id="login-form">
                         <div id="login-header">
@@ -103,8 +98,6 @@ class Login extends React.Component {
                         </div>
                     </form>
                 </div>
-                <Footer/>
-            </div>
         )
     }
 }

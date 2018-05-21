@@ -9,7 +9,7 @@ import About from '../../components/global/About.js';
 import Contact from '../../components/global/Contact.js';
 import Register from '../../components/global/Register.js';
 import Login from '../../components/global/Login.js';
-import Dashboard from '../../components/dashboards/Dashboard.js';
+import MyAccount from '../../components/dashboards/MyAccount.js';
 import EmployeeDashboard from '../../components/dashboards/EmployeeDashboard.js';
 import EmployerDashboard from '../../components/dashboards/EmployerDashboard.js';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
@@ -20,7 +20,7 @@ function AppRouter(props) {
     <BrowserRouter>
        <Switch>
             <Route path="/" component={Home} exact={true} />
-            <Route path="/dashboard" component={Dashboard}/>
+            <Route path="/my_account" component={MyAccount}/>
             <Route path="/employee_dashboard" component={EmployeeDashboard}/>
             <Route path="/employer_dashboard" component={EmployerDashboard}/>
             <Route path="/register" component={Register}/>
