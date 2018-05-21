@@ -27,6 +27,20 @@ class GroupSerializer(serializers.ModelSerializer):
 class UserSerializerWithToken(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
+    user_type = serializers.SerializerMethodField()
+
+    def __init__(self, instance=None, data=None, **kwargs):
+        super().__init__(instance=instance, data=data, **kwargs)
+        print('from init', data)
+        self.user_type = data['user_type']
+
+
+    def get_user_type(self, obj):
+        employer = obj.groups.filter(name='employer').first()
+        if employer:
+            return "employer"
+        else:
+            return "employee"
 
     def get_token(self, obj):
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -39,18 +53,21 @@ class UserSerializerWithToken(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         password = validated_data.pop('password', None)
-       
+        
+        print(validated_data)  
         if password is not None:
             instance.set_password(password)
-        instance.save(user_type=validated_data.user_type)
+        instance.save()
 
-
-        instance.groups.add(Group.objects.get(name='employee'))
-            
+        if self.user_type == 'employee':
+            instance.groups.add(Group.objects.get(name='employee'))
+        else: 
+            instance.groups.add(Group.objects.get(name='employer'))
+        
         return instance
     
     class Meta:
         model = CustomUser
-        fields = ('token', 'email', 'password', 'first_name', 'last_name')
+        fields = ('token', 'user_type', 'email', 'password', 'first_name', 'last_name')
 
 
