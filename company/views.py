@@ -6,6 +6,8 @@ from .models import Company
 from django.shortcuts import get_object_or_404
 from .serializers import CompanySerializer
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -13,6 +15,7 @@ def all_list(request):
     companies = Company.objects.all()
     serializer = CompanySerializer(companies, many=True)
     return JsonResponse(serializer.data, safe=False)
+
 
 def user_view(request):
     companies = Company.objects.filter(owner = request.user)

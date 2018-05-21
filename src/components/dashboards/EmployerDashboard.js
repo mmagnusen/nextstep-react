@@ -38,7 +38,8 @@ class EmployerDashboard extends React.Component {
             url: getUserDataEndpoint , 
             data: {
                     email: this.state.email,
-                    token: this.state.token,   
+                    token: this.state.token, 
+                    user_type: 'employer'  
                 },
             headers: {
                 'Authorization': 'Bearer '+localStorage.getItem('responseToken')

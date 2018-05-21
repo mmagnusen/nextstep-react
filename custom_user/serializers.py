@@ -9,6 +9,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('email', 'password')
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -17,23 +18,18 @@ class UserSerializer(serializers.ModelSerializer):
 
 #this is for handling new sign-ups. we want to return their user email and token, which will be stored in browser
 #for further authentication. We don't need the token every time we request a user's data, only when signing up
-#hence seperate serializers 
+#hence seperate serializers
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ('name',)
 
+
 class UserSerializerWithToken(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
     user_type = serializers.SerializerMethodField()
-
-    def __init__(self, instance=None, data=None, **kwargs):
-        super().__init__(instance=instance, data=data, **kwargs)
-        print('from init', data)
-        self.user_type = data['user_type']
-
 
     def get_user_type(self, obj):
         employer = obj.groups.filter(name='employer').first()
@@ -53,21 +49,21 @@ class UserSerializerWithToken(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         password = validated_data.pop('password', None)
-        
-        print(validated_data)  
+
         if password is not None:
             instance.set_password(password)
         instance.save()
 
-        if self.user_type == 'employee':
+        # initial_data must exist if creating
+        user_type = self.initial_data.get('user_type')
+        print('create - user_type: %s', user_type)
+
+        if user_type == 'employee':
             instance.groups.add(Group.objects.get(name='employee'))
-        else: 
+        else:
             instance.groups.add(Group.objects.get(name='employer'))
-        
         return instance
-    
+
     class Meta:
         model = CustomUser
         fields = ('token', 'user_type', 'email', 'password', 'first_name', 'last_name')
-
-
