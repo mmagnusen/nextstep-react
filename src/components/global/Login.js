@@ -48,8 +48,6 @@ class Login extends React.Component {
                 localStorage.setItem('responseToken', response.data.token);
                 localStorage.setItem('responseEmail', response.data.user.email);
                 console.log(this.state.responseData);
-           
-                return <Redirect to='/employer_dashboard'/>;
             } else {
 
             }

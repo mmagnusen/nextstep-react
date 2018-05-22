@@ -30,7 +30,7 @@ class CompaniesSection extends React.Component {
     }
 
     componentWillMount() {
-        const allUserCompaniesEndPoint = 'http://127.0.0.1:8000/company/user_view';
+        const allUserCompaniesEndPoint = 'http://127.0.0.1:8000/company/company';
         axios({
             method: 'get',
             url: allUserCompaniesEndPoint, 
@@ -61,7 +61,7 @@ class CompaniesSection extends React.Component {
             <section>
                 <h1>Companies</h1>
                 <div id="create-new-company-container"><button id="create-new-company-button" onClick={this.createNewCompany}>Create new company</button></div>
-                {this.state.companies.map((company) => <Company title={company.name}/>)}
+                
                 <NewCompanyModal newCompanyModalIsOpen={this.state.newCompanyModalIsOpen} closeNewCompanyModal={this.closeNewCompanyModal}/>
             </section>
         )

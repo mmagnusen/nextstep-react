@@ -15,9 +15,6 @@ class EmployerDashboard extends React.Component {
 
         const token = localStorage.getItem('responseToken');
         const email = localStorage.getItem('responseEmail');
-
-        const firstName = localStorage.getItem('responseEmail');
-        const lastName = localStorage.getItem('responseEmail');
         this.state = {
             
             redirectToHome: false,
@@ -29,17 +26,16 @@ class EmployerDashboard extends React.Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
 
         const getUserDataEndpoint = 'http://127.0.0.1:8000/authenticate/current_user/';
-        axios.defaults.headers.common['Authorization'] = this.state.token
+        //axios.defaults.headers.common['Authorization'] = this.state.token
         axios({
             method: 'get',
-            url: getUserDataEndpoint , 
+            url: getUserDataEndpoint, 
             data: {
                     email: this.state.email,
-                    token: this.state.token, 
-                    user_type: 'employer'  
+                    token: this.state.token
                 },
             headers: {
                 'Authorization': 'Bearer '+localStorage.getItem('responseToken')
@@ -47,14 +43,15 @@ class EmployerDashboard extends React.Component {
             responseType: 'json'
         })
         .then( response => { 
-   
+            this.setState({
+                returnedResponse: response
+            });
+
             if (response.status === 200) {
                 this.setState({
                     returnedResponse: response,
                     firstName: response.data.first_name,
                     lastName: response.data.last_name,
-                    email: response.data.email,
-                    token: response.data.token
                 });
            
                 return true
@@ -93,7 +90,13 @@ class EmployerDashboard extends React.Component {
                         <p>Email: {this.state.email}</p>
                         <p>Token: {this.state.token} </p>
                     </section>
-                    <CompaniesSection/> 
+                    
+                      
+                    
+                   <CompaniesSection/>
+                    <div>
+                        <button></button>
+                    </div>
                 </div>
                 <Footer/>
             </div>

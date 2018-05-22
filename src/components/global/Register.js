@@ -46,9 +46,6 @@ class Register extends React.Component {
             console.log("");
         }
 
-     
-        
-
         axios({
             method: 'post',
             url: createUserEndpoint, 
