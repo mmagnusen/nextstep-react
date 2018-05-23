@@ -2,20 +2,25 @@ import React from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
 
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
+
 Modal.setAppElement('#app');
 
 class NewCompanyModal extends React.Component {
 
     constructor(props) {
         super(props);
-
+        const token = localStorage.getItem('responseToken')
         this.updateCompanyName = this.updateCompanyName.bind(this);
         this.updateCompanyDescription = this.updateCompanyDescription.bind(this);
         this.submitNewCompany = this.submitNewCompany.bind(this);
 
         this.state = {
             companyName: "",
-            companyDescription: ""
+            companyDescription: "",
+            token: token
         }
     }
 
@@ -36,10 +41,23 @@ class NewCompanyModal extends React.Component {
         e.preventDefault();
 
         const newCompanyEndPoint = 'http://localhost:8000/company/company/';
-        axios.defaults.headers.common['Authorization'] = this.state.token;
-        axios.defaults.xsrfCookieName = 'csrftoken';
-        axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-        
+        axios.defaults.baseURL = 'https://api.example.com';
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
+        console.log('Bearer '+localStorage.getItem('responseToken'))
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+ /*
+        axios.post(newCompanyEndPoint, {
+            name: this.state.companyName,
+            description: this.state.companyDescription,
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+*/
         axios({
             method: 'post',
             url: newCompanyEndPoint, 
@@ -48,7 +66,7 @@ class NewCompanyModal extends React.Component {
                 description: this.state.companyDescription,
             },
             headers: {
-                'Authorization': 'Bearer '+localStorage.getItem('responseToken')
+                'Authorization': 'JWT '+localStorage.getItem('responseToken'),
                 }, 
             responseType: 'json'
         })
@@ -56,11 +74,7 @@ class NewCompanyModal extends React.Component {
    
             if (response.status === 200) {
 
-                this.setState({
-                    companies: response.data
-                });
-           
-                return <Redirect to='/employer_dashboard'/>
+               
             } else {
 
             }
@@ -68,6 +82,7 @@ class NewCompanyModal extends React.Component {
         .catch(error => {
             console.log("this is an error yo", error);
           })
+        
     }
 
     render() {

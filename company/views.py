@@ -13,6 +13,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 from django.http import HttpResponse
+from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -39,9 +41,17 @@ def create_company(request, format=None):
 
 
 class CreateCompanyViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,) 
+    #authentication_classes = (TokenAuthentication,) 
     model = Company
     serializer_class = CompanySerializer
     queryset = Company.objects.none()
 
+    #filters by current user
     def get_queryset(self):
-        return self.model.objects.all()
+        user= self.request.user
+        print(user)
+        return self.model.objects.filter(owner=user)
+
+    #def get_queryset(self):
+    #    return self.model.objects.all()
