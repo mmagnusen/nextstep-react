@@ -1,0 +1,29 @@
+{% block content %}
+<p>company list</p>
+
+
+{% for job in jobs %}
+<div>
+    <h5>{{ job.title }} </h5>
+    <h5>{{ job.posted_by_company }} </h5>
+
+</div>
+
+{% endfor %}
+
+{% for company in companies %}
+
+
+
+<div>
+    <h5>{{ company.owner }} </h5>
+    <p>{{ company.name }}</p>
+    <p>{{ company.description }}</p>
+    <p>{{ company.description }}</p>
+    <p>Companies' jobs:{{ company.comp }}</p>
+</div>
+
+{% endfor %}
+
+
+{% endblock %}

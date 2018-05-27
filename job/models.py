@@ -3,8 +3,6 @@ from django.db import models
 from django.utils import timezone 
 from company.models import Company
 
-
-
 # Create your models here.
 class Job(models.Model):
     FULLTIME = 'FT'
@@ -21,7 +19,7 @@ class Job(models.Model):
     hours = models.CharField(max_length=200, default="unknown")
     area = models.CharField(max_length=200, default="unknown")
     salary = models.CharField(max_length=200, default="unknown")
-    description = models.CharField(max_length=200)
+    description = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     experience = models.CharField(max_length=200, default="beginner")
     posted_by_company = models.ForeignKey('company.Company', default=1, on_delete=models.CASCADE, related_name="comp", related_query_name="comps")

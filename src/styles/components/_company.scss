@@ -1,18 +1,39 @@
 .single-company {
     width: 70%;
     margin: 10px auto;
-    display: grid;
-    grid-template-columns: 70% 30%;
-    background-color: purple;
     color: white;
 }
 
 .company-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    background-color: purple;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
+.button-container {
+    background-color: purple;
+}
+
+.company-postings-title {
+    color: grey;
+}
+
+.single-company-job {
+    background-color: grey;
+    margin: 5px 0;
+    height: 80px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.single-job-header {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
 
 .button-container {
     display: flex;

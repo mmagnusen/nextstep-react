@@ -1,6 +1,7 @@
 import React from 'react';
 import Company from './Company.js';
 import NewCompanyModal from './NewCompanyModal.js';
+import NewJobModal from '../jobs/NewJobModal.js';
 import axios from 'axios';
 
 class CompaniesSection extends React.Component {
@@ -8,11 +9,15 @@ class CompaniesSection extends React.Component {
         super(props);
         
         this.createNewCompany = this.createNewCompany.bind(this);
+        this.createNewJob = this.createNewJob.bind(this);
+
         this.closeNewCompanyModal = this.closeNewCompanyModal.bind(this);
+        this.closeNewJobModal = this.closeNewJobModal.bind(this);
 
         this.state = {
             companies: [],
             newCompanyModalIsOpen: false,
+            newJobModalIsOpen: false,
         }
     }
 
@@ -20,12 +25,23 @@ class CompaniesSection extends React.Component {
         this.setState({
             newCompanyModalIsOpen: true
         })
-        console.log('open company modal');
+    }
+
+    createNewJob() {
+        this.setState({
+            newJobModalIsOpen: true
+        })
     }
 
     closeNewCompanyModal() {
         this.setState({
             newCompanyModalIsOpen: false
+        })
+    }
+
+    closeNewJobModal() {
+        this.setState({
+            newJobModalIsOpen: false
         })
     }
 
@@ -63,9 +79,10 @@ class CompaniesSection extends React.Component {
         return (
             <section>
                 <h1>Companies</h1>
-                <div id="create-new-company-container"><button id="create-new-company-button" onClick={this.createNewCompany}>Create new company</button></div>
-                {this.state.companies ? this.state.companies.map((company) => <Company title={company.name}/>) : <p></p>}
+                <div id="create-new-company-container"><button onClick={this.createNewJob}>Create New Job</button><button id="create-new-company-button" onClick={this.createNewCompany}>Create new company</button></div>
+                {this.state.companies ? this.state.companies.map((company) => <Company companyName={company.name} companyId={company.id} companyDescription={company.description}/>) : <p></p>}
                 <NewCompanyModal newCompanyModalIsOpen={this.state.newCompanyModalIsOpen} closeNewCompanyModal={this.closeNewCompanyModal}/>
+                <NewJobModal newJobModalIsOpen={this.state.newJobModalIsOpen} closeNewJobModal={this.closeNewJobModal} />
             </section>
         )
     }

@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.utils import timezone
 from .models import Company
+from job.models import Job
 from django.shortcuts import get_object_or_404
 from .serializers import CompanySerializer
 from django.http import JsonResponse
@@ -39,6 +40,10 @@ def create_company(request, format=None):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def company_list(request):
+    companies = Company.objects.all()
+    jobs = Job.objects.all()
+    return render(request, 'company/company_list.html', { 'companies': companies, 'jobs': jobs})
 
 class CreateCompanyViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,) 

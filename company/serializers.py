@@ -13,8 +13,4 @@ class CompanySerializer(serializers.ModelSerializer):
             'description', 
             'owner')
 
-    # def create(request):
-    #    instance = Company.objects.create(**validated_data)
-    #    instance.save()
-    #    return  instance
 

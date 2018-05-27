@@ -2,7 +2,24 @@ from rest_framework import serializers
 from .models import Job
 
 class JobSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
     class Meta:
         model = Job
-        fields = ('title', 'slug', 'hours', 'area', 'posted_by_company', 'salary', 'description')
+        fields = (
+            'id',
+            'author', 
+            'location', 
+            'title', 
+            'slug', 
+            'hours', 
+            'area', 
+            'salary', 
+            'description', 
+            'created_date',
+            'experience',
+            'posted_by_company',
+            )
         read_only_fields = (['posted_by_company'])

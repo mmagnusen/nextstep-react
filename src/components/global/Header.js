@@ -19,7 +19,7 @@ class Header extends React.Component {
             <header>
                 <div id="header-inner">
                     <div id="header-title-container">
-                        <h1>The Next Step</h1>
+                        <Link to="/"><h1>The Next Step</h1></Link>
                     </div>
                     <nav>
                         <NavLink to="/" activeClassName="is-active" exact={true}>Home </NavLink>

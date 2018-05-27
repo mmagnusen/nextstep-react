@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from '../global/Header.js';
 import Footer from '../global/Footer.js';
 import CompaniesSection from './companies/CompaniesSection.js';
+import JobsSection from './jobs/JobsSection.js';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
@@ -82,7 +83,7 @@ class EmployerDashboard extends React.Component {
                 <div id="employer-wrapper">
                     
                     <h1>Employer Dashboard</h1>
-                    <div onClick={this.handleLogOut} id="logout"><button id="logout-button">Logout</button></div>
+                    <div id="logout"><button id="logout-button" onClick={this.handleLogOut}>Logout</button></div>
                     <section>
                         <h1>Profile:</h1>
                         <p>Firstname: {this.state.firstName}</p>
@@ -91,12 +92,8 @@ class EmployerDashboard extends React.Component {
                         <p>Token: {this.state.token} </p>
                     </section>
                     
-                      
-                    
                    <CompaniesSection/>
-                    <div>
-                        <button></button>
-                    </div>
+
                 </div>
                 <Footer/>
             </div>

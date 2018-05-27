@@ -6,6 +6,8 @@ from .models import Job
 from django.shortcuts import get_object_or_404
 from .serializers import JobSerializer
 from django.http import JsonResponse
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -26,3 +28,16 @@ def api_job_detail(request, pk):
     job = get_object_or_404(Job, pk=pk)
     serializer = JobSerializer(job)
     return JsonResponse(serializer.data)
+
+class CreateJobViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,) 
+    #authentication_classes = (TokenAuthentication,) 
+    model = Job
+    serializer_class = JobSerializer
+    queryset = Job.objects.none()
+
+    #filters by current user
+    def get_queryset(self):
+        user= self.request.user
+        print(user)
+        return self.model.objects.filter(author=user)

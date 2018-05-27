@@ -45,19 +45,7 @@ class NewCompanyModal extends React.Component {
         axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
         console.log('Bearer '+localStorage.getItem('responseToken'))
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
- /*
-        axios.post(newCompanyEndPoint, {
-            name: this.state.companyName,
-            description: this.state.companyDescription,
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
 
-*/
         axios({
             method: 'post',
             url: newCompanyEndPoint, 
