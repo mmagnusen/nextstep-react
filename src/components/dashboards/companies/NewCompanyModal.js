@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -14,13 +15,29 @@ class NewCompanyModal extends React.Component {
         super(props);
         const token = localStorage.getItem('responseToken')
         this.updateCompanyName = this.updateCompanyName.bind(this);
-        this.updateCompanyDescription = this.updateCompanyDescription.bind(this);
         this.submitNewCompany = this.submitNewCompany.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.handleKeyCommand = this.handleKeyCommand.bind(this);
+
+        this.onUnderlineClick = this.onUnderlineClick.bind(this);
+        this.onBoldClick = this.onBoldClick.bind(this);
+        this.onItalicClick = this.onItalicClick.bind(this);
+
+        this.onMediumClick = this.onMediumClick.bind(this);
+        this.onLargeClick = this.onLargeClick.bind(this);
+
+        this.onLeftAlignClick = this.onLeftAlignClick.bind(this);
+        this.onRightAlignClick = this.onRightAlignClick.bind(this);
+        this.onJustifyClick = this.onJustifyClick.bind(this);
+
+        this.onOrderedListClick = this.onOrderedListClick.bind(this);
+        this.onUnorderedListClick = this.onOrderedListClick.bind(this);
 
         this.state = {
             companyName: "",
             companyDescription: "",
-            token: token
+            token: token,
+            editorState: EditorState.createEmpty(),
         }
     }
 
@@ -31,11 +48,64 @@ class NewCompanyModal extends React.Component {
 
     }
 
-    updateCompanyDescription(e) {
+    onChange(editorState) {
         this.setState({
-            companyDescription: e.target.value
+            editorState: editorState,
+            stringifiedContent: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+            parsedContent: JSON.parse(JSON.stringify(convertToRaw( editorState.getCurrentContent() )))
+
         });
-    }
+      }
+    
+      handleKeyCommand(command) {
+          const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+    
+          if ( newState ) {
+            this.onChange(newState);
+            return 'handled';
+          }
+          return 'not-handled';
+      }
+    
+      onUnderlineClick() {
+          this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
+    
+      onBoldClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD')); 
+      }
+    
+      onItalicClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC')); 
+      }
+    
+      onMediumClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
+    
+      onLargeClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
+    
+      onLeftAlignClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
+    
+      onRightAlignClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
+    
+      onJustifyClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
+    
+      onOrderedListClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
+    
+      onUnorderedListClick() {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'));
+      }
 
     submitNewCompany(e) {
         e.preventDefault();
@@ -51,7 +121,7 @@ class NewCompanyModal extends React.Component {
             url: newCompanyEndPoint, 
             data: {  
                 name: this.state.companyName,
-                description: this.state.companyDescription,
+                description: this.state.stringifiedContent,
             },
             headers: {
                 'Authorization': 'JWT '+localStorage.getItem('responseToken'),
@@ -87,9 +157,24 @@ class NewCompanyModal extends React.Component {
                 <input type="text" id="new-company-modal-company-name" value={this.state.companyName} onChange={this.updateCompanyName}/>
             </fieldset>
             <fieldset>
-                <label for="new-company-modal-company-description">Company Description:</label>
-                <textarea id="new-company-modal-company-description" value={this.state.companyDescription} onChange={this.updateCompanyDescription}/>
-            </fieldset>
+                    <p>Company Description:</p>
+                    <div id="employer-draft">
+                        <button onClick={this.onUnderlineClick} type="button"><i class="fas fa-underline"></i></button>
+                        <button onClick={this.onBoldClick} type="button"><i class="fas fa-bold"></i></button>
+                        <button onClick={this.onItalicClick} type="button"><i class="fas fa-italic"></i></button>
+                        <button onClick={this.onMediumClick} type="button">Medium</button>
+                        <button onClick={this.onLargeClick} type="button">Large</button>
+                        <button onClick={this.onLeftAlignClick} type="button"><i class="fas fa-align-left"></i></button>
+                        <button onClick={this.onJustifyClick} type="button"><i class="fas fa-align-justify"></i></button>
+                        <button onClick={this.onRightAlignClick} type="button"><i class="fas fa-align-right"></i></button>
+                        <button onClick={this.onUnorderedListClick} type="button"><i class="fas fa-list-ul"></i></button>
+                        <button onClick={this.onOrderedListClick} type="button"><i class="fas fa-list-ol"></i></button>
+                        <Editor 
+                        editorState={this.state.editorState} 
+                        handleKeyCommand={this.handleKeyCommand}
+                        onChange={this.onChange} />
+                    </div>
+                </fieldset>
             <input type="submit"/>
         </form>
       </Modal>

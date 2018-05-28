@@ -22,8 +22,7 @@ class Job(models.Model):
     description = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     experience = models.CharField(max_length=200, default="beginner")
-    posted_by_company = models.ForeignKey('company.Company', default=1, on_delete=models.CASCADE, related_name="comp", related_query_name="comps")
-    
+    posted_by_company = models.ForeignKey('company.Company', default=30, on_delete=models.CASCADE, related_name="comp", related_query_name="comps")
 
     def publish(self):
         self.save()

@@ -102,7 +102,7 @@ class NewJobModal extends React.Component {
         this.setState({
             editorState: editorState,
             stringifiedContent: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
-            parsedContent: JSON.parse(JSON.stringify(convertToRaw(editorState.getCurrentContent())))
+            parsedContent: JSON.parse(JSON.stringify(convertToRaw( editorState.getCurrentContent() )))
 
         });
       }
@@ -238,16 +238,16 @@ class NewJobModal extends React.Component {
             <fieldset>
                     <p>Job Description:</p>
                     <div id="employer-draft">
-                        <button onClick={this.onUnderlineClick}>Underline</button>
-                        <button onClick={this.onBoldClick}>Bold</button>
-                        <button onClick={this.onItalicClick}>Italic</button>
-                        <button onClick={this.onMediumClick}>Medium</button>
-                        <button onClick={this.onLargeClick}>Large</button>
-                        <button onClick={this.onLeftAlignClick}>Left Align</button>
-                        <button onClick={this.onJustifyClick}>Justify</button>
-                        <button onClick={this.onRightAlignClick}>Right Align</button>
-                        <button onClick={this.onUnorderedListClick}>Unordered List</button>
-                        <button onClick={this.onOrderedListClick}>Ordered List</button>
+                        <button onClick={this.onUnderlineClick} type="button"><i class="fas fa-underline"></i></button>
+                        <button onClick={this.onBoldClick} type="button"><i class="fas fa-bold"></i></button>
+                        <button onClick={this.onItalicClick} type="button"><i class="fas fa-italic"></i></button>
+                        <button onClick={this.onMediumClick} type="button">Medium</button>
+                        <button onClick={this.onLargeClick} type="button">Large</button>
+                        <button onClick={this.onLeftAlignClick} type="button"><i class="fas fa-align-left"></i></button>
+                        <button onClick={this.onJustifyClick} type="button"><i class="fas fa-align-justify"></i></button>
+                        <button onClick={this.onRightAlignClick} type="button"><i class="fas fa-align-right"></i></button>
+                        <button onClick={this.onUnorderedListClick} type="button"><i class="fas fa-list-ul"></i></button>
+                        <button onClick={this.onOrderedListClick} type="button"><i class="fas fa-list-ol"></i></button>
                         <Editor 
                         editorState={this.state.editorState} 
                         handleKeyCommand={this.handleKeyCommand}

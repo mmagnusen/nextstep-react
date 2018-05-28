@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
 
 Modal.setAppElement('#app');
 
@@ -11,9 +12,6 @@ class JobEditModal extends React.Component {
         super(props);
 
         const token = localStorage.getItem('responseToken');
-       
-        //const jsonDescription = JSON.parse(thisStateJobDescription);
-        //console.log(JSON.parse(thisStateJobDescription));
 
         this.enableEditMode = this.enableEditMode.bind(this);
         this.enableViewMode = this.enableViewMode.bind(this);
@@ -45,9 +43,12 @@ class JobEditModal extends React.Component {
         this.onOrderedListClick = this.onOrderedListClick.bind(this);
         this.onUnorderedListClick = this.onOrderedListClick.bind(this);
 
+        const givenContent = this.props.description;
+        const parsedContent = JSON.parse(givenContent);
+        const immutableContent = convertFromRaw(parsedContent);
+
         this.state = {
           jobArea: this.props.area,
-          jobDescription: this.props.description,
           jobExperience: this.props.experience,
           jobHours: this.props.hours,
           jobLocation: this.props.location,
@@ -57,36 +58,32 @@ class JobEditModal extends React.Component {
           posted_by_company: this.props.posted_by_company,
           id: this.props.id,
           token: token,
-          viewMode: false,
-          editMode: true,
-          editorState: EditorState.createEmpty(),
+          viewMode: true,
+          editMode: false,
+          editorState: EditorState.createWithContent(immutableContent),
         }
     }
 
-    componentWillMount() {
-       console.log("props description type is:", typeof( this.props.description));
-       console.log("type of directly passed string is", typeof("{\"blocks\":[{\"key\":\"ep7ta\",\"text\":\"dsfsdf\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}}"));
-       
-       const givenContent = this.props.description;
-       const parsedContent = JSON.parse(givenContent);
-       const immutableContent = convertFromRaw(parsedContent);
-       console.log(parsedContent)
+    componentWillMount() {       
+        const contentState = this.state.editorState.getCurrentContent();
+        const html = stateToHTML(contentState);
+        const outputHtml = {__html: html}
+        this.setState({
+            html: html,
+            outputHtml: outputHtml
+        })
+    }
 
-       this.setState({
-           content: parsedContent,
-           editorState: EditorState.createWithContent(immutableContent)
-       })
-
-        console.log(JSON.parse("{\"blocks\":[{\"key\":\"ep7ta\",\"text\":\"dsfsdf\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}}"));
+    onChange(editorState) {
     
-        const magicFormula = "hello".replace(/[^\w\s]/gi, '');
-    }
-
-    addEditor() {
-        
-
-
-    }
+        this.setState({
+            editorState: editorState,
+            stringifiedContent: JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+        });
+    
+        const contentState = editorState.getCurrentContent();
+        console.log('content state', convertToRaw(contentState));
+      }
 
     enableEditMode() {
       this.setState(
@@ -112,14 +109,6 @@ class JobEditModal extends React.Component {
           jobArea: e.target.value
       });
   }
-
-  /*
-  updateJobDescription(e) {
-      this.setState({
-          jobDescription: e.target.value
-      });
-  }
-  */
 
   updateJobExperience(e) {
       this.setState({
@@ -157,15 +146,7 @@ class JobEditModal extends React.Component {
       });
   }
 
-  onChange(editorState) {
-    
-    this.setState({
-        editorState: editorState
-    });
 
-    const contentState = editorState.getCurrentContent();
-    console.log('content state', convertToRaw(contentState));
-  }
 
   handleKeyCommand(command) {
       const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
@@ -259,7 +240,7 @@ class JobEditModal extends React.Component {
           url: existingJobEndPoint, 
           data: {  
               area: this.state.jobArea,
-              description: this.state.editorState,
+              description: this.state.stringifiedContent,
               experience: this.state.jobExperience,
               hours: this.state.jobHours,
               location: this.state.jobLocation,
@@ -333,8 +314,10 @@ class JobEditModal extends React.Component {
                 <p>Job Slug:</p>
                 <p>{this.state.jobSlug}</p>
               </div>
+              <div><h1>Job Description</h1></div>
+              <div dangerouslySetInnerHTML={this.state.outputHtml}></div>
 
-              <button onClick={this.enableEditMode}>Edit Job</button>
+              <button onClick={this.enableEditMode} type="button">Edit Job</button>
           </div>
        }
 
@@ -374,16 +357,16 @@ class JobEditModal extends React.Component {
                 <fieldset>
                 <h1>Job Description</h1>
                     <div id="employer-draft">
-                        <button onClick={this.onUnderlineClick}>Underline</button>
-                        <button onClick={this.onBoldClick}>Bold</button>
-                        <button onClick={this.onItalicClick}>Italic</button>
-                        <button onClick={this.onMediumClick}>Medium</button>
-                        <button onClick={this.onLargeClick}>Large</button>
-                        <button onClick={this.onLeftAlignClick}>Left Align</button>
-                        <button onClick={this.onJustifyClick}>Justify</button>
-                        <button onClick={this.onRightAlignClick}>Right Align</button>
-                        <button onClick={this.onUnorderedListClick}>Unordered List</button>
-                        <button onClick={this.onOrderedListClick}>Ordered List</button>
+                        <button onClick={this.onUnderlineClick} type="button"><i class="fas fa-underline"></i></button>
+                        <button onClick={this.onBoldClick} type="button"><i class="fas fa-bold"></i></button>
+                        <button onClick={this.onItalicClick} type="button"><i class="fas fa-italic"></i></button>
+                        <button onClick={this.onMediumClick} type="button">Medium</button>
+                        <button onClick={this.onLargeClick} type="button">Large</button>
+                        <button onClick={this.onLeftAlignClick} type="button"><i class="fas fa-align-left"></i></button>
+                        <button onClick={this.onJustifyClick} type="button"><i class="fas fa-align-justify"></i></button>
+                        <button onClick={this.onRightAlignClick} type="button"><i class="fas fa-align-right"></i></button>
+                        <button onClick={this.onUnorderedListClick} type="button"><i class="fas fa-list-ul"></i></button>
+                        <button onClick={this.onOrderedListClick} type="button"><i class="fas fa-list-ol"></i></button>
                         <Editor 
                         editorState={this.state.editorState} 
                         handleKeyCommand={this.handleKeyCommand}
@@ -393,7 +376,7 @@ class JobEditModal extends React.Component {
                 <input type="submit"/>
             </form>
             <button onClick={this.enableViewMode}>Cancel Changes</button>
-            <button onClick={this.deleteJob}>Delete Job</button>
+            <button onClick={this.deleteJob} type="button">Delete Job</button>
           
         </div>
        }
