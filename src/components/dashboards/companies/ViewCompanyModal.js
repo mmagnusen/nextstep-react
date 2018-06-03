@@ -38,13 +38,15 @@ class ViewCompanyModal extends React.Component {
         this.onOrderedListClick = this.onOrderedListClick.bind(this);
         this.onUnorderedListClick = this.onOrderedListClick.bind(this);
 
-        const givenContent = this.props.companyDescription;
+        const givenContent = this.props.companyInfo.description;
         const parsedContent = JSON.parse(givenContent);
         const immutableContent = convertFromRaw(parsedContent);
 
         this.state = {
-            companyName: this.props.companyName,
-            companyId: this.props.companyId,
+            companyName: this.props.companyInfo.name,
+            companyId: this.props.companyInfo.id,
+            small_logo: this.props.companyInfo.small_logo,
+            large_logo: this.props.companyInfo.large_logo,
             token: token,
             viewMode: true,
             editMode: false,
@@ -240,6 +242,15 @@ class ViewCompanyModal extends React.Component {
         <div>
             <p>Showing view mode</p>
             <div>
+                { 
+                    this.state.small_logo && <img src={this.state.small_logo} alt="company logo"/>
+                }
+
+                { 
+                    this.state.large_logo && <img src={this.state.large_logo} alt="company logo"/>
+                }
+            </div>
+            <div>
                 <h3>Company Name:</h3>
                 <h3>{this.state.companyName}</h3>
             </div>
@@ -257,6 +268,10 @@ class ViewCompanyModal extends React.Component {
                 <fieldset>
                     <label for="view-company-modal-company-name">Company Name:</label>
                     <input type="text" id="view-company-modal-company-name" value={this.state.companyName} onChange={this.updateCompanyName}/>
+                </fieldset>
+                <fieldset>
+                    <input type="file"/>
+                    <input type="file"/>
                 </fieldset>
                 <fieldset>
                 <h1>Job Description</h1>

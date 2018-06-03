@@ -63,11 +63,20 @@ class Register extends React.Component {
    
             if (response.status === 201) {
                 console.log("good email and password");
+                
+                this.setState({
+                    responseData: response.data
+                });
+           
+                localStorage.setItem('first_name', response.data.first_name);
+                localStorage.setItem('last_name', response.data.last_name);
+                localStorage.setItem('email', response.data.email);
+                localStorage.setItem('token', response.data.token);
+           
                 this.setState({
                     redirectToDashboard: true
                 });
-           
-                return <Redirect to='/employer_dashboard'/>
+
             } else {
 
             }
@@ -119,27 +128,27 @@ class Register extends React.Component {
             return <Redirect to='/employer_dashboard'/>
         }
         return (
-            <div id='register_wrapper'>
+            <div id='register-wrapper'>
                 <form onSubmit={ this.submitRegisterForm } id="register-form">
                     <div id="register-header">
                         <h1>Register</h1>
                     </div>
                     <div id="register-body">
-                        <fieldset>
-                            <label for="id_first_name">First Name</label>
-                            <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
+                        <fieldset className="register-fieldset">
+                                <label for="id_first_name">First Name</label>
+                                <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
                         </fieldset>
-                        <fieldset>
+                        <fieldset className="register-fieldset">
                             <label for="id_last_name">Last Name</label>
                             <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className="register-fieldset">
                             <label for="email_field">Email:</label>
-                            <input type="email" id="email_field" onChange={ this.handleEmailChange } value={ this.state.email } className="register-input register-input-one"/>
+                            <input type="email" id="email_field" onChange={ this.handleEmailChange } value={ this.state.email } className="register-input"/>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className="register-fieldset">
                             <label for="password_field">Password:</label>
-                            <input type="password" id="password_field" onChange={ this.handlePasswordChange } value={ this.state.password } className="register-input register-input-two"/>
+                            <input type="password" id="password_field" onChange={ this.handlePasswordChange } value={ this.state.password } className="register-input"/>
                         </fieldset>
                         <fieldset>
                             <p>Are you an:</p>

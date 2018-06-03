@@ -30,7 +30,7 @@ def api_job_detail(request, pk):
     return JsonResponse(serializer.data)
 
 class CreateJobViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,) 
+    #permission_classes = (IsAuthenticated,) 
     #authentication_classes = (TokenAuthentication,) 
     model = Job
     serializer_class = JobSerializer

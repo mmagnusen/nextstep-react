@@ -8,6 +8,8 @@ class Company(models.Model):
     name = models.CharField(max_length=200, default='Default company name')
     created_date = models.DateTimeField(default=timezone.now)
     description = models.TextField(default='Default company description')
+    small_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
+    large_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
     #jobs = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="comp", related_query_name="comps")
 
     def publish(self):

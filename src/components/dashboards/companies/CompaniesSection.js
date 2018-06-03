@@ -65,7 +65,7 @@ class CompaniesSection extends React.Component {
                     companies: response.data
                 });
            
-                return <Redirect to='/employer_dashboard'/>
+                
             } else {
 
             }
@@ -80,7 +80,7 @@ class CompaniesSection extends React.Component {
             <section>
                 <h1>Companies</h1>
                 <div id="create-new-company-container"><button onClick={this.createNewJob}>Create New Job</button><button id="create-new-company-button" onClick={this.createNewCompany}>Create new company</button></div>
-                {this.state.companies ? this.state.companies.map((company) => <Company companyName={company.name} companyId={company.id} companyDescription={company.description}/>) : <p></p>}
+                {this.state.companies ? this.state.companies.map((company) => <Company companyName={company.name} companyId={company.id} companyDescription={company.description} companyInfo={company}/>) : <p></p>}
                 <NewCompanyModal newCompanyModalIsOpen={this.state.newCompanyModalIsOpen} closeNewCompanyModal={this.closeNewCompanyModal}/>
                 <NewJobModal newJobModalIsOpen={this.state.newJobModalIsOpen} closeNewJobModal={this.closeNewJobModal} />
             </section>

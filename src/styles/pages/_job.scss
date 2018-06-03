@@ -15,8 +15,47 @@
     margin-top: 30px;
     background-color: white;
     padding: 50px;
+    box-sizing: border-box;
 }
 
 #job-wrapper-title {
-    @include flex-column;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+#image-and-details {
+    display: grid;
+    grid-template-columns: 1fr; 
+
+    i {
+        color: pink;
+        font-size: 50px;
+    }
+}
+#individual-company-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    img {
+        max-width: 100%;
+    }
+}
+
+#individual-job-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 50px;
+}
+
+#company-details-on-job {
+    width: 80%;
+    margin: 20px auto;
+    padding: 50px;
+    box-sizing: border-box;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
 }

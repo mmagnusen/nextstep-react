@@ -12,24 +12,24 @@ class SingleJob extends React.Component {
     }
 
     componentWillMount() {
-    const existingCompanyEndPoint = `http://localhost:8000/company/company/${this.props.jobCompany}/`;
+    //const existingCompanyEndPoint = `http://localhost:8000/company/company/${this.props.jobCompany}/`;
+     const existingCompanyEndPoint = `http://localhost:8000/company/api/${this.props.jobCompany}/`;
       axios.defaults.baseURL = 'https://api.example.com';
-      axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
-      console.log('Bearer '+localStorage.getItem('responseToken'))
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
+
       axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
       axios({
           method: 'get',
           url: existingCompanyEndPoint, 
           headers: {
-              'Authorization': 'JWT '+localStorage.getItem('responseToken'),
+              'Authorization': 'JWT '+localStorage.getItem('token'),
               Accept: 'application/json'
               }, 
           responseType: 'json'
       })
       .then( response => { 
  
-        console.log(response.data);
         this.setState({
             company: response.data
         })
@@ -55,11 +55,19 @@ class SingleJob extends React.Component {
                 <div className="front-list-details">
                     <div className="front-list-description-group"><i className="far fa-clock front-list-icon"></i><p>{this.props.jobHours}</p></div>
                     <div className="front-list-description-group"><i className="fas fa-flask front-list-icon"></i><p>{this.props.jobArea}</p></div>
-                    <div className="front-list-description-group"><i className="fas fa-map-marker-alt front-list-icon"></i><p>{this.props.jobLocation}}</p></div>
-                    <div className="front-list-description-group"><i className="fas fa-dollar-sign front-list-icon"></i><p>{this.props.jobSalary}}</p></div>
+                    <div className="front-list-description-group"><i className="fas fa-map-marker-alt front-list-icon"></i><p>{this.props.jobLocation}</p></div>
+                    <div className="front-list-description-group"><i className="fas fa-dollar-sign front-list-icon"></i><p>{this.props.jobSalary}</p></div>
                 </div>
             </div>
-            <div className="front-listing-company-logo"><i className="far fa-building"></i></div>
+            <div>
+
+            {this.state.company && 
+                <div className="front-listing-company-logo">
+                    <img src={this.state.company.small_logo} alt="company logo"/>
+                </div>
+            }
+            
+            </div>
         </div>
     );
     }

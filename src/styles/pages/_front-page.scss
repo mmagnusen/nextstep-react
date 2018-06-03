@@ -36,10 +36,7 @@
     .front-listing-company-logo {
         @include flex-row; 
         
-        i {
-            color: pink;
-            font-size: 30px;
-        }
+    
     }
 
     #jobs-page {
@@ -103,12 +100,17 @@
     }
     
     .front-list-details {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
         justify-content: flex-start;
     }
       
     .single-job {
         grid-template-columns: 2fr 4fr 1fr;
+        img {
+            max-width: 100%;
+        }
     }
     
 }

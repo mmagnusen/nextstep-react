@@ -15,6 +15,9 @@ class NewCompanyModal extends React.Component {
         super(props);
         const token = localStorage.getItem('responseToken')
         this.updateCompanyName = this.updateCompanyName.bind(this);
+        this.updateSmallLogo = this.updateSmallLogo.bind(this);
+        this.updateLargeLogo = this.updateLargeLogo.bind(this);
+
         this.submitNewCompany = this.submitNewCompany.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleKeyCommand = this.handleKeyCommand.bind(this);
@@ -46,6 +49,18 @@ class NewCompanyModal extends React.Component {
             companyName: e.target.value
         });
 
+    }
+
+    updateSmallLogo(e) {
+        this.setState({
+            smallLogo: e.target.files[0]
+        })
+    }
+
+    updateLargeLogo(e) {
+        this.setState({
+            largeLogo: e.target.files[0]
+        })
     }
 
     onChange(editorState) {
@@ -112,8 +127,8 @@ class NewCompanyModal extends React.Component {
 
         const newCompanyEndPoint = 'http://localhost:8000/company/company/';
         axios.defaults.baseURL = 'https://api.example.com';
-        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
-        console.log('Bearer '+localStorage.getItem('responseToken'))
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
+        console.log('Bearer '+localStorage.getItem('token'))
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
         axios({
@@ -122,9 +137,11 @@ class NewCompanyModal extends React.Component {
             data: {  
                 name: this.state.companyName,
                 description: this.state.stringifiedContent,
+                small_logo: this.state.smallLogo,
+                large_logo: this.state.largeLogo
             },
             headers: {
-                'Authorization': 'JWT '+localStorage.getItem('responseToken'),
+                'Authorization': 'JWT '+localStorage.getItem('token'),
                 }, 
             responseType: 'json'
         })
@@ -155,6 +172,14 @@ class NewCompanyModal extends React.Component {
             <fieldset>
                 <label for="new-company-modal-company-name">Company Name:</label>
                 <input type="text" id="new-company-modal-company-name" value={this.state.companyName} onChange={this.updateCompanyName}/>
+            </fieldset>
+            <fieldset>
+                <label>Small Logo:</label>
+                <input type="file" value={this.state.smallLogo} onChange={this.updateSmallLogo}/>
+            </fieldset>
+            <fieldset>
+                <label>Large Logo:</label>
+                <input type="file" value={this.state.largeLogo} onChange={this.updateLargeLogo}/>
             </fieldset>
             <fieldset>
                     <p>Company Description:</p>

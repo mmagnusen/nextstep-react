@@ -39,15 +39,17 @@ class Login extends React.Component {
         .then( response => { 
    
             if (response.status === 200) {
-                this.setState({
-                    redirectToDashboard: true
-                });
+               
                 this.setState({
                     responseData: response.data
                 });
-                localStorage.setItem('responseToken', response.data.token);
-                localStorage.setItem('responseEmail', response.data.user.email);
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('email', response.data.user.email);
                 console.log(this.state.responseData);
+
+                this.setState({
+                    redirectToDashboard: true
+                });
             } else {
 
             }

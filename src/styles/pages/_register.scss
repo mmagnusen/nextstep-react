@@ -20,8 +20,8 @@
 #register-form {
     background-color: #edeeef;
     width: 550px;
-    height: 600px;
-    margin: 80px auto;
+    height: 650px;
+    margin: 0px auto;
     border-radius: 5px;
     font-family: 'Noto Sans', sans-serif;
     padding-bottom: 5px;
@@ -43,9 +43,8 @@
     background-color: #dee1e5;
     border-style: none;
     height: 35px;
-    width: 250px;
+    width: 100%;
     outline: none;
-    display: inline;
 
     &:focus {
         border: 2px solid #71d68e;
@@ -56,8 +55,9 @@
     margin-left: 75px
 }
 
-.register-input-two { 
-    margin-left: 45px
+.register-fieldset {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
 }
 
 #register-submit {

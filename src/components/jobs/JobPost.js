@@ -19,16 +19,17 @@ class JobPost extends React.Component {
 
     componentWillMount() {
 
-        const getSingleJobEndpoint = `http://localhost:8000/job/job/${this.state.id}/`;
+        //const getSingleJobEndpoint = `http://localhost:8000/job/job/${this.state.id}/`;
+        const getSingleJobEndpoint = `http://localhost:8000/job/api/${this.state.id}/`;
         axios.defaults.baseURL = 'https://api.example.com';
-        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
   
         axios({
             method: 'get',
             url: getSingleJobEndpoint, 
             headers: {
-                'Authorization': 'JWT '+localStorage.getItem('responseToken'),
+                'Authorization': 'JWT '+localStorage.getItem('token'),
                 Accept: 'application/json'
                 }, 
             responseType: 'json'
@@ -52,91 +53,105 @@ class JobPost extends React.Component {
             })
             console.log('complete state:', this.state);
         })
+        .then( () => {
+            axios.defaults.baseURL = 'https://api.example.com';
+            axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
+            axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+            const existingCompanyEndPoint = `http://localhost:8000/company/api/${this.state.jobInfo.posted_by_company}/`;
+            //const singleCompanyEndpoint = `http://127.0.0.1:8000/company/company/${30}/`;
+            axios({
+                method: 'get',
+                url: existingCompanyEndPoint, 
+                headers: {
+                    'Authorization': 'Bearer '+localStorage.getItem('token'),
+                     Accept: 'application/json'
+                    }, 
+                responseType: 'json'
+            })
+            .then( response => { 
+       
+                if (response.status === 200) {
+    
+                    this.setState({
+                        companyInfo: response.data
+                    });
+                    console.log('response from company', response.data);
+    
+                    const givenCompanyContent = response.data.description;
+                    const parsedCompanyContent = JSON.parse(givenCompanyContent);
+                    const immutableCompanyContent = convertFromRaw(parsedCompanyContent);
+                    
+                    const companyHtml = stateToHTML(immutableCompanyContent);
+                     const companyOutputHtml = {__html: companyHtml}
+                     this.setState({
+                         companyHtml: companyHtml,
+                         companyOutputHtml: companyOutputHtml,
+                         companyName: response.data.name,
+                     })
+           
+    
+    
+                } else {
+    
+                }
+            })
+            .catch(error => {
+                console.log("this is an error yo", error);
+              });
+        })
         .catch(error => {
             console.log("this is an error yo", error);
           })
     }
 
     componentDidMount() {
-        const getSingleJobEndpoint = `http://localhost:8000/job/job/${this.state.id}/`;
-        axios.defaults.baseURL = 'https://api.example.com';
-        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-        const singleCompanyEndpoint = `http://127.0.0.1:8000/company/company/${30}/`;
-        axios({
-            method: 'get',
-            url: singleCompanyEndpoint, 
-            headers: {
-                'Authorization': 'Bearer '+localStorage.getItem('responseToken'),
-                 Accept: 'application/json'
-                }, 
-            responseType: 'json'
-        })
-        .then( response => { 
-   
-            if (response.status === 200) {
-
-                this.setState({
-                    companyInfo: response.data
-                });
-                console.log('response from company', response.data);
-
-                const givenCompanyContent = response.data.description;
-                const parsedCompanyContent = JSON.parse(givenCompanyContent);
-                const immutableCompanyContent = convertFromRaw(parsedCompanyContent);
-                
-                const companyHtml = stateToHTML(immutableCompanyContent);
-                 const companyOutputHtml = {__html: companyHtml}
-                 this.setState({
-                     companyHtml: companyHtml,
-                     companyOutputHtml: companyOutputHtml,
-                     companyName: response.data.name
-                 })
-       
-
-
-            } else {
-
-            }
-        })
-        .catch(error => {
-            console.log("this is an error yo", error);
-          })
     }
 
     render() {
             return (
                 <div>
                     <Header/>
-                    {this.state.jobInfo &&
-                        <div id="job-wrapper-outer">
-                            <div id="job-wrapper">
-                                <div id="job-wrapper-title">
-                                    <h1>Company: {this.state.companyName && <p>{this.state.companyName}</p>}</h1>
-                                    <h2>Title: {this.state.jobInfo.title}</h2>
-                                    <h2>Slug: {this.state.jobInfo.slug}</h2>
-                                    <p>Area: {this.state.jobInfo.area}</p>
-                                    <p>Hours: {this.state.jobInfo.hours}</p>
-                                    <p>Location: {this.state.jobInfo.location}</p>
-                                    <p>Salary: {this.state.jobInfo.salary}</p>
-                                </div>
-                                <p>Job number{this.props.match.params.id}</p>
-                                <div>
-                                    <h3>Job Description:</h3>
-                                    <div dangerouslySetInnerHTML={this.state.jobOutputHtml}></div>
-                                </div>
+                    <div id="job-wrapper-outer">
+                        {
+                            this.state.companyInfo && 
+                            <div id="company-details-on-job">
+                                <section id="individual-company-logo-container">
+                                    <img src={ this.state.companyInfo.large_logo } alt="company logo"/>
+                                </section>
+                                <section>
+                                    <h1>Company Name:{this.state.companyInfo.name}</h1>
+                                    <p>Company Description:</p>
+                                    <div dangerouslySetInnerHTML={this.state.companyOutputHtml}></div>
+                                </section>
                             </div>
-                        </div>
-                    }
-                    {
-                        this.state.companyInfo && 
-                        <div>
-                            <h1>Company Name:{this.state.companyInfo.name}</h1>
-                            <p>Company Description:</p>
-                            <div dangerouslySetInnerHTML={this.state.companyOutputHtml}></div>
-                        </div>
-                    }
+                        }
+                        {this.state.jobInfo &&
+                        
+                                <div id="job-wrapper">
+                                    <div>
+                                        <section id="job-wrapper-title">
+                                            <h2>Title: {this.state.jobInfo.title}</h2>
+                                            <h3>Slug: {this.state.jobInfo.slug}</h3>
+                                        </section>
+                                        
+                                        <section id="image-and-details">
+                                            <section id="individual-job-details">
+                                                <p>Area: {this.state.jobInfo.area}</p>
+                                                <p>Hours: {this.state.jobInfo.hours}</p>
+                                                <p>Location: {this.state.jobInfo.location}</p>
+                                                <p>Salary: {this.state.jobInfo.salary}</p>
+                                                <p>Job number{this.props.match.params.id}</p>
+                                            </section>
+                                        </section>
+                                        <h3>Job Description:</h3>
+                                        <div dangerouslySetInnerHTML={this.state.jobOutputHtml}></div>
+                                    </div>
+                                </div>
+                        
+                        }
+                       
+                    </div>
                     <Footer/>
                 </div>
     )

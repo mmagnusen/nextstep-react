@@ -7,11 +7,18 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
 
-        const token = localStorage.getItem('responseToken');
+        const token = localStorage.getItem('token');
 
         this.state = {
             token: token,
         }
+    }
+
+    componentDidMount() {
+
+
+  
+
     }
     
     render() {

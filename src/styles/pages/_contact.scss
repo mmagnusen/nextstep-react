@@ -22,3 +22,12 @@
 #contact-title {
     @include flex-column;
 }
+
+.twitter {
+    color: purple;
+    margin-right: 5px;    
+}
+
+#contact-details {
+    margin: 50px 0;
+}

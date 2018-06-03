@@ -13,7 +13,8 @@ class Company extends React.Component {
 
         this.state = {
             viewCompanyModalIsOpen: false,
-            companyName: this.props.companyName,
+
+            companyInfo: this.props.companyInfo,
             companyDescription: this.props.companyDescription,
             companyId: this.props.companyId,
             allJobs: [],
@@ -45,7 +46,14 @@ class Company extends React.Component {
 
             }
 
-            this.filterJobs();
+        })
+        .then(
+            () => {
+                const filteredJobs = this.state.allJobs.filter((job) => job.posted_by_company == this.state.companyId );
+                console.log('filtered jobs:', filteredJobs);
+                this.setState({
+                    filteredJobs: filteredJobs
+                });
         })
         .catch(error => {
             console.log("this is an error yo", error);
@@ -82,13 +90,14 @@ class Company extends React.Component {
         return (
             <div className="single-company">
                 <div className="company-header">
-                    <h2>{this.state.companyName}, {this.state.companyId}</h2>
-                    <div className="button-container"><button className="delete-company-button" onClick={this.viewExistingCompany}>View Company</button></div><button onClick={this.filterJobs}>Filter Jobs</button>
+                    <h2>{this.state.companyInfo.name}, {this.state.companyInfo.id}</h2>
+                    <div className="button-container"><button className="delete-company-button" onClick={this.viewExistingCompany}>View Company</button></div>
+    
                 </div>
                 
                 <section>
                     <div className="company-postings-title">
-                        <h1>Job Postings for company: {this.state.companyName}</h1>
+                        <h1>Job Postings for company: {this.state.companyInfo.name}</h1>
                     </div>
                     {this.state.filteredJobs ? this.state.filteredJobs.map((job) => <SingleDashboardJob 
                         title={job.title} 
@@ -105,7 +114,7 @@ class Company extends React.Component {
                         id={job.id}
                         />) : <p>no</p>}
                 </section>   
-                <ViewCompanyModal viewCompanyModalIsOpen={this.state.viewCompanyModalIsOpen} closeViewCompanyModal={this.closeViewCompanyModal} companyName={this.state.companyName} companyDescription={this.state.companyDescription} companyId={this.state.companyId}/> 
+                <ViewCompanyModal viewCompanyModalIsOpen={this.state.viewCompanyModalIsOpen} closeViewCompanyModal={this.closeViewCompanyModal}  companyInfo={this.state.companyInfo} /> 
             </div>
         )
     }

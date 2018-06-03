@@ -1,17 +1,28 @@
 @import '../base/mixins';
 @import '../base/variables';
 
-#login-register-tabs {
+#my-account-container {
     display: flex;
-    width: 70%;
-    margin: 20px auto;
-    background-color: pink;
+    flex-direction: column;
 }
 
+#login-register-tabs {
+    display: flex;
+    width: 560px;
+    margin: 10px auto;
+}
+#login-tab {
+    border-radius: 5px 0px 0px 5px;
+}
+
+#account-tab {
+    border-radius: 0px 5px 5px 0px;
+}
 .account-tab {
     cursor: pointer;
     margin: 0 5px;
-    background-color: green;
+    background-color: #5d6166;
+    color: white;
     width: 100%;
     display: flex;
     justify-content: center;

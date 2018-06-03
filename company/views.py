@@ -31,6 +31,12 @@ def user_view(request):
     serializer = CompanySerializer(companies, many=True)
     return JsonResponse(serializer.data, safe=False)
 
+
+def specific_company(request, pk):
+    company = get_object_or_404(Company, pk=pk)
+    serializer = CompanySerializer(company)
+    return JsonResponse(serializer.data)
+
 @csrf_exempt
 def create_company(request, format=None):
     print(request)
