@@ -202,14 +202,14 @@ class JobEditModal extends React.Component {
     e.preventDefault();
     const existingJobEndPoint = `http://localhost:8000/job/job/${this.state.id}/`;
     axios.defaults.baseURL = 'https://api.example.com';
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
+    axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
     axios({
         method: 'delete',
         url: existingJobEndPoint,
         headers: {
-            'Authorization': 'JWT '+localStorage.getItem('responseToken'),
+            'Authorization': 'JWT '+localStorage.getItem('token'),
             Accept: 'application/json'
             }, 
         responseType: 'json'
@@ -231,7 +231,7 @@ class JobEditModal extends React.Component {
 
       const existingJobEndPoint = `http://localhost:8000/job/job/${this.state.id}/`;
       axios.defaults.baseURL = 'https://api.example.com';
-      axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('responseToken')
+      axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
       console.log('Bearer '+localStorage.getItem('responseToken'))
       axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -249,7 +249,7 @@ class JobEditModal extends React.Component {
               title: this.state.jobTitle,
           },
           headers: {
-              'Authorization': 'JWT '+localStorage.getItem('responseToken'),
+              'Authorization': 'JWT '+localStorage.getItem('token'),
               Accept: 'application/json'
               }, 
           responseType: 'json'

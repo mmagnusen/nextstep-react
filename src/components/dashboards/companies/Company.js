@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import SingleDashboardJob from '../jobs/SingleDashboardJob.js';
 import ViewCompanyModal from './ViewCompanyModal.js';
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 import { filter } from 'rxjs/operator/filter';
 
 class Company extends React.Component {
@@ -91,7 +92,9 @@ class Company extends React.Component {
             <div className="single-company">
                 <div className="company-header">
                     <h2>{this.state.companyInfo.name}, {this.state.companyInfo.id}</h2>
-                    <div className="button-container"><button className="delete-company-button" onClick={this.viewExistingCompany}>View Company</button></div>
+                    <div className="button-container">
+                        <Link to={"/view_company/" + this.state.companyId} id="create-new-company-button"><button>View Company Page</button></Link>
+                    </div>
     
                 </div>
                 

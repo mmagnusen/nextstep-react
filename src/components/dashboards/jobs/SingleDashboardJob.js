@@ -1,5 +1,6 @@
 import React from 'react';
 import JobEditModal from './JobEditModal.js';
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 
 class SingleDashboardJob extends React.Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class SingleDashboardJob extends React.Component {
             <div className="single-company-job">
             <div className="single-job-header">
                 <h1>Job: {this.state.title}, {this.state.posted_by_company}</h1>
-                <button onClick={this.openJobModal}>View Job</button>
+                <Link to={"/view_job/" + this.state.id}><button>View Job</button></Link>
             </div>
                 <JobEditModal 
                 isOpen={this.state.isOpen} 

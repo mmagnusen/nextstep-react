@@ -88,11 +88,6 @@ class JobPost extends React.Component {
                          companyOutputHtml: companyOutputHtml,
                          companyName: response.data.name,
                      })
-           
-    
-    
-                } else {
-    
                 }
             })
             .catch(error => {
@@ -102,10 +97,6 @@ class JobPost extends React.Component {
         .catch(error => {
             console.log("this is an error yo", error);
           })
-    }
-
-    componentDidMount() {
-
     }
 
     render() {

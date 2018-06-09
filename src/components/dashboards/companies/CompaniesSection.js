@@ -3,6 +3,7 @@ import Company from './Company.js';
 import NewCompanyModal from './NewCompanyModal.js';
 import NewJobModal from '../jobs/NewJobModal.js';
 import axios from 'axios';
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 
 class CompaniesSection extends React.Component {
     constructor(props) {
@@ -79,7 +80,11 @@ class CompaniesSection extends React.Component {
         return (
             <section>
                 <h1>Companies</h1>
-                <div id="create-new-company-container"><button onClick={this.createNewJob}>Create New Job</button><button id="create-new-company-button" onClick={this.createNewCompany}>Create new company</button></div>
+                <div id="create-new-company-container">
+                <Link to="/new_job" id=""><button>New Job Page</button></Link>
+                <Link to="/new_company" id="create-new-company-button"><button>New Company Page</button></Link>
+                </div>
+                
                 {this.state.companies ? this.state.companies.map((company) => <Company companyName={company.name} companyId={company.id} companyDescription={company.description} companyInfo={company}/>) : <p></p>}
                 <NewCompanyModal newCompanyModalIsOpen={this.state.newCompanyModalIsOpen} closeNewCompanyModal={this.closeNewCompanyModal}/>
                 <NewJobModal newJobModalIsOpen={this.state.newJobModalIsOpen} closeNewJobModal={this.closeNewJobModal} />
