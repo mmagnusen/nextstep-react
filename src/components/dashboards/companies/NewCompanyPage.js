@@ -129,17 +129,18 @@ class NewCompanyPage extends React.Component {
       console.log('Bearer '+localStorage.getItem('token'))
       axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+      const formData = new FormData();
+      formData.append('name', this.state.companyName);
+      formData.append('description', this.state.stringifiedContent);
+      formData.append('small_logo', this.state.small_logo,);
+      formData.append('large_logo', this.state.large_logo,);
       axios({
           method: 'post',
           url: newCompanyEndPoint, 
-          data: {  
-              name: this.state.companyName,
-              description: this.state.stringifiedContent,
-              small_logo: this.state.smallLogo,
-              large_logo: this.state.largeLogo
-          },
+          data: formData,
           headers: {
               'Authorization': 'JWT '+localStorage.getItem('token'),
+              'content-type': 'multipart-form-data'
               }, 
           responseType: 'json'
       })
@@ -169,11 +170,11 @@ class NewCompanyPage extends React.Component {
                         </fieldset>
                         <fieldset>
                             <label>Small Logo:</label>
-                            <input type="file" onChange={this.updateSmallLogo}/>
+                            <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
                         </fieldset>
                         <fieldset>
                             <label>Large Logo:</label>
-                            <input type="file" onChange={this.updateLargeLogo}/>
+                            <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
                         </fieldset>
                         <fieldset>
                                 <p>Company Description:</p>
