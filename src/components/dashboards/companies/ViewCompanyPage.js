@@ -18,7 +18,10 @@ class ViewCompanyPage extends React.Component {
         const token = localStorage.getItem('token');
         this.enableEditMode = this.enableEditMode.bind(this);
         this.enableViewMode = this.enableViewMode.bind(this);
+
         this.updateCompanyName = this.updateCompanyName.bind(this);
+        this.updateSmallLogo = this.updateSmallLogo.bind(this);
+        this.updateLargeLogo = this.updateLargeLogo.bind(this);
         this.submitCompanyChanges = this.submitCompanyChanges.bind(this);
         this.deleteCompany = this.deleteCompany.bind(this);
 
@@ -78,44 +81,33 @@ class ViewCompanyPage extends React.Component {
                 this.setState({
                     companyInfo: response.data,
                     editorState: EditorState.createWithContent(immutableContent),
+                    name: response.data.name,
+                    small_logo: null,
+                    large_logo: null,
                 });
                 console.log('response from company', response.data);
-
-            
             }
         })
         .then(
             () => {
-
-               
-
                 const contentState = this.state.editorState.getCurrentContent();
                 const html = stateToHTML(contentState);
                 const outputHtml = {__html: html}
                 this.setState({
                     html: html,
                     outputHtml: outputHtml,
-                
                 })
             }
-        
-       
-
-        
-
         )
         .catch(error => {
             console.log("this is an error yo", error);
           });
-
-       
      }
 
      onChange(editorState) {
      
         this.setState({
             editorState: editorState,
-            stringifiedContent: JSON.stringify(convertToRaw(editorState.getCurrentContent()))
         });
     
         const contentState = editorState.getCurrentContent();
@@ -193,9 +185,20 @@ enableViewMode() {
 
 updateCompanyName(e) {
     this.setState({
-        companyName: e.target.value
+        name: e.target.value
     });
+}
 
+updateSmallLogo(e) {
+    this.setState({
+        small_logo: e.target.files[0]
+    })
+}
+
+updateLargeLogo(e) {
+    this.setState({
+        large_logo: e.target.files[0]
+    })
 }
 
 submitCompanyChanges(e) {
@@ -206,22 +209,35 @@ submitCompanyChanges(e) {
     axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+    const stringifiedContent = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
+
+    const formData = new FormData();
+    formData.append('name', this.state.name);
+    formData.append('description', stringifiedContent);
+
+    if ( this.state.small_logo ) {
+        formData.append('small_logo', this.state.small_logo,);
+    }
+
+    if ( this.state.large_logo ) {
+        formData.append('large_logo', this.state.large_logo,);
+    }
+    
+    
+
     axios({
         method: 'put',
         url: existingCompanyEndPoint, 
-        data: {  
-            name: this.state.companyName,
-            description: this.state.stringifiedContent,
-        },
+        data: formData,
         headers: {
             'Authorization': 'JWT '+localStorage.getItem('token'),
+            'content-type': 'multipart-form-data'
             }, 
         responseType: 'json'
     })
     .then( response => { 
 
         if (response.status === 200) {
-            enableViewMode();
             this.enableViewMode();
             console.log('enabling view mode');
            
@@ -250,7 +266,7 @@ deleteCompany(e) {
         method: 'delete',
         url: existingCompanyEndPoint,
         headers: {
-            'Authorization': 'JWT '+localStorage.getItem('responseToken'),
+            'Authorization': 'JWT '+localStorage.getItem('token'),
             }, 
         responseType: 'json'
     })
@@ -291,7 +307,7 @@ deleteCompany(e) {
                         </div>
                         <div>
                             <h3>Company Name:</h3>
-                            <h3>{this.state.companyInfo.name}</h3>
+                            <h3>{this.state.name}</h3>
                         </div>
                         <div>
                             <h3>Company Description</h3>
@@ -306,14 +322,18 @@ deleteCompany(e) {
                             <form onSubmit={this.submitCompanyChanges}>
                                 <fieldset>
                                     <label for="view-company-modal-company-name">Company Name:</label>
-                                    <input type="text" id="view-company-modal-company-name" value={this.state.companyName} onChange={this.updateCompanyName}/>
+                                    <input type="text" id="view-company-modal-company-name" value={this.state.name} onChange={this.updateCompanyName}/>
                                 </fieldset>
                                 <fieldset>
-                                    <input type="file"/>
-                                    <input type="file"/>
+                                    <label>Small Logo:</label>
+                                    <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
                                 </fieldset>
                                 <fieldset>
-                                <h1>Job Description</h1>
+                                    <label>Large Logo:</label>
+                                    <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
+                                </fieldset>
+                                <fieldset>
+                                <h1>Company Description</h1>
                                     <div id="employer-draft">
                                         <button onClick={this.onUnderlineClick} type="button"><i class="fas fa-underline"></i></button>
                                         <button onClick={this.onBoldClick} type="button"><i class="fas fa-bold"></i></button>

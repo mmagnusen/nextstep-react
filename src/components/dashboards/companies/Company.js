@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import SingleDashboardJob from '../jobs/SingleDashboardJob.js';
-import ViewCompanyModal from './ViewCompanyModal.js';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 import { filter } from 'rxjs/operator/filter';
 
@@ -117,7 +116,7 @@ class Company extends React.Component {
                         id={job.id}
                         />) : <p>no</p>}
                 </section>   
-                <ViewCompanyModal viewCompanyModalIsOpen={this.state.viewCompanyModalIsOpen} closeViewCompanyModal={this.closeViewCompanyModal}  companyInfo={this.state.companyInfo} /> 
+         
             </div>
         )
     }

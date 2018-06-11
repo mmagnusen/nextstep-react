@@ -22,4 +22,4 @@ class JobSerializer(serializers.ModelSerializer):
             'experience',
             'posted_by_company',
             )
-        read_only_fields = (['posted_by_company'])
+        

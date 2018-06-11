@@ -8,11 +8,11 @@ import Footer from '../../global/Footer.js';
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-class NewJobModal extends React.Component {
+class NewJobPage extends React.Component {
 
     constructor(props) {
         super(props);
-        const token = localStorage.getItem('responseToken')
+        const token = localStorage.getItem('token')
 
         this.updateJobArea = this.updateJobArea.bind(this);
         this.updateJobExperience =  this.updateJobExperience.bind(this);
@@ -21,6 +21,8 @@ class NewJobModal extends React.Component {
         this.updateJobSalary = this.updateJobSalary.bind(this);
         this.updateJobSlug = this.updateJobSlug.bind(this);
         this.updateJobTitle = this.updateJobTitle.bind(this);
+        this.updatePostedByCompany = this.updatePostedByCompany.bind(this);
+
         this.submitNewJob = this.submitNewJob.bind(this);
 
         this.onChange = this.onChange.bind(this);
@@ -40,7 +42,7 @@ class NewJobModal extends React.Component {
         this.onOrderedListClick = this.onOrderedListClick.bind(this);
         this.onUnorderedListClick = this.onOrderedListClick.bind(this);
 
-
+        const linksInfo = this.props.location.state.companiesFromLink;
         
         this.state = {
             jobArea: "",
@@ -52,6 +54,8 @@ class NewJobModal extends React.Component {
             jobTitle: "",
             token: token,
             editorState: EditorState.createEmpty(),
+            availableCompanies: linksInfo,
+            posted_by_company: linksInfo[0]
         }
     }
 
@@ -95,6 +99,12 @@ class NewJobModal extends React.Component {
         this.setState({
             jobTitle: e.target.value
         });
+    }
+
+    updatePostedByCompany(e) {
+        this.setState({
+            posted_by_company: e.target.value
+        })
     }
 
     onChange(editorState) {
@@ -176,7 +186,8 @@ class NewJobModal extends React.Component {
                 location: this.state.jobLocation,
                 salary: this.state.jobSalary,
                 slug: this.state.jobSlug,
-                title: this.state.jobTitle
+                title: this.state.jobTitle,
+                posted_by_company: parseInt(this.state.posted_by_company)
             },
             headers: {
                 'Authorization': 'JWT '+localStorage.getItem('token'),
@@ -203,6 +214,13 @@ class NewJobModal extends React.Component {
         <div>
             <Header/>
                 <form onSubmit={this.submitNewJob}>
+                    <fieldset>
+                        <label for="company-select">Choose company to list job for:</label>
+                        <select id="company-select" value={this.state.posted_by_company} onChange={this.updatePostedByCompany}>
+                            { this.state.availableCompanies.map((company) => <option value={company.id}>{company.name} </option>) }
+                            
+                        </select>
+                    </fieldset>
                     <fieldset>
                         <label for="new-job-modal-job-area">Job Area:</label>
                         <input type="text" id="new-job-modal-job-area" value={this.state.jobArea} onChange={this.updateJobArea}/>
@@ -259,4 +277,4 @@ class NewJobModal extends React.Component {
   
 }
 
-export default NewJobModal;
+export default NewJobPage;

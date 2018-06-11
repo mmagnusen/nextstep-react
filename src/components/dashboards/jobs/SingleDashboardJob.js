@@ -1,13 +1,9 @@
 import React from 'react';
-import JobEditModal from './JobEditModal.js';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 
 class SingleDashboardJob extends React.Component {
     constructor(props) {
         super(props);
-
-        this.openJobModal = this.openJobModal.bind(this);
-        this.closeJobModal = this.closeJobModal.bind(this);
 
         this.state = {
             isOpen: false,
@@ -22,44 +18,16 @@ class SingleDashboardJob extends React.Component {
             slug: this.props.slug,
             title: this.props.title,
             id: this.props.id
-
         }
-
-    }
-
-    openJobModal() {
-        this.setState({
-            isOpen: true
-        })
-    }
-
-    closeJobModal() {
-        this.setState({
-            isOpen: false
-        })
     }
 
     render() {
         return (
             <div className="single-company-job">
-            <div className="single-job-header">
-                <h1>Job: {this.state.title}, {this.state.posted_by_company}</h1>
-                <Link to={"/view_job/" + this.state.id}><button>View Job</button></Link>
-            </div>
-                <JobEditModal 
-                isOpen={this.state.isOpen} 
-                closeJobModal={this.closeJobModal}
-                area={this.state.area}
-                description={this.state.description}
-                experience={this.state.experience}
-                hours={this.state.hours}
-                location={this.state.location}
-                salary={this.state.salary}
-                slug={this.state.slug}
-                title={this.state.title}
-                posted_by_company={this.state.posted_by_company}
-                id={this.state.id}
-                />
+                <div className="single-job-header">
+                    <h1>Job: {this.state.title}, {this.state.posted_by_company}</h1>
+                    <Link to={"/view_job/" + this.state.id}><button>View Job</button></Link>
+                </div>
             </div>
         )
     }
