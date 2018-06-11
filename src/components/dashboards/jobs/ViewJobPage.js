@@ -27,6 +27,7 @@ class ViewJobPage extends React.Component {
         this.updateJobSalary = this.updateJobSalary.bind(this);
         this.updateJobSlug = this.updateJobSlug.bind(this);
         this.updateJobTitle = this.updateJobTitle.bind(this);
+        this.updatePostedByCompany = this.updatePostedByCompany.bind(this);
         
         this.onChange = this.onChange.bind(this);
         this.handleKeyCommand = this.handleKeyCommand.bind(this);
@@ -45,7 +46,8 @@ class ViewJobPage extends React.Component {
         this.onOrderedListClick = this.onOrderedListClick.bind(this);
         this.onUnorderedListClick = this.onOrderedListClick.bind(this);
 
-   
+        const userCompanies = this.props.location.state.userCompanies;
+        const companyName = this.props.location.state.companyName;
 
         this.state = {
           id: this.props.match.params.id,
@@ -61,6 +63,8 @@ class ViewJobPage extends React.Component {
           jobSlug: "",
           jobTitle: "",
           posted_by_company: "",
+          userCompanies: userCompanies,
+          companyName: companyName
         }
     }
 
@@ -191,6 +195,11 @@ class ViewJobPage extends React.Component {
         });
     }
   
+    updatePostedByCompany(e) {
+        this.setState({
+            posted_by_company: e.target.value
+        })
+    }
   
   
     handleKeyCommand(command) {
@@ -279,19 +288,23 @@ class ViewJobPage extends React.Component {
           axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
           console.log('Bearer '+localStorage.getItem('token'))
           axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+          const stringifiedContent = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
     
           axios({
               method: 'put',
               url: existingJobEndPoint, 
               data: {  
                   area: this.state.jobArea,
-                  description: this.state.stringifiedContent,
+                  description: stringifiedContent,
                   experience: this.state.jobExperience,
                   hours: this.state.jobHours,
                   location: this.state.jobLocation,
                   salary: this.state.jobSalary,
                   slug: this.state.jobSlug,
                   title: this.state.jobTitle,
+                  posted_by_company: parseInt(this.state.posted_by_company),
+
               },
               headers: {
                   'Authorization': 'JWT '+localStorage.getItem('token'),
@@ -320,6 +333,10 @@ class ViewJobPage extends React.Component {
                 { this.state.viewMode && 
                     <div>
                         <h1>Showing View Mode</h1>
+                        <div>
+                        <p>Posted By Company:</p>
+                        <p>{this.state.companyName}</p>
+                        </div>
                         <div>
                         <p>Job Title:</p>
                         <p>{this.state.jobTitle}</p>
@@ -365,6 +382,13 @@ class ViewJobPage extends React.Component {
                     <div>
                       
                        <form onSubmit={this.submitJobChanges}>
+                            <fieldset>
+                                <label for="company-select">Choose company to list job for:</label>
+                                <select id="company-select" value={this.state.posted_by_company} onChange={this.updatePostedByCompany}>
+                                    { this.state.userCompanies.map((company) => <option value={company.id}>{company.name} </option>) }
+                                    
+                                </select>
+                            </fieldset>
                            <fieldset>
                                <label for="edit-job-modal-job-area">Job Area:</label>
                                <input type="text" id="edit-job-modal-job-area" value={this.state.jobArea} onChange={this.updateJobArea}/>

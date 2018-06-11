@@ -56,6 +56,9 @@ class Login extends React.Component {
         })
         .catch(error => {
             console.log("this is an error yo", error);
+            this.setState({
+                error: error
+            });
           })
     }
 
@@ -76,14 +79,19 @@ class Login extends React.Component {
     render() {
         if (this.state.redirectToDashboard) {
             return <Redirect to='/employer_dashboard'/>
-        }
-        return (         
+        } else {
+            return (         
                 <div id='login-wrapper'>
                     <form onSubmit={this.submitLoginForm} id="login-form">
                         <div id="login-header">
                             <h1>Login</h1>
                         </div>
                         <div id="login-body">
+                            {
+                             this.state.error &&   <div id="login-error">
+                                <p>Email or password incorrect. Please try again or contact marilyn@thenextstep.io if you are having trouble logging in</p>
+                            </div>
+                            }
                             <fieldset>
                                 <label for="email_field">Email</label>
                                 <input type="email" id="email_field" onChange={this.handleEmailChange} className="login-input login-input-one"/>
@@ -99,6 +107,8 @@ class Login extends React.Component {
                     </form>
                 </div>
         )
+        }
+       
     }
 }
 

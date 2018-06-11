@@ -14,10 +14,12 @@ class SingleDashboardJob extends React.Component {
             hours: this.props.hours,
             location: this.props.location,
             posted_by_company: this.props.posted_by_company,
+            companyName: this.props.companyName,
             salary: this.props.salary,
             slug: this.props.slug,
             title: this.props.title,
-            id: this.props.id
+            id: this.props.id,
+            userCompanies: this.props.userCompanies
         }
     }
 
@@ -26,7 +28,8 @@ class SingleDashboardJob extends React.Component {
             <div className="single-company-job">
                 <div className="single-job-header">
                     <h1>Job: {this.state.title}, {this.state.posted_by_company}</h1>
-                    <Link to={"/view_job/" + this.state.id}><button>View Job</button></Link>
+
+                    <Link  to={{ pathname: "/view_job/" + this.state.id, state: { userCompanies: this.state.userCompanies, companyName: this.state.companyName} }}><button>View Job</button></Link>
                 </div>
             </div>
         )

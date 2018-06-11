@@ -19,6 +19,10 @@ class EmployerDashboard extends React.Component {
 
         const first_name = localStorage.getItem('first_name');
         const last_name = localStorage.getItem('last_name');
+
+        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+        this.handleLastNameChange = this.handleLastNameChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
         
         this.state = {
             
@@ -27,21 +31,22 @@ class EmployerDashboard extends React.Component {
             last_name: last_name,
             email: email,
             token: token,
-            returnedResponse: null
+            returnedResponse: null,
+            saveChanges: false
         }
     }
 
     componentWillMount() {
 
         const getUserDataEndpoint = 'http://127.0.0.1:8000/authenticate/current_user/';
-        //axios.defaults.headers.common['Authorization'] = this.state.token
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+        const token = localStorage.getItem('token');
         axios({
             method: 'get',
             url: getUserDataEndpoint,
             headers: {
-                'Authorization': 'JWT '+localStorage.getItem('token')
+                'Authorization': 'JWT '+ token
                 }, 
             responseType: 'json'
         })
@@ -58,21 +63,48 @@ class EmployerDashboard extends React.Component {
                 });
                 localStorage.setItem('first_name', response.data.first_name)
                 localStorage.setItem('last_name', response.data.last_name);
+                localStorage.setItem('tokenIsValid', true)
+
             } else {
-                localStorage.clear();
-                this.setState({
-                    redirectToHome: true
-                })
+                
             }
         })
         .catch(error => {
             console.log("this is an error yo", error);
+
+            localStorage.clear();
+                this.setState({
+                    redirectToHome: true
+                })
+
           })
+    }
+
+    handleFirstNameChange(e) {
+
+        this.setState({
+            first_name: e.target.value,
+            saveChanges: true
+        })
+        
+    }
+
+    handleLastNameChange(e) {
+        this.setState({
+            last_name: e.target.value,
+            saveChanges: true
+        })
+    }
+
+    handleEmailChange(e) {
+        this.setState({
+            email: e.target.value,
+            saveChanges: true
+        })
     }
 
     handleLogOut() {
         localStorage.clear();
-        console.log('logging out...');
         this.setState({
             redirectToHome: true
         })
@@ -81,28 +113,47 @@ class EmployerDashboard extends React.Component {
     render() {
         if (this.state.redirectToHome) {
             return <Redirect to='/'/>
-        }
-        return (
-            <div>
-                <Header/>
-                <div id="employer-wrapper">
-                    
-                    <h1>Employer Dashboard</h1>
-                    <div id="logout"><button id="logout-button" onClick={this.handleLogOut}>Logout</button></div>
-                    <section>
-                        <h1>Profile:</h1>
-                        <p>Firstname: {this.state.first_name}</p>
-                        <p>Surname: {this.state.last_name}</p>
-                        <p>Email: {this.state.email}</p>
-                        <p>Token: {this.state.token} </p>
-                    </section>
-                    
-                   <CompaniesSection/>
+        } else {
+            return (
+                <div>
+                    <Header/>
+                    <div id="employer-wrapper">
+                        
+                        <h1>Employer Dashboard</h1>
+                        <div id="logout"><button id="logout-button" onClick={this.handleLogOut}>Logout</button></div>
+                        <section>
+                            <h1>Profile:</h1>
+                            <section className="profile-attribute">
+                                <p>Firstname:</p>
+                                <input value={ this.state.first_name } onChange={ this.handleFirstNameChange  }/> 
+                            </section>
+                            <section className="profile-attribute">
+                                <p>Surname:</p>
+                                <input value={this.state.last_name} onChange={ this.handleLastNameChange }/>
+                             </section>
+                             <section className="profile-attribute">
+                                <p>Email:</p>
+                                <input value={this.state.email} onChange={ this.handleEmailChange }/> 
+                             </section>
+                             {
+                                this.state.saveChanges == true && 
 
+                                <section id="profile-save-changes">
+                                    <button>Save Changes</button>
+                                </section> 
+                             }
+                             
+                        </section>
+                        
+                       <CompaniesSection/>
+    
+                    </div>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div>
-        )
+            )
+
+        }
+        
     }
 }
 

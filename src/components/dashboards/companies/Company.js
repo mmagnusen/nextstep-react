@@ -8,7 +8,6 @@ class Company extends React.Component {
     constructor(props) {
         super(props);
         this.viewExistingCompany = this.viewExistingCompany.bind(this);
-        this.closeViewCompanyModal = this.closeViewCompanyModal.bind(this);
         this.filterJobs = this.filterJobs.bind(this);
 
         this.state = {
@@ -19,6 +18,8 @@ class Company extends React.Component {
             companyId: this.props.companyId,
             allJobs: [],
             filteredJobs: [],
+            userCompanies: this.props.userCompanies,
+            companyName: this.props.companyName
             }
 
            
@@ -32,7 +33,7 @@ class Company extends React.Component {
             method: 'get',
             url: getJobsEndpoint, 
             headers: {
-                'Authorization': 'Bearer '+localStorage.getItem('responseToken')
+                'Authorization': 'JWT '+localStorage.getItem('token')
                 }, 
             responseType: 'json'
         })
@@ -67,12 +68,6 @@ class Company extends React.Component {
         console.log('open company modal');
     }
 
-    closeViewCompanyModal() {
-        this.setState({
-            viewCompanyModalIsOpen: false
-        })
-    }
-
     filterJobs(e) {
         e.preventDefault();
         const filteredJobs = this.state.allJobs.filter((job) => job.posted_by_company == this.state.companyId );
@@ -103,7 +98,7 @@ class Company extends React.Component {
                     </div>
                     {this.state.filteredJobs ? this.state.filteredJobs.map((job) => <SingleDashboardJob 
                         title={job.title} 
-                        posted_by_company={job.posted_by_company}
+                        companyName={this.state.companyName}
                         area={job.area}
                         created_date={job.created_date}
                         description={job.description}
@@ -114,6 +109,7 @@ class Company extends React.Component {
                         salary={job.salary}
                         slug={job.slug}
                         id={job.id}
+                        userCompanies={this.state.userCompanies}
                         />) : <p>no</p>}
                 </section>   
          

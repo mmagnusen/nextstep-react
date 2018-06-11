@@ -51,7 +51,12 @@ class CompaniesSection extends React.Component {
                 <Link to="/new_company" id="create-new-company-button"><button>New Company Page</button></Link>
                 </div>
                 
-                {this.state.companies ? this.state.companies.map((company) => <Company companyName={company.name} companyId={company.id} companyDescription={company.description} companyInfo={company}/>) : <p></p>}
+                {this.state.companies ? this.state.companies.map((company) => <Company 
+                                                                                companyName={company.name} 
+                                                                                companyId={company.id} 
+                                                                                companyDescription={company.description} 
+                                                                                companyInfo={company} 
+                                                                                userCompanies={this.state.companies}/>) : <p></p>}
                 
                 
             </section>
