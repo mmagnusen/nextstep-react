@@ -3,18 +3,15 @@ from rest_framework_jwt.settings import api_settings
 from .models import CustomUser
 from django.contrib.auth.models import Group
 
-
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('email', 'password')
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('email',)
-
 
 #this is for handling new sign-ups. we want to return their user email and token, which will be stored in browser
 #for further authentication. We don't need the token every time we request a user's data, only when signing up
@@ -24,7 +21,6 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ('name',)
-
 
 class UserSerializerWithToken(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
@@ -64,6 +60,15 @@ class UserSerializerWithToken(serializers.ModelSerializer):
             instance.groups.add(Group.objects.get(name='employer'))
         return instance
 
+    # def update(self, instance, validated_data):
+    #     #updates a user
+    #     password = validated_data.pop('password', None)
+    #     for (key, value) in validated_data.items():
+    #         settattr(instance, key, value)
+    #         instance.save()
+    #     return instance
+
+    
     class Meta:
         model = CustomUser
         fields = ('token', 'user_type', 'email', 'password', 'first_name', 'last_name')
