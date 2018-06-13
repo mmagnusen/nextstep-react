@@ -9,5 +9,6 @@ DATABASES = {
         'HOST': 'marilynmags-625.postgres.pythonanywhere-services.com',
         'PORT': '10625',
     }
+}
 
 ALLOWED_HOSTS = ['www.thenextstep.io', 'marilynmags.pythonanywhere.com', 'thenextstep.io', '127.0.0.1', 'localhost']
