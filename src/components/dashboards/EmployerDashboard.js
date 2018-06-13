@@ -118,35 +118,49 @@ class EmployerDashboard extends React.Component {
                 <div>
                     <Header/>
                     <div id="employer-wrapper">
-                        
-                        <h1>Employer Dashboard</h1>
+                        <div id="employer-inner-wrapper">
                         <div id="logout"><button id="logout-button" onClick={this.handleLogOut}>Logout</button></div>
-                        <section>
-                            <h1>Profile:</h1>
-                            <section className="profile-attribute">
-                                <p>Firstname:</p>
-                                <input value={ this.state.first_name } onChange={ this.handleFirstNameChange  }/> 
+                            <section id="profile-section">
+                                <div id="profile-section-inner">
+                                    <h1>Profile</h1>
+                                    <section className="profile-attribute">
+                                        <div className="profile-section-label">
+                                            <p>Firstname:</p>
+                                        </div>
+                                        <div className="profile-section-value">
+                                            <input value={ this.state.first_name } onChange={ this.handleFirstNameChange  }/> 
+                                        </div>
+                                    </section>
+                                    <section className="profile-attribute">
+                                        <div className="profile-section-label">
+                                            <p>Surname:</p>
+                                        </div>
+                                        <div className="profile-section-value">
+                                            <input value={this.state.last_name} onChange={ this.handleLastNameChange }/>
+                                        </div>
+                                    </section>
+                                    <section className="profile-attribute">
+                                        <div className="profile-section-label">
+                                            <p>Email:</p>
+                                        </div>
+                                        <div className="profile-section-value">
+                                            <input value={this.state.email} onChange={ this.handleEmailChange }/> 
+                                        </div>
+                                    </section>
+                                    {
+                                        this.state.saveChanges == true && 
+        
+                                        <section id="profile-save-changes">
+                                            <button>Save Changes</button>
+                                        </section> 
+                                    }
+                                </div>
                             </section>
-                            <section className="profile-attribute">
-                                <p>Surname:</p>
-                                <input value={this.state.last_name} onChange={ this.handleLastNameChange }/>
-                             </section>
-                             <section className="profile-attribute">
-                                <p>Email:</p>
-                                <input value={this.state.email} onChange={ this.handleEmailChange }/> 
-                             </section>
-                             {
-                                this.state.saveChanges == true && 
+                           
+                           
 
-                                <section id="profile-save-changes">
-                                    <button>Save Changes</button>
-                                </section> 
-                             }
-                             
-                        </section>
-                        
-                       <CompaniesSection/>
-    
+                            <CompaniesSection/>
+                        </div>
                     </div>
                     <Footer/>
                 </div>

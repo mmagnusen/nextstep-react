@@ -1,36 +1,44 @@
 #login-wrapper {
     max-height: 600px;
-
-    @media only screen and (min-width: 300px) {  
-        width: 90%;
+ 
+    @media only screen and (min-width: 0px) {  
+        width: 100%;
         margin: 0 auto;
     }
-
-    @media only screen and (min-width: 700px) {  
-        width: 90%;
-        margin: 0 auto;
-    }
-}
-
-#login-header {
-    text-align: center;
-    background-color: #5d6166;
-    color: white;
-    height: 50px;
-    padding: 30px 0px 60px 0px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 
 #login-form {
     background-color: #edeeef;
-    width: 550px;
     max-height: 550px;
     margin: 20px auto;
     border-radius: 5px;
     font-family: 'Noto Sans', sans-serif;
     padding-bottom: 5px;
     display: block;
+
+    @media only screen and (min-width: 0px) {  
+        width: 95%;
+    }
+
+    @media only screen and (min-width: 400px) {  
+        width: 90%;
+    }
+
+    @media only screen and (min-width: 700px) {  
+        width: 550px;
+    }
+
+    #login-header {
+        text-align: center;
+        background-color: #5d6166;
+        color: white;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
 
     fieldset {
         border: 0px solid transparent;
@@ -39,30 +47,41 @@
     }
 }
 
+
 #login-body {
-    padding: 40px 0;
+    padding: 40px 20px;
     box-sizing: border-box;
+
+    section {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 100px;
+    }
+}
+
+.login-label-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
 }
 
 .login-input {
     background-color: #dee1e5;
     border-style: none;
     height: 35px;
-    width: 250px;
+    width: 100%;
     outline: none;
-    display: inline;
+
 
     &:focus {
         border: 2px solid #71d68e;
     }
-}
-
-.login-input-one { 
-    margin-left: 75px
-}
-
-.login-input-two { 
-    margin-left: 45px
 }
 
 #login-submit {
@@ -77,6 +96,7 @@
     padding: 3px;
     box-sizing: border-box;
 }
+
 #login-error {
     width: 80%;
     margin: 15px auto;

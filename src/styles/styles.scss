@@ -2,6 +2,7 @@
 @import '/pages/contact';
 @import '/pages/job';
 @import '/components/job-draft';
+@import '/components/header';
 @import '/pages/my-account';
 @import '/pages/login';
 @import '/pages/register';
@@ -12,34 +13,8 @@
 
 
 body {
-
     margin: 0;
     font-family: 'Roboto', sans-serif;
-}
-
-header {
-    width: 100%;
-    height: 200px;
-    background-color: $purple;
-    color: white;    
-}
-
-#header-inner {
-    width: 80%;
-    margin: 0 auto;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 30% 70%;
-}
-
-#header-title-container {
-    @include flex-row;
-}
-
-nav {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 }
 
 footer {
@@ -48,5 +23,18 @@ footer {
     background-color: $purple;
     color: white;  
     @include flex-column;
+}
+
+h1, h2, h3, h4, h5, p, a {
+    padding: 0px;
+    margin: 0px;
+}
+
+h2 {
+    line-height: 40px;
+}
+
+p {
+    line-height: 30px;
 }
 

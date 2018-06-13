@@ -46,7 +46,7 @@ class SingleJob extends React.Component {
                 <h2>{this.props.jobTitle}</h2>
                 {this.state.company && 
                     <div>
-                        <p>{this.state.company.name},{this.props.jobCompany}</p>
+                        <p>{this.state.company.name}</p>
                     </div>
                 }
             </div>
@@ -59,14 +59,12 @@ class SingleJob extends React.Component {
                     <div className="front-list-description-group"><i className="fas fa-dollar-sign front-list-icon"></i><p>{this.props.jobSalary}</p></div>
                 </div>
             </div>
-            <div>
-
-            {this.state.company && 
-                <div className="front-listing-company-logo">
-                    <img src={this.state.company.small_logo} alt="company logo"/>
-                </div>
-            }
-            
+            <div className="front-listing-company-logo">
+                {this.state.company && 
+               
+                        <img src={this.state.company.small_logo} alt="company logo"/>
+                    
+                }
             </div>
         </div>
     );

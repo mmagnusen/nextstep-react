@@ -4,20 +4,35 @@
 #my-account-container {
     display: flex;
     flex-direction: column;
+    background: linear-gradient(#40c4bf, #406D8F);
+    max-width: 100%;
+    padding: 50px 0px;
 }
 
 #login-register-tabs {
     display: flex;
-    width: 560px;
     margin: 10px auto;
+    @media only screen and (min-width: 0px) {  
+        width: 95%;
+    }
+
+    @media only screen and (min-width: 400px) {  
+        width: 90%;
+    }
+
+    @media only screen and (min-width: 700px) {  
+        width: 550px;
+    }
 }
+
 #login-tab {
     border-radius: 5px 0px 0px 5px;
 }
 
-#account-tab {
+#register-tab {
     border-radius: 0px 5px 5px 0px;
 }
+
 .account-tab {
     cursor: pointer;
     margin: 0 5px;

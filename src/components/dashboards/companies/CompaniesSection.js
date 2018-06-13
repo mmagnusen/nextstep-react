@@ -44,21 +44,26 @@ class CompaniesSection extends React.Component {
 
     render() {
         return (
-            <section>
-                <h1>Companies</h1>
-                <div id="create-new-company-container">
-                <Link to={{ pathname: "/new_job", state: {companiesFromLink: this.state.companies} }} id=""><button>New Job Page</button></Link>
-                <Link to="/new_company" id="create-new-company-button"><button>New Company Page</button></Link>
+            <section id="companies-section">
+                <div id="companies-section-inner">
+                    
+                    <div id="create-new-company-container">
+                        <div id="create-new-company-title">
+                            <h1>Your Companies</h1>
+                        </div>
+                        <div id="create-new-company-link-container">
+                            <Link to="/new_company"><button id="create-new-company-button">Create a New Company</button></Link>
+                        </div>
+                    </div>
+                    
+                    {this.state.companies ? this.state.companies.map((company) => <Company 
+                                                                                    companyName={company.name} 
+                                                                                    companyId={company.id} 
+                                                                                    companyDescription={company.description} 
+                                                                                    companyInfo={company} 
+                                                                                    userCompanies={this.state.companies}/>) : <p></p>}
+                    
                 </div>
-                
-                {this.state.companies ? this.state.companies.map((company) => <Company 
-                                                                                companyName={company.name} 
-                                                                                companyId={company.id} 
-                                                                                companyDescription={company.description} 
-                                                                                companyInfo={company} 
-                                                                                userCompanies={this.state.companies}/>) : <p></p>}
-                
-                
             </section>
         )
     }

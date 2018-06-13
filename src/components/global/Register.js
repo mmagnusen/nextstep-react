@@ -134,31 +134,49 @@ class Register extends React.Component {
                         <h1>Register</h1>
                     </div>
                     <div id="register-body">
-                        <fieldset className="register-fieldset">
-                                <label for="id_first_name">First Name</label>
-                                <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
-                        </fieldset>
-                        <fieldset className="register-fieldset">
-                            <label for="id_last_name">Last Name</label>
-                            <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
-                        </fieldset>
-                        <fieldset className="register-fieldset">
-                            <label for="email_field">Email:</label>
-                            <input type="email" id="email_field" onChange={ this.handleEmailChange } value={ this.state.email } className="register-input"/>
-                        </fieldset>
-                        <fieldset className="register-fieldset">
-                            <label for="password_field">Password:</label>
-                            <input type="password" id="password_field" onChange={ this.handlePasswordChange } value={ this.state.password } className="register-input"/>
-                        </fieldset>
+                        <section className="register-fieldset">
+                                <div className="register-label-container">
+                                    <p>First Name</p>
+                                </div>
+                                <div className="register-input-container">
+                                    <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
+                                </div>
+                        </section>
+                        <section className="register-fieldset">
+                                <div className="register-label-container">
+                                    <p>Last Name</p>
+                                </div>
+                                <div className="register-input-container">
+                                    <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
+                                </div>
+                        </section>
+                        <section className="register-fieldset">
+                                <div className="register-label-container">
+                                    <p>Email:</p>
+                                </div>
+                                <div className="register-input-container">
+                                    <input type="email" id="email_field" onChange={ this.handleEmailChange } value={ this.state.email } className="register-input"/>
+                                </div>    
+                        </section>
+                        <section className="register-fieldset">
+                                <div className="register-label-container">
+                                    <p>Password:</p>
+                                </div>
+                                <div className="register-input-container">  
+                                    <input type="password" id="password_field" onChange={ this.handlePasswordChange } value={ this.state.password } className="register-input"/>
+                                </div>
+                        </section>
                         <fieldset>
                             <p>Are you an:</p>
-                            <div>
-                                <label for="typeEmployee">Employee</label>
-                                <input type="radio" name="user_type" value="employee" id="typeEmployee" onChange={ this.handleUserTypeEmployee }/>
-                            </div>
-                            <div>
-                                <label for="typeEmployer">Employer</label>
-                                <input type="radio" name="user_type" value="employer" id="typeEmployer" onChange={ this.handleUserTypeEmployer }/>
+                            <div id="employee-employer-container">
+                                <div className="employee-employer-choice">
+                                    <p>Employee</p>
+                                    <input type="radio" name="user_type" value="employee" id="typeEmployee" onChange={ this.handleUserTypeEmployee }/>
+                                </div>
+                                <div className="employee-employer-choice">
+                                    <p>Employer</p>
+                                    <input type="radio" name="user_type" value="employer" id="typeEmployer" onChange={ this.handleUserTypeEmployer }/>
+                                </div>
                             </div>
                         </fieldset>
                         <fieldset>

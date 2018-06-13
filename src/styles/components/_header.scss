@@ -1,0 +1,79 @@
+header {
+    width: 100%;
+    background-color: $purple;
+    color: white;    
+
+    @media only screen and (min-width: 0px) {  
+        height: 200px;
+        padding: 20px 0px;
+        box-sizing: border-box
+    }
+
+    @media only screen and (min-width: 800px) {  
+        height: 150px;
+    }
+}
+
+#header-inner {
+    margin: 0 auto;
+    height: 100%;
+    display: grid;
+    @media only screen and (min-width: 0px) {  
+        width: 90%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    @media only screen and (min-width: 800px) {  
+        width: 90%;
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: 1fr;
+    }
+}
+
+#header-title-container {
+
+    a {
+        color: white;
+    }
+
+    @media only screen and (min-width: 0px) {  
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+   
+    @media only screen and (min-width: 800px) {  
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    
+}
+
+nav {
+    display: flex;
+
+    a {
+        color: white;
+        padding: 5px 0px;
+        box-sizing: border-box;
+        margin: 0 15px;
+    }
+
+    @media only screen and (min-width: 0px) {  
+        justify-content: center;
+        align-items: center;
+    }
+   
+    @media only screen and (min-width: 800px) {  
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
+
+.is-active {
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid $turquoise;
+}

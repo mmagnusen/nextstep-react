@@ -48,7 +48,7 @@ class MyAccount extends React.Component {
                 <Header/>
                 <div id="my-account-container">
                     <div id="login-register-tabs">
-                        <div onClick={ this.showLogin } className="account-tab" id="login-tab"><h2>Login</h2></div><div onClick={ this.showRegister } className="account-tab" id="account-tab"><h2>Register</h2></div>
+                        <div onClick={ this.showLogin } className="account-tab" id="login-tab"><h2>Login</h2></div><div onClick={ this.showRegister } className="account-tab" id="register-tab"><h2>Register</h2></div>
                     </div>
                     {this.state.showTab == "login" ? <Login/> : <Register/>}
                 </div>

@@ -110,9 +110,8 @@ class JobPost extends React.Component {
                                 <section id="individual-company-logo-container">
                                     <img src={ this.state.companyInfo.large_logo } alt="company logo"/>
                                 </section>
-                                <section>
-                                    <h1>Company Name:{this.state.companyInfo.name}</h1>
-                                    <p>Company Description:</p>
+                                <section id="individual-company-details-container">
+                                    <h1>{this.state.companyInfo.name}</h1>
                                     <div dangerouslySetInnerHTML={this.state.companyOutputHtml}></div>
                                 </section>
                             </div>
@@ -120,26 +119,23 @@ class JobPost extends React.Component {
                         {this.state.jobInfo &&
                         
                                 <div id="job-wrapper">
-                                    <div>
+                                    
                                         <section id="job-wrapper-title">
-                                            <h2>Title: {this.state.jobInfo.title}</h2>
-                                            <h3>Slug: {this.state.jobInfo.slug}</h3>
+                                            <h2>{this.state.jobInfo.title}</h2>
+                                            <h3>{this.state.jobInfo.slug}</h3>
                                         </section>
                                         
-                                        <section id="image-and-details">
-                                            <section id="individual-job-details">
-                                                <p>Area: {this.state.jobInfo.area}</p>
-                                                <p>Hours: {this.state.jobInfo.hours}</p>
-                                                <p>Location: {this.state.jobInfo.location}</p>
-                                                <p>Salary: {this.state.jobInfo.salary}</p>
-                                                <p>Job number{this.props.match.params.id}</p>
-                                            </section>
+                                        <section id="individual-job-details">
+                                            <p>Area: {this.state.jobInfo.area}</p>
+                                            <p>Hours: {this.state.jobInfo.hours}</p>
+                                            <p>Location: {this.state.jobInfo.location}</p>
+                                            <p>Salary: {this.state.jobInfo.salary}</p>
                                         </section>
+                                      
                                         <h3>Job Description:</h3>
                                         <div dangerouslySetInnerHTML={this.state.jobOutputHtml}></div>
-                                    </div>
-                                </div>
                         
+                                </div> 
                         }
                        
                     </div>

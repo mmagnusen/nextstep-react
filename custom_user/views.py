@@ -50,35 +50,13 @@ class UserList(APIView):
     """
 
     permission_classes = (permissions.AllowAny,)
-
-    # def get(self, request, format=None):
-    #      users = CustomUser.objects.all()
-    #      serializer = UserSerializer(users, many=True)
-    #      return Response(serializer.data)
     
     def post(self, request, format=None):
-        serializer = UserSerializerWithToken(request.user)
+        print("random from views.py")
+        print('post:', request.POST)
+        serializer = UserSerializerWithToken(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # def put(self, request):
-    #     print('post:', request.POST)
-    #     print('data:',request.data)
-    #     serializer = UserSerializerWithToken(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class UserDetail(APIView):
-#     """
-#     Retrieve, update or delete a user instance
-#     """
-    
-#     def get(self, request, pk, format=None):
-#         print(request.data)
-#         user = get_object_or_404(CustomUser, pk=pk)
-#         user = UserSerializer(user)
-#         return Response(user.data)
+        

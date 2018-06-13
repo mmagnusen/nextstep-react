@@ -1,31 +1,44 @@
 #register-wrapper {
     height: 700px;
 
-    @media only screen and (min-width: 900px) {  
-        width: 90%;
+    @media only screen and (min-width: px) {  
+        width: 100%;
         margin: 0 auto;
     }
 }
 
-#register-header {
-    text-align: center;
-    background-color: #5d6166;
-    color: white;
-    height: 50px;
-    padding: 30px 0px 60px 0px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
 #register-form {
     background-color: #edeeef;
-    width: 550px;
     height: 650px;
-    margin: 0px auto;
+    margin: 20px auto;
     border-radius: 5px;
     font-family: 'Noto Sans', sans-serif;
     padding-bottom: 5px;
     display: block;
+
+    @media only screen and (min-width: 0px) {  
+        width: 95%;
+    }
+
+    @media only screen and (min-width: 400px) {  
+        width: 90%;
+    }
+
+    @media only screen and (min-width: 700px) {  
+        width: 550px;
+    }
+
+    #register-header {
+        text-align: center;
+        background-color: #5d6166;
+        color: white;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
 
     fieldset {
         border: 0px solid transparent;
@@ -34,9 +47,29 @@
     }
 }
 
+
+
 #register-body {
-    padding: 40px 0;
+    padding: 40px 20px;
     box-sizing: border-box;
+
+    section {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 70px;
+    }
+}
+
+.register-label-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
 }
 
 .register-input {
@@ -51,14 +84,17 @@
     }
 }
 
-.register-input-one { 
-    margin-left: 75px
+#employee-employer-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px;
 }
 
-.register-fieldset {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+.employee-employer-choice {
+    display: flex;
+    align-items: center;
 }
+
 
 #register-submit {
     background-color: #71d68e;

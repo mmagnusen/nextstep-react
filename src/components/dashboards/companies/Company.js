@@ -85,16 +85,21 @@ class Company extends React.Component {
         return (
             <div className="single-company">
                 <div className="company-header">
-                    <h2>{this.state.companyInfo.name}, {this.state.companyInfo.id}</h2>
+                    <div className="company-header-title">
+                        <h2>{this.state.companyInfo.name}</h2>
+                    </div>
                     <div className="button-container">
-                        <Link to={"/view_company/" + this.state.companyId} id="create-new-company-button"><button>View Company Page</button></Link>
+                        <Link to={{ pathname: "/new_job", state: {companiesFromLink: this.state.companies} }}><button className="add-job-to-company-button">Add new job for this company</button></Link>
+                    </div>
+                    <div className="button-container">
+                        <Link to={"/view_company/" + this.state.companyId}><button className="view-company-button">View Company Page</button></Link>
                     </div>
     
                 </div>
                 
                 <section>
                     <div className="company-postings-title">
-                        <h1>Job Postings for company: {this.state.companyInfo.name}</h1>
+                        <h1>Job Postings for {this.state.companyInfo.name}</h1>
                     </div>
                     {this.state.filteredJobs ? this.state.filteredJobs.map((job) => <SingleDashboardJob 
                         title={job.title} 

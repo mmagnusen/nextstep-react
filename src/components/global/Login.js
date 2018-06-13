@@ -92,17 +92,25 @@ class Login extends React.Component {
                                 <p>Email or password incorrect. Please try again or contact marilyn@thenextstep.io if you are having trouble logging in</p>
                             </div>
                             }
-                            <fieldset>
-                                <label for="email_field">Email</label>
-                                <input type="email" id="email_field" onChange={this.handleEmailChange} className="login-input login-input-one"/>
-                            </fieldset>
-                            <fieldset>
-                                <label for="password_field">Password</label>
-                                <input type="password" id="password_field" onChange={this.handlePasswordChange} className="login-input login-input-two"/>
-                            </fieldset>
-                            <fieldset>
+                            <section>
+                                <div className="login-label-container">
+                                    <p>Email</p>
+                                </div>
+                                <div className="login-input-container">
+                                    <input type="email" id="email_field" onChange={this.handleEmailChange} className="login-input"/>
+                                </div>
+                            </section>
+                            <section>
+                                <div className="login-label-container">
+                                    <p>Password</p>
+                                </div>
+                                <div className="login-input-container">
+                                    <input type="password" id="password_field" onChange={this.handlePasswordChange} className="login-input"/>
+                                </div>
+                            </section>
+                            <div>
                                 <input type="submit" id="login-submit"/>
-                            </fieldset>
+                            </div>
                         </div>
                     </form>
                 </div>
