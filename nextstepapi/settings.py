@@ -44,12 +44,10 @@ INSTALLED_APPS = [
     'website',
     'company',
     'job',
-
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
     'rest_auth',
-    
     'custom_user'
    
 ]
