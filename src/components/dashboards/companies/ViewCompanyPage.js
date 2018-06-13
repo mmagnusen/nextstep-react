@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import Header from '../../global/Header.js';
 import Footer from '../../global/Footer.js';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import {stateToHTML} from 'draft-js-export-html';
 
@@ -42,14 +43,13 @@ class ViewCompanyPage extends React.Component {
         this.onOrderedListClick = this.onOrderedListClick.bind(this);
         this.onUnorderedListClick = this.onOrderedListClick.bind(this);
 
-      
-
         this.state = {
             token: token,
             viewMode: true,
             editMode: false,
             companyId: this.props.match.params.id,
             companyInfo: {},
+            redirectToDashboard: false,
             
         }
     }
@@ -236,19 +236,18 @@ submitCompanyChanges(e) {
     .then( response => { 
 
         if (response.status === 200) {
-            this.enableViewMode();
-            console.log('enabling view mode');
+            this.setState({
+                redirectToDashboard: true
+            });
            
         } else {
 
         }
     })
-    .then ( () => {
-        
-    }
-
-    )
     .catch(error => {
+        this.setState({
+            formError: error
+            });
         console.log("this is an error yo", error);
       })
 }
@@ -270,95 +269,147 @@ deleteCompany(e) {
     .then( response => { 
 
         if (response.status === 200) {
-
+            this.setState({
+                redirectToDashboard: true
+            });
         } else {
 
         }
     })
-    .then ( () => {
-        
-    }
-
-    )
     .catch(error => {
         console.log("this is an error yo", error);
+        this.setState({
+            formError: error
+            });
       })
 }
 
     render() {
+        if (this.state.redirectToDashboard) {
+            return <Redirect to='/employer_dashboard'/>
+        } else { 
         return (
             <div>
                 <Header/>
+                    <div id="view-company-wrapper">
                     {
                     this.state.viewMode && 
                     <div>
-                        <p>Showing view mode</p>
-                        <div>
+                        
+
                             { 
-                                this.state.companyInfo.small_logo && <img src={this.state.companyInfo.small_logo} alt="company logo"/>
+                                this.state.companyInfo.small_logo && 
+                                <div className="view-logo">
+                                    <div className="logo-label">
+                                        <p>Small Logo</p>
+                                    </div>
+                                    <div className="logo-image">
+                                        <img src={this.state.companyInfo.small_logo} alt="company logo"/>
+                                    </div>
+                                </div>
                             }
             
                             { 
-                                this.state.companyInfo.large_logo && <img src={this.state.companyInfo.large_logo} alt="company logo"/>
+                                this.state.companyInfo.large_logo && 
+                                <div className="view-logo">
+                                    <div className="logo-label">
+                                        <p>Large Logo</p>
+                                    </div>
+                                    <div className="logo-image">
+                                        <img src={this.state.companyInfo.large_logo} alt="company logo"/>
+                                    </div>
+                                </div>
                             }
-                        </div>
-                        <div>
-                            <h3>Company Name:</h3>
-                            <h3>{this.state.name}</h3>
-                        </div>
-                        <div>
-                            <h3>Company Description</h3>
+                       
+                        <section id="view-name-container">
+                            <div id="view-name-label">
+                                <h3>Company Name:</h3>
+                            </div>
+                            <div id="view-name-name">
+                                <p>{this.state.name}</p>
+                            </div>
+                        </section>
+                        <section>
+                            <div id="view-description-title">
+                                <h3>Company Description</h3>
+                            </div>
+
                             <div dangerouslySetInnerHTML={this.state.outputHtml}></div>
-                        </div>
-                        <button onClick={this.enableEditMode} type="button">Edit Company</button>
+                        </section>
+                        <section id="edit-button-container">
+                            <button onClick={this.enableEditMode} type="button">Edit Company</button>
+                        </section>
                     </div>
                     }
 
                     { this.state.editMode &&
                         <div>
                             <form onSubmit={this.submitCompanyChanges}>
-                                <fieldset>
-                                    <label for="view-company-modal-company-name">Company Name:</label>
-                                    <input type="text" id="view-company-modal-company-name" value={this.state.name} onChange={this.updateCompanyName}/>
-                                </fieldset>
-                                <fieldset>
-                                    <label>Small Logo:</label>
-                                    <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
-                                </fieldset>
-                                <fieldset>
-                                    <label>Large Logo:</label>
-                                    <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
-                                </fieldset>
-                                <fieldset>
-                                <h1>Company Description</h1>
-                                    <div id="employer-draft">
-                                        <button onClick={this.onUnderlineClick} type="button"><i class="fas fa-underline"></i></button>
-                                        <button onClick={this.onBoldClick} type="button"><i class="fas fa-bold"></i></button>
-                                        <button onClick={this.onItalicClick} type="button"><i class="fas fa-italic"></i></button>
-                                        <button onClick={this.onMediumClick} type="button">Medium</button>
-                                        <button onClick={this.onLargeClick} type="button">Large</button>
-                                        <button onClick={this.onLeftAlignClick} type="button"><i class="fas fa-align-left"></i></button>
-                                        <button onClick={this.onJustifyClick} type="button"><i class="fas fa-align-justify"></i></button>
-                                        <button onClick={this.onRightAlignClick} type="button"><i class="fas fa-align-right"></i></button>
-                                        <button onClick={this.onUnorderedListClick} type="button"><i class="fas fa-list-ul"></i></button>
-                                        <button onClick={this.onOrderedListClick} type="button"><i class="fas fa-list-ol"></i></button>
+                                <section id="edit-name-container">
+                                    <div id="edit-name-label">
+                                        <p>Company Name:</p>
+                                    </div>
+                                    <div id="edit-name-name">
+                                        <input type="text" value={this.state.name} onChange={this.updateCompanyName}/>
+                                    </div>
+                                </section>
+                                <section className="edit-company-section">
+                                    <div className="edit-company-label">
+                                        <p>Small Logo:</p>
+                                    </div>
+                                    <div className="edit-company-logo">
+                                        <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
+                                    </div>
+                                </section>
+                                <section className="edit-company-section">
+                                    <div className="edit-company-label">
+                                        <p>Large Logo:</p>
+                                    </div>
+                                    <div className="edit-company-logo">
+                                        <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
+                                    </div>
+                                </section>
+                                <section id="edit-company-description">
+                                    <section id="company-description-title">
+                                        <h2>Company Description</h2>
+                                    </section>
+                                    <section id="editor-buttons">
+                                        <button onClick={this.onUnderlineClick} type="button" className="editor-button"><i class="fas fa-underline"></i></button>
+                                        <button onClick={this.onBoldClick} type="button" className="editor-button"><i class="fas fa-bold"></i></button>
+                                        <button onClick={this.onItalicClick} type="button" className="editor-button"><i class="fas fa-italic"></i></button>
+                                    </section>
+                                    <section id="edit-company-editor">
                                         <Editor 
                                         editorState={this.state.editorState} 
                                         handleKeyCommand={this.handleKeyCommand}
                                         onChange={this.onChange} />
-                                    </div>
-                                </fieldset>
-                                <input type="submit"/>
+                                    </section>
+                                </section>
+                                <section id="edit-company-submit-container">
+                                    <input type="submit"/>
+                                </section>
                             </form> 
-                            <button onClick={this.enableViewMode} type="button">Cancel Changes</button>
-                            <button onClick={this.deleteCompany} type="button">Delete Company</button>
+                            <div id="edit-cancel-delete">
+                                <button onClick={this.enableViewMode} type="button" id="cancel-edit-changes">Cancel Changes</button>
+                                <button onClick={this.deleteCompany} type="button" id="delete-edit">Delete Company</button>
+                            </div>
                         </div>
                         }
+
+                        {
+                            this.state.formError &&
+                            <div id="form-error">
+                                <p>Something went wrong, your company was not updated.</p>
+                                <p>Please try again or contact marilyn@thenextsep.io for help</p>
+                            </div>
+                        }
+                    </div>
                 <Footer/>
               
             </div>
         )
     }
+}
 
 }
 
