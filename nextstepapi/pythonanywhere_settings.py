@@ -165,7 +165,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2-binary',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'nextstepreactdb',
         'USER': 'marilynnextstepdbsuperuser',
         'PASSWORD': 'sdfaercsertretsret234243@2',
