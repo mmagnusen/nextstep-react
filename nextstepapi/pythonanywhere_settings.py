@@ -6,4 +6,4 @@ DATABASES = {
     }
 }
 
-DEBUG = True
+ALLOWED_HOSTS = ['www.thenextstep.io', 'marilynmags.pythonanywhere.com', 'thenextstep.io']
