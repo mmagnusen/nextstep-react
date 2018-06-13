@@ -27,7 +27,7 @@ class Company extends React.Component {
     }
 
     componentWillMount() {
-        const getJobsEndpoint = 'http://127.0.0.1:8000/job/job/';
+        const getJobsEndpoint = 'http://www.thenextstep.io/job/job/';
 
         axios({
             method: 'get',

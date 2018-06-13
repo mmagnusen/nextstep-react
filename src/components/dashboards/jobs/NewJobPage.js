@@ -169,7 +169,7 @@ class NewJobPage extends React.Component {
     submitNewJob(e) {
         e.preventDefault();
 
-        const newJobEndPoint = 'http://localhost:8000/job/job/';
+        const newJobEndPoint = 'http://www.thenextstep.io/job/job/';
         axios.defaults.baseURL = 'https://api.example.com';
         axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
         console.log('Bearer '+localStorage.getItem('token'))

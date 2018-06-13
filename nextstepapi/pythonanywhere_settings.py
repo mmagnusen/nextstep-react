@@ -2,9 +2,12 @@ from . settings import *
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'nextstepreactdb',
+        'USER': 'marilynnextstepdbsuperuser',
+        'PASSWORD': 'sdfaercsertretsret234243@2',
+        'HOST': 'marilynmags-625.postgres.pythonanywhere-services.com',
+        'PORT': '10625',
     }
-}
 
 ALLOWED_HOSTS = ['www.thenextstep.io', 'marilynmags.pythonanywhere.com', 'thenextstep.io']

@@ -12,8 +12,7 @@ class SingleJob extends React.Component {
     }
 
     componentWillMount() {
-    //const existingCompanyEndPoint = `http://localhost:8000/company/company/${this.props.jobCompany}/`;
-     const existingCompanyEndPoint = `http://localhost:8000/company/api/${this.props.jobCompany}/`;
+     const existingCompanyEndPoint = `http://www.thenextstep.io/company/api/${this.props.jobCompany}/`;
       axios.defaults.baseURL = 'https://api.example.com';
       axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
 

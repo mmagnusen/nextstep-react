@@ -32,7 +32,7 @@ class Register extends React.Component {
 
     submitRegisterForm(e) {
         e.preventDefault();
-        const createUserEndpoint = "http://127.0.0.1:8000/authenticate/users/";
+        const createUserEndpoint = "http://www.thenextstep.io/authenticate/users/";
 
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';

@@ -123,7 +123,7 @@ class NewCompanyPage extends React.Component {
   submitNewCompany(e) {
       e.preventDefault();
 
-      const newCompanyEndPoint = 'http://localhost:8000/company/company/';
+      const newCompanyEndPoint = 'http://www.thenextstep.io/company/company/';
       axios.defaults.baseURL = 'https://api.example.com';
       axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
       console.log('Bearer '+localStorage.getItem('token'))

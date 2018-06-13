@@ -19,7 +19,7 @@ class Header extends React.Component {
 
     componentWillMount() {
 
-        const checkTokenEndpoint = 'http://127.0.0.1:8000/authenticate/current_user/';
+        const checkTokenEndpoint = 'http://www.thenextstep.io/authenticate/current_user/';
 
         const token = localStorage.getItem('token');
 

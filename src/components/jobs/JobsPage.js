@@ -14,7 +14,7 @@ class JobsPage extends React.Component {
     }
 
     componentDidMount() {
-        const jobsEndPoint = 'http://127.0.0.1:8000/job/api/jobs/';
+        const jobsEndPoint = 'http://www.thenextstep.io/job/api/jobs/';
 
     axios.get(jobsEndPoint)
     .then( (response) => {

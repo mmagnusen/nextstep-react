@@ -23,7 +23,7 @@ class Login extends React.Component {
 
 
     submitLoginForm(e) {
-        const loginEndpoint = 'http://127.0.0.1:8000/token-auth/';
+        const loginEndpoint = 'http://www.thenextstep.io/token-auth/';
 
         e.preventDefault();
 

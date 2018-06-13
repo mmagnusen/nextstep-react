@@ -10,7 +10,7 @@ import axios from 'axios';
 class MyAccount extends React.Component {
     constructor(props) {
         super(props);
-        const token = localStorage.getItem('responseToken');
+        const token = localStorage.getItem('token');
         this.showLogin = this.showLogin.bind(this);
         this.showRegister = this.showRegister.bind(this);
 
@@ -34,12 +34,6 @@ class MyAccount extends React.Component {
           });
           console.log('showRegister');
 
-    }
-
-    componentWillMount() {
-        if (this.state.token) {
-
-        }
     }
 
     render() {
