@@ -38,7 +38,7 @@ class EmployerDashboard extends React.Component {
 
     componentWillMount() {
 
-        const getUserDataEndpoint = 'http://www.thenextstep.io/authenticate/current_user/';
+        const getUserDataEndpoint = '/authenticate/current_user/';
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
         const token = localStorage.getItem('token');

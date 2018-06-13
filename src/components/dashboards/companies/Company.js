@@ -27,7 +27,7 @@ class Company extends React.Component {
     }
 
     componentWillMount() {
-        const getJobsEndpoint = 'http://www.thenextstep.io/job/job/';
+        const getJobsEndpoint = '/job/job/';
 
         axios({
             method: 'get',
@@ -51,7 +51,7 @@ class Company extends React.Component {
         .then(
             () => {
                 const filteredJobs = this.state.allJobs.filter((job) => job.posted_by_company == this.state.companyId );
-                console.log('filtered jobs:', filteredJobs);
+        
                 this.setState({
                     filteredJobs: filteredJobs
                 });
@@ -71,7 +71,6 @@ class Company extends React.Component {
     filterJobs(e) {
         e.preventDefault();
         const filteredJobs = this.state.allJobs.filter((job) => job.posted_by_company == this.state.companyId );
-        console.log('filtered jobs:', filteredJobs);
         this.setState({
             filteredJobs: filteredJobs
         });
@@ -89,7 +88,7 @@ class Company extends React.Component {
                         <h2>{this.state.companyInfo.name}</h2>
                     </div>
                     <div className="button-container">
-                        <Link to={{ pathname: "/new_job", state: {companiesFromLink: this.state.companies} }}><button className="add-job-to-company-button">Add new job for this company</button></Link>
+                        <Link to={{ pathname: "/new_job", state: {companiesFromLink: this.state.userCompanies} }}><button className="add-job-to-company-button">Add new job for this company</button></Link>
                     </div>
                     <div className="button-container">
                         <Link to={"/view_company/" + this.state.companyId}><button className="view-company-button">View Company Page</button></Link>

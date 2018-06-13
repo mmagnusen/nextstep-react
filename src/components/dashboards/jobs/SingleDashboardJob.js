@@ -27,10 +27,10 @@ class SingleDashboardJob extends React.Component {
         return (
             <div className="single-company-job">
                 <div className="single-job-titles">
-                    <h1>Job: {this.state.title}, {this.state.posted_by_company}</h1>
+                    <h1>{this.state.title}</h1>
                 </div>
                 <div className="single-job-button-containers">
-                    <Link  to={{ pathname: "/view_job/" + this.state.id, state: { userCompanies: this.state.userCompanies, companyName: this.state.companyName} }}><button>View Job</button></Link>
+                    <Link  to={{ pathname: "/view_job/" + this.state.id, state: { userCompanies: this.state.userCompanies, companyName: this.state.companyName, companyId: this.state.posted_by_company} }}><button>View Job</button></Link>
                 </div>
             </div>
         )

@@ -70,7 +70,7 @@ class ViewJobPage extends React.Component {
 
     componentWillMount() { 
         
-        const existingJobEndPoint = `http://www.thenextstep.io/job/job/${this.state.id}/`;
+        const existingJobEndPoint = `/job/job/${this.state.id}/`;
         axios.defaults.baseURL = 'https://api.example.com';
         axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token');
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -254,7 +254,7 @@ class ViewJobPage extends React.Component {
 
     deleteJob(e) {
         e.preventDefault();
-        const existingJobEndPoint = `http://www.thenextstep.io/job/job/${this.state.id}/`;
+        const existingJobEndPoint = `/job/job/${this.state.id}/`;
         axios.defaults.baseURL = 'https://api.example.com';
         axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -283,7 +283,7 @@ class ViewJobPage extends React.Component {
         submitJobChanges(e) {
           e.preventDefault();
     
-          const existingJobEndPoint = `http://www.thenextstep.io/job/job/${this.state.id}/`;
+          const existingJobEndPoint = `/job/job/${this.state.id}/`;
           axios.defaults.baseURL = 'https://api.example.com';
           axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
           console.log('Bearer '+localStorage.getItem('token'))

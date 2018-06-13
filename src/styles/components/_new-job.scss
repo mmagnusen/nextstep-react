@@ -1,0 +1,129 @@
+#new-job-wrapper {
+
+    @media screen and (min-width: 0px) { 
+        width: 90%;
+        margin: 0 auto;
+        padding: 60px 0;
+    }
+
+    @media screen and (min-width: 600px) { 
+        width: 85%;
+    }
+
+    @media screen and (min-width: 1000px) { 
+        width: 70%;
+    }
+}
+
+#post-new-job-title {
+    margin: 10px auto;
+}
+
+.new-job-section {
+    display: grid;
+
+    grid-template-rows: 70px;
+
+    @media screen and (min-width: 0px) { 
+        grid-template-columns: 150px 1fr;
+    }
+
+    @media screen and (min-width: 600px) { 
+        grid-template-columns: 160px 1fr;
+    }
+
+    @media screen and (min-width: 1000px) { 
+        grid-template-columns: 170px 1fr;
+    }
+}
+
+.new-job-label {
+    display: flex;
+    align-items: center;
+}
+
+.new-job-input {
+    display: flex; 
+    align-items: center;
+
+    input {
+        max-width: 100%;
+    }
+}
+
+.job-text-input {
+    max-width: 100%;
+    min-width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    font-size: 15px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#new-job-description {
+    margin-top: 30px;
+}
+
+#job-description-title {
+    margin: 10px auto;
+}
+
+#new-job-editor {
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 34px 6px rgba(224,224,224,1);
+    min-height: 300px;
+    width: 100%;
+    font-family: 'Noto Sans', sans-serif;
+    line-height: 30px;
+    font-size: 20px;
+
+}
+
+#editor-buttons {
+    border: 1px solid rgba(224,224,224,1);
+    height: 50px;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin: 0 auto;
+}
+
+.editor-button {
+    margin: 0 5px;
+    background-color: #18002a;
+    color: #fff;
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+}
+
+#new-job-submit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+
+    input {
+        background-color: $mustard;
+        width: 100px;
+        height: 50px;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+    }
+}
+
+#form-error {
+    border: 2px solid red;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px 0px;
+    box-sizing: border-box;
+}

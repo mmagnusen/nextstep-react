@@ -14,7 +14,7 @@ class JobsPage extends React.Component {
     }
 
     componentDidMount() {
-        const jobsEndPoint = 'http://www.thenextstep.io/job/api/jobs/';
+        const jobsEndPoint = '/job/api/jobs/';
 
     axios.get(jobsEndPoint)
     .then( (response) => {
@@ -27,7 +27,7 @@ class JobsPage extends React.Component {
       this.setState({
         jobs: response.data
       });
-      console.log(this.state.jobs);
+  
     }
     ).catch((error) => {
       console.log(error);

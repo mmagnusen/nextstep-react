@@ -13,7 +13,7 @@ class CompaniesSection extends React.Component {
     }
 
     componentWillMount() {
-        const allUserCompaniesEndPoint = 'http://www.thenextstep.io/company/company/';
+        const allUserCompaniesEndPoint = '/company/company/';
         axios({
             method: 'get',
             url: allUserCompaniesEndPoint, 

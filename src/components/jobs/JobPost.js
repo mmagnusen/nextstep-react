@@ -19,8 +19,7 @@ class JobPost extends React.Component {
 
     componentWillMount() {
 
-        const getSingleJobEndpoint = `http://www.thenextstep.io/job/api/${this.state.id}/`;
-        axios.defaults.baseURL = 'https://api.example.com';
+        const getSingleJobEndpoint = `/job/api/${this.state.id}/`;
         axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
   
@@ -38,7 +37,6 @@ class JobPost extends React.Component {
            this.setState({
                jobInfo: response.data
            })
-           console.log(response.data);
 
            const givenContent = response.data.description;
            const parsedContent = JSON.parse(givenContent);
@@ -50,13 +48,11 @@ class JobPost extends React.Component {
                 jobHtml: jobHtml,
                 jobOutputHtml: jobOutputHtml
             })
-            console.log('complete state:', this.state);
         })
         .then( () => {
-            axios.defaults.baseURL = 'https://api.example.com';
             axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
             axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-            const existingCompanyEndPoint = `http://www.thenextstep.io/company/api/${this.state.jobInfo.posted_by_company}/`;
+            const existingCompanyEndPoint = `/company/api/${this.state.jobInfo.posted_by_company}/`;
 
             axios({
                 method: 'get',
@@ -74,7 +70,6 @@ class JobPost extends React.Component {
                     this.setState({
                         companyInfo: response.data
                     });
-                    console.log('response from company', response.data);
     
                     const givenCompanyContent = response.data.description;
                     const parsedCompanyContent = JSON.parse(givenCompanyContent);

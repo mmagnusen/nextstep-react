@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from '../../global/Header.js';
 import Footer from '../../global/Footer.js';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 
 class NewCompanyPage extends React.Component {
@@ -39,6 +40,8 @@ class NewCompanyPage extends React.Component {
             large_logo: null,
             token: token,
             editorState: EditorState.createEmpty(),
+            redirectToDashboard: false,
+            formError: ""
         }
     }
 
@@ -123,8 +126,7 @@ class NewCompanyPage extends React.Component {
   submitNewCompany(e) {
       e.preventDefault();
 
-      const newCompanyEndPoint = 'http://www.thenextstep.io/company/company/';
-      axios.defaults.baseURL = 'https://api.example.com';
+      const newCompanyEndPoint = '/company/company/';
       axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
       console.log('Bearer '+localStorage.getItem('token'))
       axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -146,63 +148,95 @@ class NewCompanyPage extends React.Component {
       })
       .then( response => { 
  
-          if (response.status === 200) {
-
+          if (response.status === 201) {
+            this.setState({
+                redirectToDashboard: true
+            });
              
           } else {
-
+    
           }
       })
       .catch(error => {
           console.log("this is an error yo", error);
+          this.setState({
+            formError: error
+            });
         })
       
   }
 
     render() {
+
+        if (this.state.redirectToDashboard) {
+            return <Redirect to='/employer_dashboard'/>
+        } else { 
         return (
             <div>
                 <Header/>
-                    <form onSubmit={this.submitNewCompany}>
-                        <fieldset>
-                            <label for="new-company-modal-company-name">Company Name:</label>
-                            <input type="text" id="new-company-modal-company-name" value={this.state.companyName} onChange={this.updateCompanyName}/>
-                        </fieldset>
-                        <fieldset>
-                            <label>Small Logo:</label>
-                            <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
-                        </fieldset>
-                        <fieldset>
-                            <label>Large Logo:</label>
-                            <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
-                        </fieldset>
-                        <fieldset>
-                                <p>Company Description:</p>
+                    <div id="new-company-wrapper">
+                        <form onSubmit={this.submitNewCompany}>
+                            <div>
+                                <h2>Create a new company</h2>
+                            </div>
+                            <section className="new-company-section"> 
+                                <div className="new-company-label">
+                                    <p>Company Name:</p>
+                                </div>
+                                <div className="new-company-input">
+                                    <input type="text" value={this.state.companyName} id="company-name-input" onChange={this.updateCompanyName}/>
+                                </div>
+                            </section>
+                            <section className="new-company-section">
+                                <div className="new-company-label">
+                                    <p>Small Logo:</p>
+                                </div>
+                                <div className="new-company-input">
+                                    <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
+                                </div>
+                            </section>
+                            <section className="new-company-section">
+                                <div className="new-company-label">
+                                    <p>Large Logo:</p>
+                                </div>
+                                <div className="new-company-input">
+                                    <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
+                                </div>
+                            </section>
+                            <section id="new-company-description">
+                                <section id="company-description-title">
+                                    <p>Company Description:</p>
+                                </section>
+                               
                                 <section id="editor-buttons">
                                     <button onClick={this.onUnderlineClick} type="button" className="editor-button"><i class="fas fa-underline"></i></button>
                                     <button onClick={this.onBoldClick} type="button" className="editor-button"><i class="fas fa-bold"></i></button>
                                     <button onClick={this.onItalicClick} type="button" className="editor-button"><i class="fas fa-italic"></i></button>
-                                    <button onClick={this.onMediumClick} type="button" className="editor-button">Medium</button>
-                                    <button onClick={this.onLargeClick} type="button" className="editor-button">Large</button>
-                                    <button onClick={this.onLeftAlignClick} type="button" className="editor-button"><i class="fas fa-align-left"></i></button>
-                                    <button onClick={this.onJustifyClick} type="button" className="editor-button"><i class="fas fa-align-justify"></i></button>
-                                    <button onClick={this.onRightAlignClick} type="button" className="editor-button"><i class="fas fa-align-right"></i></button>
-                                    <button onClick={this.onUnorderedListClick} type="button" className="editor-button"><i class="fas fa-list-ul"></i></button>
-                                    <button onClick={this.onOrderedListClick} type="button" className="editor-button"><i class="fas fa-list-ol"></i></button>
                                 </section>
-                                <div id="employer-draft">
+                                <div id="new-company-editor">
                                     
                                     <Editor 
                                     editorState={this.state.editorState} 
                                     handleKeyCommand={this.handleKeyCommand}
                                     onChange={this.onChange} />
                                 </div>
-                            </fieldset>
-                        <input type="submit"/>
-                    </form>
+                            </section>
+                            <section id="new-company-submit-container">
+                                <input type="submit"/>
+                            </section>
+                        </form>
+                        {
+                            this.state.formError &&
+                            <div id="form-error">
+                                <p>Something went wrong, your new company was not created.</p>
+                                <p>Please try again or contact marilyn@thenextsep.io for help</p>
+                            </div>
+                        }
+                    </div>
                 <Footer/>
             </div>
         )
+        }
     }
 }
 

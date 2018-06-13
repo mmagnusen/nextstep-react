@@ -56,8 +56,7 @@ class ViewCompanyPage extends React.Component {
 
     componentWillMount() {
 
-        const existingCompanyEndPoint = `http://www.thenextstep.io/company/company/${this.state.companyId}/`;
-        axios.defaults.baseURL = 'https://api.example.com';
+        const existingCompanyEndPoint = `/company/company/${this.state.companyId}/`;
         axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -204,8 +203,7 @@ updateLargeLogo(e) {
 submitCompanyChanges(e) {
     e.preventDefault();
 
-    const existingCompanyEndPoint = `http://www.thenextstep.io/company/company/${this.state.companyId}/`;
-    axios.defaults.baseURL = 'https://api.example.com';
+    const existingCompanyEndPoint = `/company/company/${this.state.companyId}/`;
     axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -257,8 +255,7 @@ submitCompanyChanges(e) {
 
 deleteCompany(e) {
 
-    const existingCompanyEndPoint = `http://www.thenextstep.io/company/company/${this.state.companyId}/`;
-    axios.defaults.baseURL = 'https://api.example.com';
+    const existingCompanyEndPoint = `/company/company/${this.state.companyId}/`;
     axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 

@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { Redirect } from 'react-router-dom';
 import Header from '../../global/Header.js';
 import Footer from '../../global/Footer.js';
 
@@ -43,6 +44,7 @@ class NewJobPage extends React.Component {
         this.onUnorderedListClick = this.onOrderedListClick.bind(this);
 
         const linksInfo = this.props.location.state.companiesFromLink;
+        const posted_by_company = this.props.location.state.posted_by_company;
         
         this.state = {
             jobArea: "",
@@ -55,7 +57,9 @@ class NewJobPage extends React.Component {
             token: token,
             editorState: EditorState.createEmpty(),
             availableCompanies: linksInfo,
-            posted_by_company: linksInfo[0]
+            posted_by_company: linksInfo[0].id,
+            redirectToDashboard: false,
+            formError: ""
         }
     }
 
@@ -169,10 +173,8 @@ class NewJobPage extends React.Component {
     submitNewJob(e) {
         e.preventDefault();
 
-        const newJobEndPoint = 'http://www.thenextstep.io/job/job/';
-        axios.defaults.baseURL = 'https://api.example.com';
+        const newJobEndPoint = '/job/job/';
         axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
-        console.log('Bearer '+localStorage.getItem('token'))
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
         axios({
@@ -197,83 +199,136 @@ class NewJobPage extends React.Component {
         .then( response => { 
    
             if (response.status === 201) {
-
+                this.setState({
+                    redirectToDashboard: true
+                });
             } else {
 
             }
         })
         .catch(error => {
             console.log("this is an error yo", error);
+            this.setState({
+                formError: error
+                });
           })
         
     }
 
     render() {
+
+        if (this.state.redirectToDashboard) {
+            return <Redirect to='/employer_dashboard'/>
+        } else { 
   
     return (
         <div>
             <Header/>
-                <form onSubmit={this.submitNewJob}>
-                    <fieldset>
-                        <label for="company-select">Choose company to list job for:</label>
-                        <select id="company-select" value={this.state.posted_by_company} onChange={this.updatePostedByCompany}>
-                            { this.state.availableCompanies.map((company) => <option value={company.id}>{company.name} </option>) }
-                            
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <label for="new-job-modal-job-area">Job Area:</label>
-                        <input type="text" id="new-job-modal-job-area" value={this.state.jobArea} onChange={this.updateJobArea}/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="new-job-modal-job-experience">Experience:</label>
-                        <input type="text" id="new-job-modal-job-experience" value={this.state.jobExperience} onChange={this.updateJobExperience}/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="new-job-modal-job-hours">Hours:</label>
-                        <input type="text" id="new-job-modal-job-hours" value={this.state.jobHours} onChange={this.updateJobHours}/>
-                    </fieldset>
-                        <fieldset>
-                        <label for="new-job-modal-job-location">Location:</label>
-                    <input type="text" id="new-job-modal-job-location" value={this.state.jobLocation} onChange={this.updateJobLocation}/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="new-job-modal-job-salary">Salary:</label>
-                        <input type="text" id="new-job-modal-job-salary" value={this.state.jobSalary} onChange={this.updateJobSalary}/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="new-job-modal-job-slug">Slug:</label>
-                        <input type="text" id="new-job-modal-job-slug" value={this.state.jobSlug} onChange={this.updateJobSlug}/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="new-job-modal-job-title">Job Title:</label>
-                        <input type="text" id="new-job-modal-job-title" value={this.state.jobTitle} onChange={this.updateJobTitle}/>
-                    </fieldset>
-                    <fieldset>
-                            <p>Job Description:</p>
-                            <div id="employer-draft">
-                                <button onClick={this.onUnderlineClick} type="button"><i class="fas fa-underline"></i></button>
-                                <button onClick={this.onBoldClick} type="button"><i class="fas fa-bold"></i></button>
-                                <button onClick={this.onItalicClick} type="button"><i class="fas fa-italic"></i></button>
-                                <button onClick={this.onMediumClick} type="button">Medium</button>
-                                <button onClick={this.onLargeClick} type="button">Large</button>
-                                <button onClick={this.onLeftAlignClick} type="button"><i class="fas fa-align-left"></i></button>
-                                <button onClick={this.onJustifyClick} type="button"><i class="fas fa-align-justify"></i></button>
-                                <button onClick={this.onRightAlignClick} type="button"><i class="fas fa-align-right"></i></button>
-                                <button onClick={this.onUnorderedListClick} type="button"><i class="fas fa-list-ul"></i></button>
-                                <button onClick={this.onOrderedListClick} type="button"><i class="fas fa-list-ol"></i></button>
-                                <Editor 
-                                editorState={this.state.editorState} 
-                                handleKeyCommand={this.handleKeyCommand}
-                                onChange={this.onChange} />
+                <div id="new-job-wrapper">
+                    <form onSubmit={this.submitNewJob}>
+                        <div id="post-new-job-title">
+                            <h2>Create a new job</h2>
+                        </div>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Choose company to list job for:</p>
                             </div>
-                        </fieldset>
-                    <input type="submit"/>
-                </form>
+                            <div className="new-job-input">
+                                <select id="company-select" value={this.state.posted_by_company} onChange={this.updatePostedByCompany}>
+                                    { this.state.availableCompanies.map((company) => <option value={company.id}>{company.name} </option>) }
+                                    
+                                </select>
+                            </div>
+                        </section>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Job Area:</p>
+                            </div>
+                            <div className="new-job-input">
+                                <input type="text" className="job-text-input" value={this.state.jobArea} onChange={this.updateJobArea}/>
+                            </div>
+                        </section>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Experience:</p>
+                            </div>
+                            <div className="new-job-input">
+                                <input type="text" className="job-text-input" value={this.state.jobExperience} onChange={this.updateJobExperience}/>
+                            </div>
+                        </section>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Hours:</p>
+                            </div>
+                            <div className="new-job-input">
+                                <input type="text" className="job-text-input" value={this.state.jobHours} onChange={this.updateJobHours}/>
+                            </div>
+                        </section>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Location:</p>
+                            </div>
+                            <div className="new-job-input">
+                                <input type="text" className="job-text-input" value={this.state.jobLocation} onChange={this.updateJobLocation}/>
+                            </div>
+                        </section>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Salary:</p>
+                            </div>
+                            <div className="new-job-input">
+                                <input type="text" className="job-text-input" value={this.state.jobSalary} onChange={this.updateJobSalary}/>
+                            </div>
+                        </section>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Slug:</p>
+                            </div>
+                            <div className="new-job-input">
+                                <input type="text" className="job-text-input" value={this.state.jobSlug} onChange={this.updateJobSlug}/>
+                            </div>
+                        </section>
+                        <section className="new-job-section">
+                            <div className="new-job-label">
+                                <p>Job Title:</p>
+                            </div>
+                            <div className="new-job-input">
+                                <input type="text" className="job-text-input" value={this.state.jobTitle} onChange={this.updateJobTitle}/>
+                            </div>
+                        </section>
+                        <section id="new-job-description">
+                                <section id="job-description-title">
+                                    <p>Job Description:</p>
+                                </section>
+                                <section id="editor-buttons">
+                                    <button onClick={this.onUnderlineClick} type="button" className="editor-button"><i class="fas fa-underline"></i></button>
+                                    <button onClick={this.onBoldClick} type="button" className="editor-button"><i class="fas fa-bold"></i></button>
+                                    <button onClick={this.onItalicClick} type="button" className="editor-button"><i class="fas fa-italic"></i></button>
+                                </section>
+                                <div id="new-job-editor">
+                                    <Editor 
+                                    editorState={this.state.editorState} 
+                                    handleKeyCommand={this.handleKeyCommand}
+                                    onChange={this.onChange} />
+                                </div>
+                        </section>
+                        <section id="new-job-submit-container">
+                            <input type="submit"/>
+                        </section>
+                    </form>
+                    {
+                        this.state.formError &&
+                        <div id="form-error">
+                            <p>Something went wrong, your new job was not created.</p>
+                            <p>Please try again or contact marilyn@thenextsep.io for help</p>
+                        </div>
+                    }
+                </div>
             <Footer/>
         </div>
      
     )}
+    }   
   
 }
 

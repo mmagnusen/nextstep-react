@@ -13,13 +13,13 @@ class CompaniesSection extends React.Component {
     }
 
     componentWillMount() {
-        const getJobsEndpoint = 'http://www.thenextstep.io/job/job/';
+        const getJobsEndpoint = '/job/job/';
 
         axios({
             method: 'get',
             url: getJobsEndpoint, 
             headers: {
-                'Authorization': 'Bearer '+localStorage.getItem('responseToken')
+                'Authorization': 'Bearer '+localStorage.getItem('token')
                 }, 
             responseType: 'json'
         })
