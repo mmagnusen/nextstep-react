@@ -33,7 +33,8 @@ class EmployerDashboard extends React.Component {
             email: email,
             token: token,
             returnedResponse: null,
-            saveChanges: false
+            saveChanges: false,
+            pk: null,
         }
     }
 
@@ -53,19 +54,20 @@ class EmployerDashboard extends React.Component {
         })
         .then( response => { 
             console.log(' componentWillMount, authenticate/current_user response:', response.data)
-            this.setState({
-                returnedResponse: response
-            });
 
             if (response.status === 200) {
                 this.setState({
-                    returnedResponse: response,
+                    returnedResponse: response.data,
                     first_name: response.data.first_name,
                     last_name: response.data.last_name,
+                    token: response.data.token,
+                    pk: response.data.pk,
                 });
-                localStorage.setItem('first_name', response.data.first_name)
+                localStorage.setItem('first_name', response.data.first_name);
                 localStorage.setItem('last_name', response.data.last_name);
-                localStorage.setItem('tokenIsValid', true)
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('pk', response.data.pk);
+                localStorage.setItem('tokenIsValid', true);
 
             } else {
                 
@@ -112,14 +114,16 @@ class EmployerDashboard extends React.Component {
         })
     }
 
-    submitProfileChange() {
+    submitProfileChange(e) {
+        e.preventDefault();
+
         console.log('submitting profile changes');
-
-
-        const updateProfileUrl = `/`;
+        
+        const token = localStorage.getItem('token');
+        const updateProfileUrl = `/authenticate/users/${this.state.pk}/`;
 
         axios({
-            method: 'post',
+            method: 'put',
             url: updateProfileUrl,
             data: {
                 first_name: this.state.first_name,
@@ -138,13 +142,18 @@ class EmployerDashboard extends React.Component {
 
             if (response.status === 200) {
                 this.setState({
-                    returnedResponse: response,
                     first_name: response.data.first_name,
                     last_name: response.data.last_name,
+                    email: response.data.email,
+                    token: response.data.token,
+                    pk: response.data.pk,
                 });
-                localStorage.setItem('first_name', response.data.first_name)
+                localStorage.setItem('first_name', response.data.first_name);
                 localStorage.setItem('last_name', response.data.last_name);
-                localStorage.setItem('tokenIsValid', true)
+                localStorage.setItem('email', response.data.email);
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('pk', response.data.pk);
+                localStorage.setItem('tokenIsValid', true);
 
             } else {
                 
@@ -178,7 +187,7 @@ class EmployerDashboard extends React.Component {
                                     <form onSubmit={this.submitProfileChange}>
                                         <section className="profile-attribute">
                                             <div className="profile-section-label">
-                                                <p>Firstname:</p>
+                                                <p>First Name:</p>
                                             </div>
                                             <div className="profile-section-value">
                                                 <input value={ this.state.first_name } onChange={ this.handleFirstNameChange  }/> 

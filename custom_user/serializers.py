@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from .models import CustomUser
 from django.contrib.auth.models import Group
+from django.shortcuts import get_object_or_404
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -45,6 +46,10 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         payload = jwt_payload_handler(obj)
         token = jwt_encode_handler(payload)
         return token
+    
+    def get_object(self):
+        instance = self.queryset.get(email=self.request.user)
+        return instance
 
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
@@ -64,8 +69,6 @@ class UserSerializerWithToken(serializers.ModelSerializer):
             instance.groups.add(Group.objects.get(name='employer'))
         return instance
 
-    
-
     class Meta:
         model = CustomUser
-        fields = ('token', 'user_type', 'email', 'password', 'first_name', 'last_name')
+        fields = ('pk', 'token', 'user_type', 'email', 'password', 'first_name', 'last_name')

@@ -98,13 +98,15 @@
     justify-content: center;
     align-items: center;
     margin: 30px 0;
-    button {
+
+    input {
         background-color: #71d68e;
         color: #fff;
         border-radius: 5px;
         padding: 10px 15px;
         border-style: none;
         margin: 0 auto;
+        font-size: 15px;
     }
 }
 

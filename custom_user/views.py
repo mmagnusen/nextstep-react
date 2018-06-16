@@ -17,6 +17,10 @@ from .serializers import UserSerializer, UserSerializerWithToken
 from .models import CustomUser
 from rest_framework import generics
 from . import serializers
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
 # Create your views here.
 @csrf_exempt
@@ -50,7 +54,14 @@ class UserList(APIView):
     """
 
     permission_classes = (permissions.AllowAny,)
+
+    #gets list of all users at http://127.0.0.1:8000/authenticate/users/
+    def get(self, request, format=None):
+        users = CustomUser.objects.all()
+        serializer = UserSerializerWithToken(users, many=True)
+        return Response(serializer.data)
     
+    #creates a new user at http://127.0.0.1:8000/authenticate/users/
     def post(self, request, format=None):
         print("random from views.py")
         print('post:', request.POST)
@@ -59,4 +70,43 @@ class UserList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserDetail(generics.RetrieveAPIView):
+    permission_classes = (permissions.AllowAny,) 
+
+    def get_object(self, pk):
+        try:
+            return CustomUser.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        user = get_object_or_404(CustomUser, pk=pk)
+        serializer = UserSerializerWithToken(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+
+
+# class UpdateUserViewSet(viewsets.ModelViewSet):
+#     permission_classes = (IsAuthenticated,) 
+   
+#     model = CustomUser
+#     serializer_class = UserSerializerWithToken
+#     queryset = CustomUser.objects.none()
+
+#     def get_queryset(self):
+#         return self.model.objects.all()
+    
+
+# @csrf_exempt
+# def update_user(request, pk):
+#     user = get_object_or_404(CustomUser, pk=pk)
+#     serializer = UserSerializerWithToken(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return JsonResponse(serializer.errors, status=400)
         
