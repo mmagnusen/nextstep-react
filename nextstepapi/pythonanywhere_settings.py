@@ -115,17 +115,6 @@ LOGIN_REDIRECT_URL = '/user/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -175,16 +164,25 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'nextstepreactdb',
-#         'USER': 'marilynnextstepdbsuperuser',
-#         'PASSWORD': 'sdfaercsertretsret234243@2',
-#         'HOST': 'marilynmags-625.postgres.pythonanywhere-services.com',
-#         'PORT': '10625',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nextstepapidb',
+        'USER': 'marilynnextstepapisuperuser',
+        'PASSWORD': 'sdfaerc£2sertretsret234243@2',
+        'HOST': 'marilynmags-625.postgres.pythonanywhere-services.com',
+        'PORT': '10625',
+    }
+}
 
 ALLOWED_HOSTS = ['www.thenextstep.io', 'marilynmags.pythonanywhere.com', 'thenextstep.io', '127.0.0.1', 'localhost']
