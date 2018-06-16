@@ -114,16 +114,37 @@ class JobPost extends React.Component {
                         
                                 <div id="job-wrapper">
                                     
-                                        <section id="job-wrapper-title">
-                                            <h2>{this.state.jobInfo.title}</h2>
-                                            <h3>{this.state.jobInfo.slug}</h3>
+                                        <section id="job-wrapper-header">
+                                            <div id="job-wrapper-title">
+                                                <h2>{this.state.jobInfo.title}</h2>
+                                            </div>
+                                            <div id="job-wrapper-slug">
+                                                <h3>{this.state.jobInfo.slug}</h3>
+                                            </div>
                                         </section>
                                         
                                         <section id="individual-job-details">
-                                            <p>Area: {this.state.jobInfo.area}</p>
-                                            <p>Hours: {this.state.jobInfo.hours}</p>
-                                            <p>Location: {this.state.jobInfo.location}</p>
-                                            <p>Salary: {this.state.jobInfo.salary}</p>
+                                            <div>
+                                                <p>Posted on:</p>
+                                                <p>{this.state.jobInfo.created_date}</p>
+                                            </div>
+                                            <div>
+                                                <p>Area:</p>
+                                                <p>{this.state.jobInfo.area}</p>
+                                            </div>
+                                            <div>
+                                                <p>Hours:</p>
+                                                <p>{this.state.jobInfo.hours}</p>
+                                            </div>
+                                            <div>
+                                                <p>Location:</p>
+                                                <p>{this.state.jobInfo.location}</p>
+                                            </div>
+                                            <div>
+                                                <p>Salary:</p>
+                                                <p>{this.state.jobInfo.salary}</p>
+                                            </div>
+                                           
                                         </section>
                                         <div id="individual-job-title">
                                             <h3>Job Description:</h3>

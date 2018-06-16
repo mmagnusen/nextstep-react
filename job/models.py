@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone 
+from datetime import date
 from company.models import Company
 
 # Create your models here.
@@ -20,7 +21,7 @@ class Job(models.Model):
     area = models.CharField(max_length=200, default="unknown")
     salary = models.CharField(max_length=200, default="unknown")
     description = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateField(auto_now_add=True)
     experience = models.CharField(max_length=200, default="beginner")
     posted_by_company = models.ForeignKey('company.Company', default=30, on_delete=models.CASCADE, related_name="comp", related_query_name="comps")
 

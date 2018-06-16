@@ -1,6 +1,12 @@
 @import '../base/mixins';
 @import '../base/variables';
 
+/***********************************************************************************
+
+                    INDIVIDUAL JOB LISTING PAGE http://127.0.0.1:8000/job_post/18
+
+************************************************************************************/
+
 #job-wrapper-outer {
     background: linear-gradient(#40c4bf, #406D8F);
     height: 100%;
@@ -56,17 +62,38 @@
     box-sizing: border-box;
 }
 
-#job-wrapper-title {
+#job-wrapper-header {
    display: flex;
    flex-direction: column;
    align-items: flex-start;
 }
 
+#job-wrapper-title {
+    height: 50px;
+}
+#job-wrapper-slug {
+    min-height: 50px;
+}
+
 #individual-job-details {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px 50px;
-    margin-top: 40px;
+
+    @media only screen and (min-width: 0px) {  
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 50px;
+        grid-row-gap: 30px;
+        grid-auto-rows: 50px;
+        margin-bottom: 30px;
+    }
+
+    @media only screen and (min-width: 800px) {  
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 50px;
+        grid-row-gap: 30px;
+        grid-auto-rows: 50px;
+        margin-bottom: 30px;
+    }
+
 }
 
 #individual-job-title {

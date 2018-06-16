@@ -27,12 +27,15 @@ class JobsPage extends React.Component {
       this.setState({
         jobs: response.data
       });
-  
-    }
-    ).catch((error) => {
-      console.log(error);
+
+      console.log(response.data);
+
     })
+    .catch((error) => {
+      console.log(error);
     }
+
+)}
 
         
 
@@ -54,6 +57,7 @@ class JobsPage extends React.Component {
                                                             jobCompany={job.posted_by_company}
                                                             jobId={job.id}
                                                             jobExperience={job.experience}
+                                                            jobDate={job.created_date}
                                                             /></Link>)
                 }
             </div>
