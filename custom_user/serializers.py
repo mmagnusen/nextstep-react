@@ -64,6 +64,8 @@ class UserSerializerWithToken(serializers.ModelSerializer):
             instance.groups.add(Group.objects.get(name='employer'))
         return instance
 
+    
+
     class Meta:
         model = CustomUser
         fields = ('token', 'user_type', 'email', 'password', 'first_name', 'last_name')

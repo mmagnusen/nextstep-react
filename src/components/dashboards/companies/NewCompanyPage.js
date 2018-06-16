@@ -53,12 +53,36 @@ class NewCompanyPage extends React.Component {
     }
 
     updateSmallLogo(e) {
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+    
+        reader.onloadend = () => {
+          this.setState({
+            smallLogoPreview: reader.result
+          });
+        }
+    
+        reader.readAsDataURL(file)
+
         this.setState({
             small_logo: e.target.files[0]
         })
     }
 
     updateLargeLogo(e) {
+
+        let reader = new FileReader();
+        let file = e.target.files[0];
+    
+        reader.onloadend = () => {
+          this.setState({
+            largeLogoPreview: reader.result
+          });
+        }
+    
+        reader.readAsDataURL(file)
+
         this.setState({
             large_logo: e.target.files[0]
         })
@@ -133,9 +157,20 @@ class NewCompanyPage extends React.Component {
 
       const formData = new FormData();
       formData.append('name', this.state.companyName);
-      formData.append('description', this.state.stringifiedContent);
-      formData.append('small_logo', this.state.small_logo,);
-      formData.append('large_logo', this.state.large_logo,);
+
+      if ( this.state.small_logo ) {
+        formData.append('small_logo', this.state.small_logo,);
+    }
+
+    if ( this.state.large_logo ) {
+        formData.append('large_logo', this.state.large_logo,);
+    }
+
+    if ( this.state.stringifiedContent ) {
+        formData.append('description', this.state.stringifiedContent);
+    }
+
+
       axios({
           method: 'post',
           url: newCompanyEndPoint, 
@@ -148,7 +183,7 @@ class NewCompanyPage extends React.Component {
       })
       .then( response => { 
  
-          if (response.status === 200) {
+          if (response.status === 201) {
             this.setState({
                 redirectToDashboard: true
             });
@@ -187,18 +222,31 @@ class NewCompanyPage extends React.Component {
                                     <input type="text" value={this.state.companyName} id="company-name-input" onChange={this.updateCompanyName}/>
                                 </div>
                             </section>
-                            <section className="new-company-section">
-                                <div className="new-company-label">
+                            <section className="new-company-update-logo-section">
+                                <div className="company-update-logo-name">
                                     <p>Small Logo:</p>
                                 </div>
+                                {
+                                    this.state.smallLogoPreview &&
+                                    <div id="small-logo-preview-image">
+                                        <img src={this.state.smallLogoPreview} />
+                                    </div>
+                                }
                                 <div className="new-company-input">
                                     <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
                                 </div>
                             </section>
-                            <section className="new-company-section">
-                                <div className="new-company-label">
+                            <section className="new-company-update-logo-section">
+                                <div className="company-update-logo-name">
                                     <p>Large Logo:</p>
                                 </div>
+                                {
+                                    this.state.largeLogoPreview &&
+                                    <div id="large-logo-preview-image">
+                                        <img src={this.state.largeLogoPreview} />
+                                    </div>
+                                    
+                                }
                                 <div className="new-company-input">
                                     <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
                                 </div>

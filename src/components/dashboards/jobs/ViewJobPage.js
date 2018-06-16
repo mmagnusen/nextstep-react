@@ -71,7 +71,6 @@ class ViewJobPage extends React.Component {
     componentWillMount() { 
         
         const existingJobEndPoint = `/job/job/${this.state.id}/`;
-        axios.defaults.baseURL = 'https://api.example.com';
         axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token');
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -255,7 +254,6 @@ class ViewJobPage extends React.Component {
     deleteJob(e) {
         e.preventDefault();
         const existingJobEndPoint = `/job/job/${this.state.id}/`;
-        axios.defaults.baseURL = 'https://api.example.com';
         axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     
@@ -284,7 +282,6 @@ class ViewJobPage extends React.Component {
           e.preventDefault();
     
           const existingJobEndPoint = `/job/job/${this.state.id}/`;
-          axios.defaults.baseURL = 'https://api.example.com';
           axios.defaults.headers.common['Authorization'] = 'JWT '+localStorage.getItem('token')
           console.log('Bearer '+localStorage.getItem('token'))
           axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -330,119 +327,189 @@ class ViewJobPage extends React.Component {
         return (
             <div>
                 <Header/>
-                { this.state.viewMode && 
-                    <div>
-                        <h1>Showing View Mode</h1>
-                        <div>
-                        <p>Posted By Company:</p>
-                        <p>{this.state.companyName}</p>
-                        </div>
-                        <div>
-                        <p>Job Title:</p>
-                        <p>{this.state.jobTitle}</p>
-                        </div>
-                        
-                        <div>
-                        <p>Job Area:</p>
-                        <p>{this.state.jobArea}</p>
-                        </div>
-                        <div>
-                        <p>Job Experience:</p>
-                        <p>{this.state.jobExperience}</p>
-                        </div>
-        
-                        <div>
-                        <p>Job Hours:</p>
-                        <p>{this.state.jobHours}</p>
-                        </div>
-        
-                        <div>
-                        <p>Job Location:</p>
-                        <p>{this.state.jobLocation}</p>
-                        </div>
-        
-                        <div>
-                        <p>Job Salary:</p>
-                        <p>{this.state.jobSalary}</p>
-                        </div>
-        
-                        <div>
-                        <p>Job Slug:</p>
-                        <p>{this.state.jobSlug}</p>
-                        </div>
-                        <div><h1>Job Description</h1></div>
-                        <div dangerouslySetInnerHTML={this.state.outputHtml}></div>
-        
-                        <button onClick={this.enableEditMode} type="button">Edit Job</button>
-                    </div>
-                }
+                    <div id="view-job-wrapper">
+                        { this.state.viewMode && 
+                            <section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Posted By Company:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.companyName}</p>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Title:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.jobTitle}</p>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Area:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.jobArea}</p>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Experience:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.jobExperience}</p>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Hours:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.jobHours}</p>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Location:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.jobLocation}</p>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Salary:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.jobSalary}</p>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Slug:</p>
+                                    </div>
+                                    <div className="edit-job-value">
+                                        <p>{this.state.jobSlug}</p>
+                                    </div>
+                                </section>
+                                <section >
+                                    <div className="job-description-title">
+                                        <h3>Job Description</h3>
+                                    </div>
+                                    <div dangerouslySetInnerHTML={this.state.outputHtml}></div>
+                                    <section id="edit-job-button-container">
+                                        <button onClick={this.enableEditMode} type="button">Edit Job</button>
+                                    </section>
 
-                {
-                    this.state.editMode && 
-                    <div>
-                      
-                       <form onSubmit={this.submitJobChanges}>
-                            <fieldset>
-                                <label for="company-select">Choose company to list job for:</label>
-                                <select id="company-select" value={this.state.posted_by_company} onChange={this.updatePostedByCompany}>
-                                    { this.state.userCompanies.map((company) => <option value={company.id}>{company.name} </option>) }
                                     
-                                </select>
-                            </fieldset>
-                           <fieldset>
-                               <label for="edit-job-modal-job-area">Job Area:</label>
-                               <input type="text" id="edit-job-modal-job-area" value={this.state.jobArea} onChange={this.updateJobArea}/>
-                           </fieldset>
-                           <fieldset>
-                               <label for="edit-job-modal-job-experience">Experience:</label>
-                               <input type="text" id="edit-job-modal-job-experience" value={this.state.jobExperience} onChange={this.updateJobExperience}/>
-                           </fieldset>
-                           <fieldset>
-                               <label for="edit-job-modal-job-hours">Hours:</label>
-                               <input type="text" id="edit-job-modal-job-hours" value={this.state.jobHours} onChange={this.updateJobHours}/>
-                           </fieldset>
-                               <fieldset>
-                               <label for="edit-job-modal-job-location">Location:</label>
-                           <input type="text" id="edit-job-modal-job-location" value={this.state.jobLocation} onChange={this.updateJobLocation}/>
-                           </fieldset>
-                           <fieldset>
-                               <label for="edit-job-modal-job-salary">Salary:</label>
-                               <input type="text" id="edit-job-modal-job-salary" value={this.state.jobSalary} onChange={this.updateJobSalary}/>
-                           </fieldset>
-                           <fieldset>
-                               <label for="edit-job-modal-job-slug">Slug:</label>
-                               <input type="text" id="edit-job-modal-job-slug" value={this.state.jobSlug} onChange={this.updateJobSlug}/>
-                           </fieldset>
-                           <fieldset>
-                               <label for="edit-job-modal-job-title">Job Title:</label>
-                               <input type="text" id="edit-job-modal-job-title" value={this.state.jobTitle} onChange={this.updateJobTitle}/>
-                           </fieldset>
-                           <fieldset>
-                           <h1>Job Description</h1>
-                               <div id="employer-draft">
-                                   <button onClick={this.onUnderlineClick} type="button"><i class="fas fa-underline"></i></button>
-                                   <button onClick={this.onBoldClick} type="button"><i class="fas fa-bold"></i></button>
-                                   <button onClick={this.onItalicClick} type="button"><i class="fas fa-italic"></i></button>
-                                   <button onClick={this.onMediumClick} type="button">Medium</button>
-                                   <button onClick={this.onLargeClick} type="button">Large</button>
-                                   <button onClick={this.onLeftAlignClick} type="button"><i class="fas fa-align-left"></i></button>
-                                   <button onClick={this.onJustifyClick} type="button"><i class="fas fa-align-justify"></i></button>
-                                   <button onClick={this.onRightAlignClick} type="button"><i class="fas fa-align-right"></i></button>
-                                   <button onClick={this.onUnorderedListClick} type="button"><i class="fas fa-list-ul"></i></button>
-                                   <button onClick={this.onOrderedListClick} type="button"><i class="fas fa-list-ol"></i></button>
-                                   <Editor 
-                                   editorState={this.state.editorState} 
-                                   handleKeyCommand={this.handleKeyCommand}
-                                   onChange={this.onChange} />
-                               </div>
-                           </fieldset>
-                           <input type="submit"/>
-                       </form>
-                       <button onClick={this.enableViewMode}>Cancel Changes</button>
-                       <button onClick={this.deleteJob} type="button">Delete Job</button>
-                     
-                   </div>
-                  }
+                                </section>
+
+                            </section>
+                        }
+
+                        {
+                            this.state.editMode && 
+                            <div>
+                            
+                            <form onSubmit={this.submitJobChanges}>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Choose company to list job for:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                        <select id="company-select" value={this.state.posted_by_company} onChange={this.updatePostedByCompany}>
+                                            { this.state.userCompanies.map((company) => <option value={company.id}>{company.name} </option>) }
+                                            
+                                        </select>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Area:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                        <input type="text" id="edit-job-modal-job-area" value={this.state.jobArea} onChange={this.updateJobArea}/>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Experience:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                        <input type="text" id="edit-job-modal-job-experience" value={this.state.jobExperience} onChange={this.updateJobExperience}/>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Hours:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                    <input type="text" id="edit-job-modal-job-hours" value={this.state.jobHours} onChange={this.updateJobHours}/>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Location:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                        <input type="text" id="edit-job-modal-job-location" value={this.state.jobLocation} onChange={this.updateJobLocation}/>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Salary:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                        <input type="text" id="edit-job-modal-job-salary" value={this.state.jobSalary} onChange={this.updateJobSalary}/>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Slug:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                        <input type="text" id="edit-job-modal-job-slug" value={this.state.jobSlug} onChange={this.updateJobSlug}/>
+                                    </div>
+                                </section>
+                                <section className="edit-job-section">
+                                    <div className="edit-job-label">
+                                        <p>Job Title:</p>
+                                    </div>
+                                    <div className="edit-job-input-value">
+                                        <input type="text" id="edit-job-modal-job-title" value={this.state.jobTitle} onChange={this.updateJobTitle}/>
+                                    </div>
+                                </section>
+                                <section>
+                                    <section className="job-description-title">
+                                        <h1>Job Description</h1>
+                                    </section>
+                                
+                                    <section id="editor-buttons">
+                                        <button onClick={this.onUnderlineClick} type="button" className="editor-button"><i class="fas fa-underline"></i></button>
+                                        <button onClick={this.onBoldClick} type="button" className="editor-button"><i class="fas fa-bold"></i></button>
+                                        <button onClick={this.onItalicClick} type="button" className="editor-button"><i class="fas fa-italic"></i></button>
+                                    </section>
+                                    <section id="edit-job-editor">
+                                        <Editor 
+                                        editorState={this.state.editorState} 
+                                        handleKeyCommand={this.handleKeyCommand}
+                                        onChange={this.onChange} />
+                                    </section>
+                                </section>
+                                <section id="edit-job-submit-container">
+                                    <input type="submit"/>
+                                </section>
+                            </form>
+                            <section id="edit-cancel-delete">
+                                <button onClick={this.enableViewMode} id="cancel-edit-changes">Cancel Changes</button>
+                                <button onClick={this.deleteJob} type="button" id="delete-edit">Delete Job</button>
+                            </section>
+                            
+                        </div>
+                    }
+                  </div>
                 <Footer/>
             </div>
         )

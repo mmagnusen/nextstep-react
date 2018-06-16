@@ -22,6 +22,7 @@
 
 #contact-title {
     @include flex-column;
+    height: 100px;
 }
 
 .twitter {

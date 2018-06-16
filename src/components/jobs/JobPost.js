@@ -125,8 +125,9 @@ class JobPost extends React.Component {
                                             <p>Location: {this.state.jobInfo.location}</p>
                                             <p>Salary: {this.state.jobInfo.salary}</p>
                                         </section>
-                                      
-                                        <h3>Job Description:</h3>
+                                        <div id="individual-job-title">
+                                            <h3>Job Description:</h3>
+                                        </div>
                                         <div dangerouslySetInnerHTML={this.state.jobOutputHtml}></div>
                         
                                 </div> 

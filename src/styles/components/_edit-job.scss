@@ -1,0 +1,114 @@
+#view-job-wrapper {
+    color: $text-dark-grey;
+    @media screen and (min-width: 0px) { 
+        width: 90%;
+        margin: 0 auto;
+        padding: 60px 0;
+    }
+
+    @media screen and (min-width: 600px) { 
+        width: 85%;
+    }
+
+    @media screen and (min-width: 1000px) { 
+        width: 70%;
+    }
+}
+
+.edit-job-section {
+    display: grid;
+
+    grid-template-rows: 50px;
+
+    @media screen and (min-width: 0px) { 
+        grid-template-columns: 140px 1fr;
+    }
+
+    @media screen and (min-width: 500px) { 
+        grid-template-columns: 180px 1fr;
+    }
+
+    @media screen and (min-width: 1000px) { 
+        grid-template-columns: 220px 1fr;
+    }
+}
+
+.edit-job-label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.edit-job-value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.job-description-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 80px;
+}
+
+#edit-job-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+
+    button {
+        background-color: $mustard;
+        width: 150px;
+        height: 50px;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;  
+    }
+}
+
+.edit-job-input-value {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100px;
+
+    input {
+        max-width: 100%;
+        min-width: 200px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid grey;
+        font-size: 15px;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+}
+
+#edit-job-editor {
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 34px 6px rgba(224,224,224,1);
+    min-height: 300px;
+    width: 100%;
+    font-family: 'Noto Sans', sans-serif;
+    line-height: 30px;
+    font-size: 20px;
+}
+
+#edit-job-submit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+
+    input {
+        background-color: $mustard;
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+    }
+}

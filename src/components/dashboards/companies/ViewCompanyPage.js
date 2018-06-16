@@ -50,6 +50,10 @@ class ViewCompanyPage extends React.Component {
             companyId: this.props.match.params.id,
             companyInfo: {},
             redirectToDashboard: false,
+            small_logo: null,
+            large_logo: null,
+            previewSmall: null,
+            previewLarge: null,
             
         }
     }
@@ -81,8 +85,8 @@ class ViewCompanyPage extends React.Component {
                     companyInfo: response.data,
                     editorState: EditorState.createWithContent(immutableContent),
                     name: response.data.name,
-                    small_logo: null,
-                    large_logo: null,
+                    previewSmall:  response.data.small_logo,
+                    previewLarge: response.data.large_logo,
                 });
                 console.log('response from company', response.data);
             }
@@ -189,12 +193,36 @@ updateCompanyName(e) {
 }
 
 updateSmallLogo(e) {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        previewSmall: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
+
+
     this.setState({
         small_logo: e.target.files[0]
     })
 }
 
 updateLargeLogo(e) {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        previewLarge: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
+
+
     this.setState({
         large_logo: e.target.files[0]
     })
@@ -268,7 +296,7 @@ deleteCompany(e) {
     })
     .then( response => { 
 
-        if (response.status === 200) {
+        if (response.status === 204) {
             this.setState({
                 redirectToDashboard: true
             });
@@ -304,7 +332,7 @@ deleteCompany(e) {
                                         <p>Small Logo</p>
                                     </div>
                                     <div className="logo-image">
-                                        <img src={this.state.companyInfo.small_logo} alt="company logo"/>
+                                        <img src={this.state.previewSmall} alt="company logo"/>
                                     </div>
                                 </div>
                             }
@@ -316,7 +344,7 @@ deleteCompany(e) {
                                         <p>Large Logo</p>
                                     </div>
                                     <div className="logo-image">
-                                        <img src={this.state.companyInfo.large_logo} alt="company logo"/>
+                                        <img src={this.state.previewLarge} alt="company logo"/>
                                     </div>
                                 </div>
                             }
@@ -353,22 +381,45 @@ deleteCompany(e) {
                                         <input type="text" value={this.state.name} onChange={this.updateCompanyName}/>
                                     </div>
                                 </section>
-                                <section className="edit-company-section">
-                                    <div className="edit-company-label">
-                                        <p>Small Logo:</p>
-                                    </div>
-                                    <div className="edit-company-logo">
-                                        <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
-                                    </div>
-                                </section>
-                                <section className="edit-company-section">
-                                    <div className="edit-company-label">
-                                        <p>Large Logo:</p>
-                                    </div>
-                                    <div className="edit-company-logo">
-                                        <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
-                                    </div>
-                                </section>
+                                <div id="company-edit-logos">
+                                    <section className="company-update-logo-section">
+                                        <div className="company-update-logo-name">
+                                            <p>Small Logo:</p>
+                                        </div>
+                                    
+                                        {
+                                            this.state.previewSmall && 
+
+                                            <div className="small-logo-preview-image">
+                                                <img src={this.state.previewSmall} alt="company logo"/>
+                                            </div>
+                                        
+                                        }
+                                            <div className="update-logo-input-file">
+                                                <input type="file" name="small_logo" onChange={this.updateSmallLogo}/>
+                                            </div>
+                                
+                                    </section>
+                                    
+                                    <section className="company-update-logo-section">
+                                        <div className="company-update-logo-name">
+                                            <p>Large Logo:</p>
+                                        </div>
+                                        { 
+                                            this.state.previewLarge && 
+                                        
+                                                <div className="large-logo-preview-image">
+                                                    <img src={this.state.previewLarge} alt="company logo"/>
+                                                </div>
+                                    
+                                        }
+                                            <div className="update-logo-input-file">
+                                                <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
+                                            </div>
+                                    </section>
+                                </div>
+
+
                                 <section id="edit-company-description">
                                     <section id="company-description-title">
                                         <h2>Company Description</h2>

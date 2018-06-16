@@ -11,7 +11,9 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleRegisterForm = this.handleRegisterForm.bind(this);
         this.submitRegisterForm = this.submitRegisterForm.bind(this);
+
         this.handleFirstNameChange =   this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -25,26 +27,85 @@ class Register extends React.Component {
             email: "",
             password: "",
             user_type: "",
-            redirectToDashboard: false
+            redirectToDashboard: null,
+
+            first_name_error: null,
+            first_name_error_state: null,
+
+            last_name_error: null,
+            last_name_error_state: null,
+
+            email_error: null,
+            email_error_state: null,
+
+            password_error: null,
+            password_error_state: null,
+
+            type_error: null,
+            type_error_state: null,
+
+            any_input_error: null,
 
         }
     }
 
-    submitRegisterForm(e) {
+    handleRegisterForm(e) {
         e.preventDefault();
+       
+        console.log('handling register form')
+
+        if ( !this.state.first_name ) {
+
+            this.setState({
+                any_input_error: "error",
+                first_name_error: "error",
+            })
+
+        } else if ( !this.state.last_name) {
+
+            this.setState({
+                any_input_error: "error",
+                last_name_error: "error",
+            })
+
+        } else if ( !this.state.email ) {
+
+            this.setState({
+                any_input_error: "error",
+                email_error: "error",
+            })
+
+        } else if (!this.state.password) {
+        
+            this.setState({
+                any_input_error: "error",
+                password_error: "error",
+            })
+
+        } else if ( !this.state.user_type ) {
+
+            this.setState({
+                any_input_error: "error",
+                type_error: "error",
+            })
+
+        } else  {
+
+          this.submitRegisterForm();
+
+        }
+
+        
+    }
+
+    submitRegisterForm(e) {
+
+        console.log('submitting register form');
+
         const createUserEndpoint = "/authenticate/users/";
 
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-
-        if ( !this.state.email ) {
-            console.log("email cannot be empty");
-        } else if (!this.state.password) {
-            console.log("");
-        } else {
-            console.log("");
-        }
 
         axios({
             method: 'post',
@@ -62,7 +123,7 @@ class Register extends React.Component {
         .then( response => { 
    
             if (response.status === 201) {
-                console.log("good email and password");
+                console.log("201, user created");
                 
                 this.setState({
                     responseData: response.data
@@ -73,13 +134,15 @@ class Register extends React.Component {
                 localStorage.setItem('email', response.data.email);
                 localStorage.setItem('token', response.data.token);
            
-                this.setState({
-                    redirectToDashboard: true
-                });
-
+                
             } else {
-
+                
             }
+        })
+        .then( () => {
+            this.setState({
+                redirectToDashboard: true,
+            });
         })
         .catch(error => {
             console.log("this is an error yo", error);
@@ -87,38 +150,54 @@ class Register extends React.Component {
     }
 
     handleFirstNameChange(e) {
-        this.setState({
-            first_name: e.target.value
-        })
+  
+            this.setState({
+                first_name: e.target.value,
+                first_name_error: null,
+                any_input_error: null
+            })
     }
 
     handleLastNameChange(e) {
-        this.setState({
-            last_name: e.target.value
-        })
+ 
+            this.setState({
+                last_name: e.target.value,
+                last_name_error: null,
+                any_input_error: null
+            })
     }
 
     handleEmailChange(e) {
-        this.setState({
-            email: e.target.value
-        })
+
+            this.setState({
+                email: e.target.value,
+                email_error: null,
+                any_input_error: null
+            })
+        
     }
 
     handlePasswordChange(e) {
-        this.setState({
-            password: e.target.value
-        })
+
+            this.setState({
+                password: e.target.value,
+                password_error: null,
+                any_input_error: null,
+            })
+        
     }
 
     handleUserTypeEmployee(e) {
         this.setState({
-            user_type: "employee"
+            user_type: "employee",
+            any_input_error: null,
         })
     }
 
     handleUserTypeEmployer(e) {
         this.setState({
-            user_type: "emmployer"
+            user_type: "emmployer",
+            any_input_error: null,
         })
     }
 
@@ -129,7 +208,7 @@ class Register extends React.Component {
         }
         return (
             <div id='register-wrapper'>
-                <form onSubmit={ this.submitRegisterForm } id="register-form">
+                <form onSubmit={ this.handleRegisterForm } id="register-form">
                     <div id="register-header">
                         <h1>Register</h1>
                     </div>
@@ -139,7 +218,7 @@ class Register extends React.Component {
                                     <p>First Name</p>
                                 </div>
                                 <div className="register-input-container">
-                                    <input type="text" name="first_name" id="id_first_name" className="register-input" maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
+                                    <input type="text" name="first_name" id="id_first_name" className={ "register-input " + this.state.first_name_error_state } maxlength="32" onChange={this.handleFirstNameChange} value={this.state.first_name} />
                                 </div>
                         </section>
                         <section className="register-fieldset">
@@ -147,7 +226,7 @@ class Register extends React.Component {
                                     <p>Last Name</p>
                                 </div>
                                 <div className="register-input-container">
-                                    <input type="text" name="last_name" id="id_last_name" className="register-input" onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
+                                    <input type="text" name="last_name" id="id_last_name" className={ "register-input " + this.state.last_name_error_state } onChange={this.handleLastNameChange} value={this.state.last_name} maxlength="32"/>
                                 </div>
                         </section>
                         <section className="register-fieldset">
@@ -155,7 +234,7 @@ class Register extends React.Component {
                                     <p>Email:</p>
                                 </div>
                                 <div className="register-input-container">
-                                    <input type="email" id="email_field" onChange={ this.handleEmailChange } value={ this.state.email } className="register-input"/>
+                                    <input type="email" id="email_field" className={"register-input " + this.state.email_error_state } onChange={ this.handleEmailChange } value={ this.state.email }/>
                                 </div>    
                         </section>
                         <section className="register-fieldset">
@@ -163,7 +242,7 @@ class Register extends React.Component {
                                     <p>Password:</p>
                                 </div>
                                 <div className="register-input-container">  
-                                    <input type="password" id="password_field" onChange={ this.handlePasswordChange } value={ this.state.password } className="register-input"/>
+                                    <input type="password" id="password_field" className={"register-input " + this.state.password_error_state } onChange={ this.handlePasswordChange } value={ this.state.password }/>
                                 </div>
                         </section>
                         <fieldset>
@@ -182,6 +261,37 @@ class Register extends React.Component {
                         <fieldset>
                             <input type="submit" id="register-submit"/>
                         </fieldset>
+                        { this.state.any_input_error && 
+
+                            <div id="register-errors-container">
+                                { 
+                                    this.state.first_name_error &&
+                                        <p>Please enter your first name</p>
+                                }
+        
+                                {  
+                                    this.state.last_name_error &&
+                                        <p>Please enter your last name</p>
+                                }
+        
+                                { 
+                                    this.state.email_error &&
+                                        <p>Please enter your email address</p>
+                                }
+        
+                                { 
+                                    this.state.password_error &&
+                                        <p>Please enter a password</p>
+                                }
+        
+                                { 
+                                    this.state.type_error &&
+                                        <p>Please select whether you're an employee or employer</p>
+                                }
+                            </div>
+
+                        }
+                  
                     </div>
                 </form>
             </div>

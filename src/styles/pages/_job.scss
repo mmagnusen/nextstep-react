@@ -18,7 +18,7 @@
         background-color: white;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 150px 2fr;
+        grid-template-rows: 240px 2fr;
     }
 
     @media only screen and (min-width: 700px) {  
@@ -65,6 +65,10 @@
 #individual-job-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px;
+    grid-template-rows: 50px 50px;
+    margin-top: 40px;
 }
 
+#individual-job-title {
+    margin-bottom: 20px;
+}

@@ -9,7 +9,7 @@
 
 #register-form {
     background-color: #edeeef;
-    height: 650px;
+    min-height: 650px;
     margin: 20px auto;
     border-radius: 5px;
     font-family: 'Noto Sans', sans-serif;
@@ -50,7 +50,7 @@
 
 
 #register-body {
-    padding: 40px 20px;
+    padding: 20px 20px;
     box-sizing: border-box;
 
     section {
@@ -78,11 +78,18 @@
     height: 35px;
     width: 100%;
     outline: none;
+    padding: 0 10px;
+    box-sizing: border-box;
 
     &:focus {
         border: 2px solid #71d68e;
     }
 }
+
+.input-error {
+    border: 3px solid red;
+}
+
 
 #employee-employer-container {
     display: grid;
@@ -107,4 +114,12 @@
     border-style: none;
     padding: 3px;
     box-sizing: border-box;
+}
+
+#register-errors-container {
+    border: 2px solid red;
+    min-height: 30px;
+    padding: 10px;
+    width: 80%;
+    margin: 0 auto;
 }

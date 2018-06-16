@@ -17,7 +17,7 @@ class Login extends React.Component {
             email: "",
             password: "",
             responseData: {},
-            redirectToDashboard: false
+            redirectToDashboard: null
         }
     }
 
@@ -45,7 +45,7 @@ class Login extends React.Component {
                 });
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('email', response.data.user.email);
-                console.log(this.state.responseData);
+                console.log("response from /token-auth/ is " + this.state.responseData);
 
                 this.setState({
                     redirectToDashboard: true

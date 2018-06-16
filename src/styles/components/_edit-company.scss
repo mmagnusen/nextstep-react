@@ -147,14 +147,66 @@
     align-items: center;
 }
 
-.edit-company-logo {
+#company-edit-logos {
+    display: grid;
+
+    @media screen and (min-width: 0px) { 
+        grid-template-columns: 1fr;
+    }
+
+    @media screen and (min-width: 600px) { 
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 50px;
+    }
+
+}
+
+
+.company-update-logo-section {
+    margin: 40px 0;
+}
+
+.company-update-logo-name {
+    height: 30px;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
 }
 
-#edit-company-description {
+.small-logo-preview-image {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100px;
+    margin: 10px 0;
 
+    img {
+        width: 100px;
+        height: auto;
+
+    }
 }
+
+.large-logo-preview-image {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100px;
+    margin: 10px 0;
+
+    img {
+        width: 150px;
+        height: auto;
+    }
+}
+
+.update-logo-input-file {
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 
 #edit-company-editor {
     padding: 20px;
