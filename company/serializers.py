@@ -12,6 +12,9 @@ class CompanySerializer(serializers.ModelSerializer):
             'name', 
             'description', 
             'owner',
+            'website_url',
+            'company_twitter',
+            'company_linkedin',
             'small_logo',
             'large_logo')
 

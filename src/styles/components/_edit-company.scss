@@ -46,19 +46,19 @@
     }
 }
 
-#view-name-container {
+.view-section-container {
     display: grid;
     grid-template-columns: 150px 1fr;
     grid-template-rows: 100px;
 }
 
-#view-name-label {
+.view-section-label {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-#view-name-name {
+.view-section-value {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -93,19 +93,19 @@
                 Edit Mode
 *************************************/
 
-#edit-name-container {
+.edit-section-container {
     display: grid;
     grid-template-columns: 150px 1fr;
     grid-template-rows: 100px;
 }
 
-#edit-name-label {
+.edit-section-label {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-#edit-name-name {
+.edit-section-value {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -113,13 +113,28 @@
 
     input {
         max-width: 100%;
-        min-width: 200px;
         height: 30px;
         border-radius: 5px;
         border: 1px solid grey;
         font-size: 15px;
         padding: 0 10px;
         box-sizing: border-box;
+
+        @media screen and (min-width: 0px) { 
+            min-width: 200px;
+        }
+
+        @media screen and (min-width: 500px) { 
+            min-width: 250px;
+        }
+
+        @media screen and (min-width: 600px) { 
+            min-width: 300px;
+        }
+
+        @media screen and (min-width: 700px) { 
+            min-width: 350px;
+        }
     }
 }
 

@@ -12,6 +12,9 @@ class Company(models.Model):
     description = models.TextField(default='Default company description')
     small_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
     large_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
+    website_url = models.URLField(max_length=400, blank=True, null=True)
+    company_twitter = models.URLField(max_length=400, blank=True, null=True)
+    company_linkedin = models.URLField(max_length=400, blank=True, null=True)
     #jobs = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="comp", related_query_name="comps")
 
     def publish(self):

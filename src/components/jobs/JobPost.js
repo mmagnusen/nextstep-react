@@ -101,11 +101,44 @@ class JobPost extends React.Component {
                         {
                             this.state.companyInfo && 
                             <div id="company-details-on-job">
-                                <section id="individual-company-logo-container">
-                                    <img src={ this.state.companyInfo.large_logo } alt="company logo"/>
-                                </section>
+                                <div id='logo-and-links'>
+                                    <section id="individual-company-logo-container">
+                                        <img src={ this.state.companyInfo.large_logo } alt="company logo"/>
+                                    </section>
+                                    <div id="links-and-title">
+                                        <section id="company-details-title">
+                                            <h1>{this.state.companyInfo.name}</h1>
+                                        </section>
+                                        {   this.state.companyInfo.website_url &&
+                                            <section className="company-link-section">
+                                                <a href={this.state.companyInfo.website_url} className="company-link-url">
+                                                    <i class="fas fa-globe"></i>
+                                                    <p>{this.state.companyInfo.name} website</p>
+                                                </a>
+                                            </section>
+                                        }
+
+                                        {   this.state.companyInfo.company_twitter &&
+                                            <section>
+                                                <a href={this.state.companyInfo.company_twitter} className="company-link-url">
+                                                    <i class="fab fa-twitter"></i>
+                                                    <p>{this.state.companyInfo.name} on Twitter</p>
+                                                </a>
+                                            </section>
+                                        }
+
+                                        {   this.state.companyInfo.company_linkedin &&
+                                            <section>
+                                                <a href={this.state.companyInfo.company_linkedin} className="company-link-url">
+                                                    <i class="fab fa-linkedin-in"></i>
+                                                    <p>{this.state.companyInfo.name} on Linkedin</p>
+                                                </a>
+                                            </section>
+                                        }
+                                    </div>
+                                </div>
+                                
                                 <section id="individual-company-details-container">
-                                    <h1>{this.state.companyInfo.name}</h1>
                                     <div dangerouslySetInnerHTML={this.state.companyOutputHtml}></div>
                                 </section>
                             </div>

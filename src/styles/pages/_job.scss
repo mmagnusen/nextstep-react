@@ -22,14 +22,8 @@
         padding: 30px;
         box-sizing: border-box;
         background-color: white;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 240px 2fr;
-    }
-
-    @media only screen and (min-width: 700px) {  
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: 1fr;
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -38,14 +32,49 @@
     justify-content: flex-start;
     align-items: center;
     box-sizing: border-box;
-
-    @media only screen and (min-width: 700px) {  
-        justify-content: center;
-    }
+    min-height: 150px;
 
     img {
         max-width: 150px;
     }
+}
+
+#logo-and-links {
+    @media only screen and (min-width: 700px) {  
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+    }
+
+    @media only screen and (min-width: 1200px) {  
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+     }
+}
+
+#company-details-title {
+    height: 60px;
+    display: flex;
+    align-items: center
+}
+
+.company-link-section {
+    
+}
+
+.company-link-url {
+    display: flex;
+    color: $purple;
+    align-items: center;
+    height: 40px;
+
+    i {
+        color: $mustard;
+        margin-right: 10px;
+    }
+}
+
+#individual-company-details-container {
+    margin-top: 30px;
 }
 
 /*******************************************************

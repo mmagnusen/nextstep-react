@@ -7,3 +7,4 @@ media/
 myvenv/
 /node_modules
 wsgi.py
+/migrations

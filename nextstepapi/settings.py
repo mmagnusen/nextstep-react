@@ -169,7 +169,7 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 
-#STATIC_ROOT = os.path.join(BASE_DIR, '/static')
+STATIC_ROOT = os.path.join(BASE_DIR, '/static')
 
 # Marilyn setting path for user generated contenttypes
 MEDIA_URL = '/media/'

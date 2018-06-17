@@ -14,6 +14,9 @@ class NewCompanyPage extends React.Component {
         this.updateCompanyName = this.updateCompanyName.bind(this);
         this.updateSmallLogo = this.updateSmallLogo.bind(this);
         this.updateLargeLogo = this.updateLargeLogo.bind(this);
+        this.updateWebsite = this.updateWebsite.bind(this);
+        this.updateTwitter = this.updateTwitter.bind(this);
+        this.updateLinkedin = this.updateLinkedin.bind(this);
 
         this.submitNewCompany = this.submitNewCompany.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -38,6 +41,9 @@ class NewCompanyPage extends React.Component {
             companyDescription: "",
             small_logo: null,
             large_logo: null,
+            companyWebsite: "",
+            companyTwitter: "",
+            companyLinkedin: "",
             token: token,
             editorState: EditorState.createEmpty(),
             redirectToDashboard: false,
@@ -86,6 +92,24 @@ class NewCompanyPage extends React.Component {
         this.setState({
             large_logo: e.target.files[0]
         })
+    }
+
+    updateWebsite(e) {
+        this.setState({
+            companyWebsite: e.target.value
+        });
+    }
+
+    updateTwitter(e) {
+        this.setState({
+            companyTwitter: e.target.value
+        });
+    }
+
+    updateLinkedin(e) {
+        this.setState({
+            companyLinkedin: e.target.value
+        });
     }
 
     onChange(editorState) {
@@ -157,6 +181,19 @@ class NewCompanyPage extends React.Component {
 
       const formData = new FormData();
       formData.append('name', this.state.companyName);
+      
+      if ( this.state.companyWebsite ) {
+        formData.append('website_url', this.state.companyWebsite,);
+    }
+
+    if ( this.state.companyTwitter) {
+        formData.append('company_twitter', this.state.companyTwitter,);
+    }
+
+    if ( this.state.companyLinkedin ) {
+        formData.append('company_linkedin', this.state.companyLinkedin,);
+    }
+
 
       if ( this.state.small_logo ) {
         formData.append('small_logo', this.state.small_logo,);
@@ -219,7 +256,31 @@ class NewCompanyPage extends React.Component {
                                     <p>Company Name:</p>
                                 </div>
                                 <div className="new-company-input">
-                                    <input type="text" value={this.state.companyName} id="company-name-input" onChange={this.updateCompanyName}/>
+                                    <input type="text" value={this.state.companyName} className="company-text-input" onChange={this.updateCompanyName}/>
+                                </div>
+                            </section>
+                            <section className="new-company-section"> 
+                                <div className="new-company-label">
+                                    <p>Main Website:</p>
+                                </div>
+                                <div className="new-company-input">
+                                    <input type="text" value={this.state.companyWebsite} className="company-text-input" onChange={this.updateWebsite}/>
+                                </div>
+                            </section>
+                            <section className="new-company-section"> 
+                                <div className="new-company-label">
+                                    <p>Twitter URL:</p>
+                                </div>
+                                <div className="new-company-input">
+                                    <input type="text" value={this.state.companyTwitter} className="company-text-input" onChange={this.updateTwitter}/>
+                                </div>
+                            </section>
+                            <section className="new-company-section"> 
+                                <div className="new-company-label">
+                                    <p>Linkedin URL:</p>
+                                </div>
+                                <div className="new-company-input">
+                                    <input type="text" value={this.state.companyLinkedin} className="company-text-input" onChange={this.updateLinkedin}/>
                                 </div>
                             </section>
                             <section className="new-company-update-logo-section">
@@ -251,6 +312,7 @@ class NewCompanyPage extends React.Component {
                                     <input type="file" name="large_logo" onChange={this.updateLargeLogo}/>
                                 </div>
                             </section>
+                            
                             <section id="new-company-description">
                                 <section id="company-description-title">
                                     <p>Company Description:</p>

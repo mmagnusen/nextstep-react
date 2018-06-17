@@ -23,6 +23,10 @@ class ViewCompanyPage extends React.Component {
         this.updateCompanyName = this.updateCompanyName.bind(this);
         this.updateSmallLogo = this.updateSmallLogo.bind(this);
         this.updateLargeLogo = this.updateLargeLogo.bind(this);
+        this.updateWebsite = this.updateWebsite.bind(this);
+        this.updateTwitter =  this.updateTwitter.bind(this);
+        this.updateLinkedin =  this.updateLinkedin.bind(this);
+
         this.submitCompanyChanges = this.submitCompanyChanges.bind(this);
         this.deleteCompany = this.deleteCompany.bind(this);
 
@@ -54,6 +58,9 @@ class ViewCompanyPage extends React.Component {
             large_logo: null,
             previewSmall: null,
             previewLarge: null,
+            website_url: null,
+            company_linkedin: null,
+            company_twitter: null,
             
         }
     }
@@ -87,6 +94,9 @@ class ViewCompanyPage extends React.Component {
                     name: response.data.name,
                     previewSmall:  response.data.small_logo,
                     previewLarge: response.data.large_logo,
+                    website_url: response.data.website_url,
+                    company_twitter: response.data.company_twitter,
+                    company_linkedin: response.data.company_linkedin,
                 });
                 console.log('response from company', response.data);
             }
@@ -228,6 +238,24 @@ updateLargeLogo(e) {
     })
 }
 
+updateWebsite(e) {
+    this.setState({
+        website_url: e.target.value,
+      });
+}
+
+updateTwitter(e) {
+    this.setState({
+        company_twitter: e.target.value,
+      });
+}
+
+updateLinkedin(e) {
+    this.setState({
+        company_linkedin: e.target.value,
+      });
+}
+
 submitCompanyChanges(e) {
     e.preventDefault();
 
@@ -248,9 +276,21 @@ submitCompanyChanges(e) {
     if ( this.state.large_logo ) {
         formData.append('large_logo', this.state.large_logo,);
     }
-    
-    
 
+
+    if ( this.state.website_url) {
+        formData.append('website_url', this.state.website_url,);
+    }
+
+    if ( this.state.company_twitter ) {
+        formData.append('company_twitter', this.state.company_twitter,);
+    }
+
+    if ( this.state.company_linkedin) {
+        formData.append('company_linkedin', this.state.company_linkedin,);
+    }
+
+   
     axios({
         method: 'put',
         url: existingCompanyEndPoint, 
@@ -349,12 +389,36 @@ deleteCompany(e) {
                                 </div>
                             }
                        
-                        <section id="view-name-container">
-                            <div id="view-name-label">
+                        <section className="view-section-container">
+                            <div className="view-section-label">
                                 <h3>Company Name:</h3>
                             </div>
-                            <div id="view-name-name">
+                            <div className="view-section-value">
                                 <p>{this.state.name}</p>
+                            </div>
+                        </section>
+                        <section className="view-section-container">
+                            <div className="view-section-label">
+                                <h3>Main Website:</h3>
+                            </div>
+                            <div className="view-section-value">
+                                <a href={this.state.website_url} target="_blank"><p>{this.state.website_url}</p></a>
+                            </div>
+                        </section>
+                        <section className="view-section-container">
+                            <div className="view-section-label">
+                                <h3>Twitter:</h3>
+                            </div>
+                            <div className="view-section-value">
+                                <a href={this.state.company_twitter} target="_blank"><p>{this.state.company_twitter}</p></a>
+                            </div>
+                        </section>
+                        <section className="view-section-container">
+                            <div className="view-section-label">
+                                <h3>Linkedin:</h3>
+                            </div>
+                            <div className="view-section-value">
+                                <a href={this.state.company_linkedin} target="_blank"><p>{this.state.company_linkedin}</p></a>
                             </div>
                         </section>
                         <section>
@@ -373,14 +437,7 @@ deleteCompany(e) {
                     { this.state.editMode &&
                         <div>
                             <form onSubmit={this.submitCompanyChanges}>
-                                <section id="edit-name-container">
-                                    <div id="edit-name-label">
-                                        <p>Company Name:</p>
-                                    </div>
-                                    <div id="edit-name-name">
-                                        <input type="text" value={this.state.name} onChange={this.updateCompanyName}/>
-                                    </div>
-                                </section>
+                                
                                 <div id="company-edit-logos">
                                     <section className="company-update-logo-section">
                                         <div className="company-update-logo-name">
@@ -419,6 +476,41 @@ deleteCompany(e) {
                                     </section>
                                 </div>
 
+                                <section className="edit-section-container">
+                                    <div className="edit-section-label">
+                                        <p>Company Name:</p>
+                                    </div>
+                                    <div className="edit-section-value">
+                                        <input type="text" value={this.state.name} onChange={this.updateCompanyName}/>
+                                    </div>
+                                </section>
+
+                                <section className="edit-section-container">
+                                    <div className="edit-section-label">
+                                        <p>Website URL:</p>
+                                    </div>
+                                    <div className="edit-section-value">
+                                        <input type="text" value={this.state.website_url} onChange={this.updateWebsite}/>
+                                    </div>
+                                </section>
+
+                                <section className="edit-section-container">
+                                    <div className="edit-section-label">
+                                        <p>Twitter URL:</p>
+                                    </div>
+                                    <div className="edit-section-value">
+                                        <input type="text" value={this.state.company_twitter} onChange={this.updateTwitter}/>
+                                    </div>
+                                </section>
+
+                                <section className="edit-section-container">
+                                    <div className="edit-section-label">
+                                        <p>Linkedin URL:</p>
+                                    </div>
+                                    <div className="edit-section-value">
+                                        <input type="text" value={this.state.company_linkedin} onChange={this.updateLinkedin}/>
+                                    </div>
+                                </section>
 
                                 <section id="edit-company-description">
                                     <section id="company-description-title">
