@@ -177,8 +177,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'nextstepapipostgresdb',
-        'USER': 'marilynnextstepapisuperuser',
+        'NAME': 'nextstepprojectdb',
+        'USER': 'nextstepprojectdbsuperuser',
         'PASSWORD': 'sdfaerc£2sertretsret234243@2',
         'HOST': 'marilynmags-625.postgres.pythonanywhere-services.com',
         'PORT': '10625',
