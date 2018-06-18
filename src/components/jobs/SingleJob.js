@@ -50,7 +50,9 @@ class SingleJob extends React.Component {
                     }
                 </div>
                 <div className="front-list-middle">
-                    <p>{this.props.jobSlug}</p>
+                    <div className="front-list-slug">
+                        <p>{this.props.jobSlug}</p>
+                    </div>
                     <div className="front-list-details">
                         <div className="front-list-description-group"><i className="far fa-clock front-list-icon"></i><p>{this.props.jobHours}</p></div>
                         <div className="front-list-description-group"><i className="fas fa-flask front-list-icon"></i><p>{this.props.jobArea}</p></div>

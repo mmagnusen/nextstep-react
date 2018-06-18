@@ -103,7 +103,7 @@ class JobPost extends React.Component {
                             <div id="company-details-on-job">
                                 <div id='logo-and-links'>
                                     <section id="individual-company-logo-container">
-                                        <img src={ this.state.companyInfo.large_logo } alt="company logo"/>
+                                        <img src={this.state.companyInfo.small_logo} alt="company logo"/>
                                     </section>
                                     <div id="links-and-title">
                                         <section id="company-details-title">

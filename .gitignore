@@ -3,8 +3,13 @@
 *.pyc
 __pycache__/
 db.sqlite3
-media/
+/media/
 myvenv/
 /node_modules
 wsgi.py
 /migrations
+/company/migrations
+/job/migrations
+/custom_user/migrations
+/static/nextstepapi/js/bundle.js.map
+/static/nextstepapi/js/styles.css.map

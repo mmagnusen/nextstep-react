@@ -47,7 +47,7 @@
 
     @media only screen and (min-width: 0px) { 
         grid-template-columns: 1fr;    
-        grid-template-rows: 100px 170px 150px;
+        grid-template-rows: 100px 200px 130px;
         padding: 10px;
 
         .front-listing-company-logo > img {
@@ -98,6 +98,12 @@
       @media only screen and (min-width: 700px) {
         grid-template-rows: 1fr 2fr;
       }
+}
+
+.front-list-slug {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .front-list-details {
