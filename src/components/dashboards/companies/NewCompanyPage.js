@@ -4,7 +4,7 @@ import Header from '../../global/Header.js';
 import Footer from '../../global/Footer.js';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 
 class NewCompanyPage extends React.Component {
 
@@ -241,7 +241,7 @@ class NewCompanyPage extends React.Component {
     render() {
 
         if (this.state.redirectToDashboard) {
-            return <Redirect to='/employer_dashboard'/>
+            return <Redirect to='/dashboard'/>
         } else { 
         return (
             <div>

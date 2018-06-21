@@ -27,6 +27,7 @@ def all_list(request):
 
 #def api_root todos get = get all, post = create single
 def user_view(request):
+    print(request.user)
     companies = Company.objects.filter(owner = request.user)
     serializer = CompanySerializer(companies, many=True)
     return JsonResponse(serializer.data, safe=False)

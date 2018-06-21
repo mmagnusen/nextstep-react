@@ -5,11 +5,15 @@
 @import '/components/new-company';
 @import '/components/edit-company';
 @import '/components/new-job';
+@import '/components/resumes-section';
+@import '/components/tooltip';
+@import '/components/edit-resume';
+@import '/components/view-resume';
 @import '/components/header';
 @import '/pages/my-account';
 @import '/pages/login';
 @import '/pages/register';
-@import '/pages/employer';
+@import '/pages/dashboard';
 @import '/base/mixins';
 @import '/base/variables';
 @import '/components/company';
@@ -37,7 +41,7 @@ h2 {
     line-height: 40px;
 }
 
-p {
+p, li {
     line-height: 30px;
 }
 

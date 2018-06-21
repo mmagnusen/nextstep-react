@@ -204,7 +204,7 @@ class Register extends React.Component {
 
     render() {
         if (this.state.redirectToDashboard) {
-            return <Redirect to='/employer_dashboard'/>
+            return <Redirect to='/dashboard'/>
         }
         return (
             <div id='register-wrapper'>

@@ -354,7 +354,7 @@ deleteCompany(e) {
 
     render() {
         if (this.state.redirectToDashboard) {
-            return <Redirect to='/employer_dashboard'/>
+            return <Redirect to='/dashboard'/>
         } else { 
         return (
             <div>

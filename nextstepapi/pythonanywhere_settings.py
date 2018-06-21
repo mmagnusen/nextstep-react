@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'website',
     'company',
     'job',
+    'resume',
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',

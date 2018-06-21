@@ -78,7 +78,7 @@ class Login extends React.Component {
 
     render() {
         if (this.state.redirectToDashboard) {
-            return <Redirect to='/employer_dashboard'/>
+            return <Redirect to='/dashboard'/>
         } else {
             return (         
                 <div id='login-wrapper'>

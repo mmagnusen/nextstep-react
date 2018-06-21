@@ -17,13 +17,17 @@
 
 #company-details-on-job {
     @media only screen and (min-width: 0px) {  
-        width: 80%;
+        width: 90%;
         margin: 20px auto;
         padding: 30px;
         box-sizing: border-box;
         background-color: white;
         display: flex;
         flex-direction: column;
+    }
+
+    @media only screen and (min-width: 500px) {  
+        width: 80%;
     }
 }
 
@@ -82,13 +86,20 @@
 ********************************************************/
 
 #job-wrapper {
-    width: 80%;
-    height: 100%;
-    margin: 0 auto;
-    margin-top: 30px;
-    background-color: white;
-    padding: 30px;
-    box-sizing: border-box;
+
+    @media only screen and (min-width: 0px) {  
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+        margin-top: 30px;
+        background-color: white;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    @media only screen and (min-width: 500px) {  
+        width: 80%;
+    }
 }
 
 #job-wrapper-header {

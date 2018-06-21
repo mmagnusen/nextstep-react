@@ -60,10 +60,10 @@ class Header extends React.Component {
                         <Link to="/"><h1>The Next Step</h1></Link>
                     </div>
                     <nav>
-                        <NavLink to="/" activeClassName="is-active" exact={true}>Home </NavLink>
-                        <NavLink to="/contact" activeClassName="is-active" exact={true}>Contact </NavLink>
+                        <NavLink to="/" activeClassName="is-active" exact={true}> Home </NavLink>
+                        <NavLink to="/contact" activeClassName="is-active" exact={true}> Contact </NavLink>
                         {
-                            this.state.tokenIsValid ? <NavLink to="/employer_dashboard" activeClassName="is-active" exact={true}>Employer Dashboard </NavLink> : <NavLink to="/my_account" activeClassName="is-active" exact={true}>Login/Register </NavLink>
+                            this.state.tokenIsValid ? <NavLink to="/dashboard" activeClassName="is-active" exact={true}> Dashboard </NavLink> : <NavLink to="/my_account" activeClassName="is-active" exact={true}>Login/Register </NavLink>
                         }
                           
                     </nav>

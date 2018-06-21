@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^login/', auth_views.login),
     url(r'^logout/', auth_views.logout),
     url('admin/', admin.site.urls),
+    url(r'resume/', include('resume.urls')),
     url(r'company/', include('company.urls')),
     url(r'job/', include('job.urls')),
     #url(r'', include('website.urls')),

@@ -1,0 +1,128 @@
+/**********************************************************
+            RESUMES SECTION ON DASHBOARD
+***********************************************************/
+
+#resumes-section-container {
+    @media screen and (min-width: 0px) { 
+        background-color: white;
+        padding: 40px 0;
+        box-sizing: border-box;
+    }
+}
+
+#resumes-section-inner {
+    @media screen and (min-width: 0px) { 
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+/****************************************
+            RESUMES TITLE
+*****************************************/
+
+#create-new-resume-container {
+    
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+#create-new-resume-title {
+    display: flex;
+    align-items: center;
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
+
+#create-new-resume-link-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#create-new-resume-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+    background-color: $background-grey;
+    height: 50px;
+    width: 160px;
+    font-size: 16px;
+}
+
+
+/****************************************
+            ALL RESUMES 
+*****************************************/
+
+#all-resumes-container {
+    width: 100%;
+    margin: 80px auto;
+    color: white;
+    padding: 30px 30px;
+    box-sizing: border-box;
+    background-color: $mustard;
+}
+
+.single-resume-container {
+    background-color: white;
+    color: $text-dark-grey;
+    margin: 30px auto;
+    display: grid;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    min-height: 70px;
+  
+
+    @media screen and (min-width: 0px) {  
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(50px, 100px) 70px;
+    }
+
+    @media screen and (min-width: 600px) {  
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: minmax(50px, 100px);
+    }
+
+
+}
+
+.single-resume-title-div {
+    @media screen and (min-width: 0px) {  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media screen and (min-width: 600px) {  
+        justify-content: flex-start;
+        padding-left: 20px;
+    }
+}
+
+.single-resume-view-div {
+
+    @media screen and (min-width: 0px) { 
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+    }
+
+
+
+     button {
+        justify-content: center;
+        color: #fff;
+        border-radius: 5px;
+        background-color: #40c4bf;
+        height: 50px;
+        width: 160px;
+        font-size: 16px;
+    }
+}
